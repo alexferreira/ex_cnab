@@ -5,17 +5,21 @@ defmodule ExCnab.Base.Document do
   defstruct type: nil,
             content: nil
 
-  def new(config, template, json) do
-    %__MODULE__{
-      type: json["operation"],
-      content: load_content(template, json)
-    }
+  def new(config, template, json) when is_map(json) do
+    case not(Enum.empty?(template)) and not(Enum.empty?(json)) do
+        true ->
+                {:ok, %__MODULE__{
+                    type: json["operation"],
+                    content: load_content(template, json)}}
+
+        false -> {:error, err :empty_json}
+    end
   end
 
   def load_content(template, json) do
-    header_file(template, json)
-    batches(template, json)
-    trailer_file(template, json)
+    [header_file(template, json),
+    batches(template, json),
+    trailer_file(template, json)]
   end
 
   # defp load_content(config, template, json) do
@@ -36,11 +40,11 @@ defmodule ExCnab.Base.Document do
   end
 
   defp batches(template, json) do
-
+      nil
   end
 
   defp trailer_file(template, json) do
-
+      nil
   end
 
   defp load_register(:error, _, _, _) do
