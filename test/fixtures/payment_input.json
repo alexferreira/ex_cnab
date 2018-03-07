@@ -1,0 +1,30 @@
+{
+  "operation" : "payment_by_credit_on_checking",
+  "file_type" : "request",
+  "message" : "teste de geracao de CNAB",
+  "bank_code" : "341",
+  "company" : {
+    "name" : "SyLabs",
+    "fiscal_code" : "08.261.545/0001-63",
+    "agency_code" : "7352",
+    "agency_vd" : "1",
+    "checking_account_code" : "04868",
+    "checking_account_vd" : "5",
+    "agency_checking_account_vd" : "1",
+    "address" : {
+      "zip" : "26256",
+      "zip_complement" : "100",
+      "street" : "Rua Luis Tomás",
+      "number" : "455",
+      "complement" : "casa",
+      "district" : "Luz",
+      "city" : "Nova Iguaçu",
+      "state" : "RJ"
+    }
+  },
+  "payments" : [
+    {
+
+    }
+  ]
+}

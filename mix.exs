@@ -29,7 +29,8 @@ defmodule ExCnab.MixProject do
   defp deps do
     [
       {:excoveralls, "~> 0.6", only: [:dev, :test]},
-      {:faker_elixir_octopus, "~> 1.0.0",  only: [:dev, :test]}
+      {:faker_elixir_octopus, "~> 1.0.0", only: [:dev, :test]},
+      {:poison, "~> 3.1"}
     ]
   end
 end

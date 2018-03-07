@@ -1,4 +1,4 @@
-defmodule ExCnab.Entity.FieldTest do
+defmodule ExCnab.Test.Base.FieldTest do
   use ExCnab.Test.Support
 
   test "Do: create nil field" do
@@ -12,10 +12,10 @@ defmodule ExCnab.Entity.FieldTest do
 
   test "Do: create filled field" do
     field = %Field{
-        id: Faker.Name.name(),
-        length: Faker.Number.between(1..15),
-        format: Faker.Helper.pick(["int", "string"]),
-        default: Faker.Helper.pick([" ", "0"])
+      id: Faker.Name.name(),
+      length: Faker.Number.between(1..15),
+      format: Faker.Helper.pick(["int", "string"]),
+      default: Faker.Helper.pick([" ", "0"])
     }
 
     assert is_binary(field.id)
