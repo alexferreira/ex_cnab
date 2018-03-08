@@ -51,12 +51,12 @@ defmodule ExCnab.CNAB.Encoder do
             |> Path.expand()
     end
 
+    def prepare_json(%{} = json) when json == %{}, do: %{}
     def prepare_json(%{} = json) do
         json
         |> Map.to_list()
         |> prepare_key_value(%{})
     end
-    def prepare_json(%{} = json) when json == %{}, do: %{}
 
     defp prepare_key_value([{k, %{} = v} | t], acc), do: prepare_key_value(map_inheritance(k, v), prepare_key_value(t, acc))
     defp prepare_key_value([{k, v} | t], acc), do: prepare_key_value(t, Map.put_new(acc, k, v))
@@ -68,7 +68,7 @@ defmodule ExCnab.CNAB.Encoder do
 
     defp start_encode(config, encoder_template, json) do
         document = ExCnab.Base.Document.new(config, encoder_template, json)
-        {:ok, document}
+        document
     end
 
 end

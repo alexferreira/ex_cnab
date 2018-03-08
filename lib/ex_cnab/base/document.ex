@@ -36,14 +36,16 @@ defmodule ExCnab.Base.Document do
   #   |> Enum.filter(fn(field) -> is_nil(field) == false end)
   # end
   defp header_file(template, json) do
-    ExCnab.Base.Register.new(template, json, :header_file, 0)
+    {:ok, register} = ExCnab.Base.Register.new(template, json, :header_file, 0)
+    register
   end
 
   defp batches(template, json) do
-      nil
+      {:ok, register} = ExCnab.Base.Register.new(template, json, :header_batch, 1)
+      register
   end
 
-  defp trailer_file(template, json) do
+  defp trailer_file(_template, _json) do
       nil
   end
 
@@ -52,7 +54,7 @@ defmodule ExCnab.Base.Document do
   end
 
   defp load_register({:ok, template}, json, key, value) do
-    ExCnab.Base.Register.new(template, json, key, value)
+    {:ok, register} = ExCnab.Base.Register.new(template, json, key, value)
   end
 
   defp fill_document(operation, header) do

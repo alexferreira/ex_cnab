@@ -14,7 +14,7 @@ defmodule ExCnab.Base.Register do
              {:ok, fieldset} <- load_fieldset(template, json, type_code)
         do
           {:ok,
-            register = %__MODULE__{
+            _register = %__MODULE__{
                 type: type,
                 type_code: type_code,
                 fieldset: fieldset}}
@@ -38,6 +38,7 @@ defmodule ExCnab.Base.Register do
     end
 
     defp load_header_file(template, json) do
+
       Enum.map(template["fields"], fn field ->
         case Map.fetch(json, field["id"]) do
             {:ok, value} ->
@@ -54,20 +55,20 @@ defmodule ExCnab.Base.Register do
             case Map.fetch(json, field["id"]) do
                 {:ok, value} ->
                     Field.from_template(field, value)
-                    _ ->
+                _ ->
                     Field.from_template(field, nil)
-                end
-            end)
-            |> Enum.filter(fn(field) -> is_nil(field) == false end)
-        end
+            end
+        end)
+        |> Enum.filter(fn(field) -> is_nil(field) == false end)
+    end
 
-        defp load_init_batch(), do: nil
+    defp load_init_batch(), do: nil
 
-        defp load_detail(), do: nil
+    defp load_detail(), do: nil
 
-        defp load_final_batch(), do: nil
+    defp load_final_batch(), do: nil
 
-        defp load_trailer_batch(), do: nil
+    defp load_trailer_batch(), do: nil
 
-        defp load_trailer_file(), do: nil
+    defp load_trailer_file(), do: nil
 end

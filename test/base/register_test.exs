@@ -6,11 +6,12 @@ defmodule ExCnab.Test.Base.RegisterTest do
   setup :payment_json
 
   test "New register", context do
-    config = Application.get_env(:ex_cnab, :structure)
+    assert {:ok, template} = ExCnab.CNAB.Encoder.load_json_config(Map.get(context.payment_json, "operation"))
     register_type = register_type()
     assert {:ok, _} =
-             context.payment_json
-             |> Register.new(config, register_type |> elem(0) , register_type |> elem(1))
+             template
+             |> Register.new(context.payment_json, register_type |> elem(0) ,
+                                                   register_type |> elem(1))
 
   end
 

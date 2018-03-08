@@ -3,7 +3,7 @@
 use Mix.Config
 
 config :ex_cnab,
-  cnab_fieldset_templates: "ex_cnab/fieldsets/",
+  cnab_fieldset_templates: "/ex_cnab/fieldsets/",
   structure: %{
     register_types: [
       header_file: 0,

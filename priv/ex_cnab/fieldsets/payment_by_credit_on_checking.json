@@ -1,4 +1,4 @@
-{
+{ 
   "operation_id" : "payment_by_credit_on_checking",
   "batch_id" : "payments",
   "header_file" : {
@@ -95,11 +95,6 @@
         "default" : false
       },{
         "id": "file_sequence",
-        "length" : 6,
-        "format" : "int",
-        "default" : false
-      },{
-        "id": "file_sequence_number",
         "length" : 6,
         "format" : "int",
         "default" : false
