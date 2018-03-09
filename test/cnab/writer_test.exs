@@ -12,7 +12,8 @@ defmodule ExCnab.Test.CNAB.WriterTest do
         assert File.exists?(path)
         assert {:ok, string} = File.read(path)
         assert string != ""
-        assert String.length(string) == 482
+        assert n_lines = String.split(string, "\n") |> Enum.filter(fn n -> n != "" end) |> Enum.count
+        assert String.length(string) == n_lines * 241
     end
 
 end

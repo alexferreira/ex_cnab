@@ -8,7 +8,6 @@ defmodule ExCnab.CNAB.Writer do
     def write_cnab(json) do
         {:ok, document} = Encoder.encode(json)
         cnab_path = :code.priv_dir(:ex_cnab) |> Path.join("cnabs/cnab")
-
         Enum.filter(document.content, fn(n)-> is_nil(n) == false end)
         |> Enum.map(fn n -> n.fieldset end)
         |> Enum.map(fn n when not(is_nil(n))-> Enum.map(n, fn i -> i.content end)end)

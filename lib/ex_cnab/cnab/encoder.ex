@@ -70,5 +70,4 @@ defmodule ExCnab.CNAB.Encoder do
         document = ExCnab.Base.Document.new(config, encoder_template, json)
         document
     end
-
 end
