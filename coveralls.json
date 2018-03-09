@@ -1,0 +1,22 @@
+{
+    "terminal_options": {
+        "file_column_width": 60
+    },
+
+    "custom_stop_words": [
+        "defmacro",
+        "schema",
+        "#NOCOVER"
+    ],
+
+    "coverage_options": {
+        "treat_no_relevant_lines_as_covered": true
+    },
+
+    "skip_files": [
+        "mix",
+        "test/support",
+        "test/fixtures",
+        "lib/ex_cnab/error.ex"
+    ]
+}
