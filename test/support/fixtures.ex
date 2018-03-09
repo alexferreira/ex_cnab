@@ -1,5 +1,5 @@
 defmodule ExCnab.Test.Support.Fixtures do
-  @payment "/opt/app/test/fixtures/payment_input.json"
+  @payment "./test/fixtures/payment_input.json"
 
   def payment_json(_context) do
     json =
