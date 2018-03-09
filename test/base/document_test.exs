@@ -10,7 +10,7 @@ defmodule ExCnab.Test.Base.DocumentTest do
 
     config = Application.get_env(:ex_cnab, :structure)
 
-    json = CNAB.Encoder.prepare_json(json)
+    json = CNAB.prepare_json(json)
     assert {:ok, _doc} = Document.new(config, template, json)
   end
 

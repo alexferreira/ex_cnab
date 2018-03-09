@@ -68,11 +68,4 @@ defmodule ExCnab.Base.Register do
         end)
         |> Enum.filter(fn(field) -> is_nil(field) == false end)
     end
-
-    def check_regex(template, json, n) do
-        for n <- 1..n, {key, value} <- json, Regex.run(~r/:_#{n}:/, key), into: %{} do
-            {Regex.replace(~r/:_#{n}:/, key, ""), value}
-        end
-        create_fields_in_template(template, json)
-    end
 end
