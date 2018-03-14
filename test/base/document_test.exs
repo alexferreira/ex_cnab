@@ -6,7 +6,7 @@ defmodule ExCnab.Test.Base.DocumentTest do
   setup :payment_json
 
   test "Not new document", %{payment_json: json} do
-    assert {:ok, template} = ExCnab.CNAB.Encoder.load_json_config(Map.get(json, "operation"))
+    assert {:ok, template} = ExCnab.CNAB.load_json_config(Map.get(json, "operation"))
 
     config = Application.get_env(:ex_cnab, :structure)
 
