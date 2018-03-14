@@ -3,10 +3,10 @@ defmodule ExCnab.CNAB.Writer do
 
     import ExCnab.Error
 
-    alias ExCnab.CNAB.Encoder
+    alias ExCnab.CNAB
 
     def write_cnab(json) do
-        {:ok, document} = Encoder.encode(json)
+        {:ok, document} = CNAB.encode(json)
         cnab_path = :code.priv_dir(:ex_cnab) |> Path.join("cnabs/cnab")
 
         Enum.filter(document.content, fn(n)-> is_nil(n) == false end)

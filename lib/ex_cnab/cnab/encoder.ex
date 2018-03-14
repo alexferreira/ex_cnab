@@ -1,4 +1,4 @@
-defmodule ExCnab.CNAB.Encoder do
+defmodule ExCnab.CNAB do
   @moduledoc false
 
   import ExCnab.Error

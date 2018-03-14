@@ -6,7 +6,7 @@ defmodule ExCnab.Test.Base.RegisterTest do
   setup :payment_json
 
   test "New register", context do
-    assert {:ok, template} = ExCnab.CNAB.Encoder.load_json_config(Map.get(context.payment_json, "operation"))
+    assert {:ok, template} = ExCnab.CNAB.load_json_config(Map.get(context.payment_json, "operation"))
     register_type = register_type()
     assert {:ok, _} =
              template
