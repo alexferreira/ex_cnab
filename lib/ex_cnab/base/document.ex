@@ -33,7 +33,7 @@ defmodule ExCnab.Base.Document do
 
   defp batch_maker(json, template, counter, acc \\ []) do
         {_, mod_json} = Access.get_and_update(json, "batches", fn n -> {n, Enum.at(n, counter)} end)
-        mod_json = ExCnab.CNAB.Encoder.prepare_json(mod_json)
+        mod_json = ExCnab.CNAB.prepare_json(mod_json)
         payment_counter = Enum.count(mod_json["batches_payments"]) -1
         details = detail_maker(mod_json, template, payment_counter)
 
@@ -46,7 +46,7 @@ defmodule ExCnab.Base.Document do
 
     defp detail_maker(json, template, counter, acc \\ []) do
         {_, mod_json} = Access.get_and_update(json, "batches_payments", fn n -> {n, Enum.at(n, counter)} end)
-        mod_json = mod_json |> ExCnab.CNAB.Encoder.prepare_json()
+        mod_json = mod_json |> ExCnab.CNAB.prepare_json()
         {:ok, register} = ExCnab.Base.Register.new(template, mod_json, :detail, 3)
         acc = List.insert_at(acc, 0, register)
         counter(counter, json, template, acc, :detail)
@@ -65,13 +65,13 @@ defmodule ExCnab.Base.Document do
 
     defp batches_handle(json) do
         Access.get_and_update(json, "batches", fn n -> {n,
-        Enum.map(n, fn i -> ExCnab.CNAB.Encoder.prepare_json(i |> payment_handle() |> elem(1)) end)} end)
+        Enum.map(n, fn i -> ExCnab.CNAB.prepare_json(i |> payment_handle() |> elem(1)) end)} end)
         |> elem(1)
     end
 
     defp payment_handle(batch) do
         Access.get_and_update(batch, "payments", fn n -> {n,
-        Enum.map(n, fn i -> ExCnab.CNAB.Encoder.prepare_json(i) end)} end)
+        Enum.map(n, fn i -> ExCnab.CNAB.prepare_json(i) end)} end)
     end
 
     defp trailer_file(template, json) do
