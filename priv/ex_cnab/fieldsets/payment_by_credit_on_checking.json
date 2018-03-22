@@ -86,7 +86,7 @@
       },{
         "id": "file_generation_date",
         "length" : 8,
-        "format" : "int",
+        "format" : "date",
         "default" : false
       },{
         "id": "file_generation_time",
@@ -357,7 +357,7 @@
           },{
             "id": "batches_payments_payment_date",
             "length" : 8,
-            "format" : "int",
+            "format" : "date",
             "default" : false
           },{
             "id": "batches_payments_currency_type",
@@ -366,13 +366,13 @@
             "default" : false
           },{
             "id": "batches_payments_currency_amount",
-            "length" : 15,
-            "format" : "int",
+            "length" : [10, 5],
+            "format" : "decimal",
             "default" : false
           },{
             "id": "batches_payments_payment_amount",
-            "length" : 15,
-            "format" : "int",
+            "length" : [10, 5],
+            "format" : "decimal",
             "default" : false
           },{
             "id": "batches_payments_document_number_by_bank",
@@ -382,12 +382,12 @@
           },{
             "id": "batches_payments_real_date",
             "length" : 8,
-            "format" : "int",
+            "format" : "date",
             "default" : false
           },{
             "id": "batches_payments_real_amount",
-            "length" : 15,
-            "format" : "int",
+            "length" : [10, 5],
+            "format" : "decimal",
             "default" : false
           },{
             "id": "batches_payments_information",
@@ -457,8 +457,8 @@
         "default" : false
         },{
         "id" : "batches_total_amount",
-        "length" : 18,
-        "format" : "int",
+        "length" : [13, 5],
+        "format" : "decimal",
         "default" : false
         },{
         "id" : "batches_total_currency",

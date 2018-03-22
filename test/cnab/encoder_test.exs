@@ -23,4 +23,8 @@ defmodule ExCnab.Test.CNAB.EncoderTest do
         assert Map.get(map, "company_address_state") == json |> Map.get("company") |> Map.get("address") |> Map.get("state")
         assert Enum.all?(map, fn {_k, v} -> not is_map v end)
     end
+
+    test "Do not: prepare json Why?  Json is empty" do
+        assert CNAB.prepare_json(%{}) == %{}
+    end
 end
