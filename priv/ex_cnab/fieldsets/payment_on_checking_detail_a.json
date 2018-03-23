@@ -1,0 +1,155 @@
+{
+  "fields" : [
+    {
+      "id": "bank_code",
+      "length" : 3,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_batch",
+      "length" : 4,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "register",
+      "length" : 1,
+      "format" : "int",
+      "default" : "3"
+    },{
+      "id": "batches_payments_sequence_number",
+      "length" : 5,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_segment",
+      "length" : 1,
+      "format" : "string",
+      "default" : "A"
+    },{
+      "id": "batches_payments_movement_type",
+      "length" : 1,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_movement_code",
+      "length" : 2,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_chamber",
+      "length" : 3,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_bank",
+      "length" : 3,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_agency_code",
+      "length" : 5,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_agency_vd",
+      "length" : 1,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_checking_account_number",
+      "length" : 12,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_checking_account_vd",
+      "length" : 1,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_agency_account_vd",
+      "length" : 1,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_favored_name",
+      "length" : 30,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_company_number_document",
+      "length" : 20,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_payment_date",
+      "length" : 8,
+      "format" : "date",
+      "default" : false
+    },{
+      "id": "batches_payments_currency_type",
+      "length" : 3,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_currency_amount",
+      "length" : [10, 5],
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_payments_payment_amount",
+      "length" : [10, 5],
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_payments_document_number_by_bank",
+      "length" : 20,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_real_date",
+      "length" : 8,
+      "format" : "date",
+      "default" : false
+    },{
+      "id": "batches_payments_real_amount",
+      "length" : [10, 5],
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_payments_information",
+      "length" : 40,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_finality_doc_code",
+      "length" : 2,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_finality_ted_code",
+      "length" : 5,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_finality_complement_code",
+      "length" : 2,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payments_cnab_private_field",
+      "length" : 3,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "batches_payments_warning",
+      "length" : 1,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_payments_occurrences",
+      "length" : 10,
+      "format" : "string",
+      "default" : false
+    }
+  ]
+}
