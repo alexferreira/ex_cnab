@@ -4,6 +4,7 @@ defmodule ExCnab.Base.Register do
     import ExCnab.Error
 
     alias ExCnab.Base.Field
+    alias ExCnab.CNAB.Template
 
     defstruct type: nil,
     type_code: nil,
@@ -32,6 +33,7 @@ defmodule ExCnab.Base.Register do
     end
 
     def load_fieldset(template, json, type) do
+
         case type do
             0 -> load_header_file(template["header_file"], json)
             1 -> load_header_batch(template["header_batch"], json)
@@ -45,7 +47,9 @@ defmodule ExCnab.Base.Register do
     end
 
     defp load_header_file(nil, _json), do: {:error, err(:not_found, "Header file")}
+    defp load_header_file(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
     defp load_header_file(template, json), do: create_fields_in_template(template, json)
+    defp load_header_file({:error, message}, _), do: {:error, message}
 
     defp load_header_batch(nil, _json), do: {:error, err(:not_found, "Header batch")}
     defp load_header_batch(template, json), do: create_fields_in_template(template, json)
@@ -77,7 +81,15 @@ defmodule ExCnab.Base.Register do
     defp load_trailer_batch(template, json), do: create_fields_in_template(template, json)
 
     defp load_trailer_file(nil, _json), do: {:error, err(:not_found, "Trailer file")}
+    defp load_trailer_file(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
     defp load_trailer_file(template, json), do: create_fields_in_template(template, json)
+
+    defp extract_register_template(register_type) do
+        case Template.load_json_config_by_regex(register_type) do
+            {:ok, extended_template} -> extended_template
+            _ -> {:error, err(:not_parse_inheritance)}
+        end
+    end
 
     defp create_fields_in_template(template, json) do
         fields =

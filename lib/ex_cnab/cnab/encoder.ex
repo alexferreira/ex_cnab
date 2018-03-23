@@ -1,7 +1,8 @@
 defmodule ExCnab.CNAB do
-  @moduledoc false
+    @moduledoc false
 
-  import ExCnab.Error
+    import ExCnab.Error
+    alias ExCnab.CNAB.Template
 
     def encode(json) do
         global_config = load_global_config()
@@ -24,31 +25,8 @@ defmodule ExCnab.CNAB do
             :error ->
                 {:error, err(:operation_not_found)}
             {:ok, operation} ->
-                load_json_config(operation)
-        end
-    end
-
-    def load_json_config(operation) do
-        path = build_template_path(operation)
-
-        case File.read(path) do
-            {:ok, file} ->
-                Poison.decode(file)
-            err ->
-                err
-        end
-    end
-
-    defp build_template_path(operation) do
-      template_path =
-          Application.get_env(:ex_cnab, :cnab_fieldset_templates)
-          |> Path.join("#{operation}.json")
-
-      path =
-            :code.priv_dir(:ex_cnab)
-            |> Path.join(template_path)
-            |> Path.absname
-            |> Path.expand()
+                Template.load_json_config(operation)
+      end
     end
 
     def prepare_json(%{} = json) when json == %{}, do: %{}
