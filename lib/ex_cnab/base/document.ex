@@ -48,20 +48,13 @@ defmodule ExCnab.Base.Document do
         {_, mod_json} = Access.get_and_update(json, "batches_payments", fn n -> {n, Enum.at(n, counter)} end)
         mod_json = mod_json |> ExCnab.CNAB.prepare_json()
         {:ok, register} = ExCnab.Base.Register.new(template, mod_json, :detail, 3)
-        acc = List.insert_at(acc, 0, register)
+        acc = Enum.concat(acc, register)
         counter(counter, json, template, acc, :detail)
     end
 
-    def counter(counter, json, template, acc, fun) do
-        if counter == 0 do
-          acc
-        else
-            case fun do
-                :detail -> detail_maker(json, template, counter - 1, acc)
-                :batch -> batch_maker(json, template, counter - 1, acc)
-            end
-        end
-    end
+    def counter(0, _json, _template, acc, _fun), do: acc
+    def counter(counter, json, template, acc, :detail), do: detail_maker(json, template, counter - 1, acc)
+    def counter(counter, json, template, acc, :batch), do: batch_maker(json, template, counter - 1, acc)
 
     defp batches_handle(json) do
         Access.get_and_update(json, "batches", fn n -> {n,

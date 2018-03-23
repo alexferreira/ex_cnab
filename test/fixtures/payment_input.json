@@ -4,7 +4,7 @@
   "file":{
       "type" : "request",
       "code" : "2",
-      "generation_date" : "09032018",
+      "generation_date" : "09/03/2018",
       "generation_time" : "151417",
       "sequence" : "1234",
       "density" : "2",
@@ -49,7 +49,7 @@
     "occurrences" : "",
     "total" : {
         "registers" : "02",
-        "amount" : "500",
+        "amount" : "500,50",
         "currency" : "01"
     },
     "payments" : [
@@ -68,13 +68,13 @@
             "name" : "Any Name"
         },
         "company_number_document" : "8939849328",
-        "payment_date" : "15032018",
+        "payment_date" : "15-03-2018",
         "currency_type" : "BRL",
-        "currency_amount" : "500",
-        "payment_amount" : "500",
+        "currency_amount" : "500,5",
+        "payment_amount" : "500,5",
         "document_number_by_bank" : "51641984618",
         "real_date": "15032018",
-        "real_amount" : "500",
+        "real_amount" : "500,50",
         "information" : "",
         "finality_doc_code" : "01",
         "finality_ted_code" : "9087",
@@ -97,7 +97,7 @@
            "name" : "Any Name"
        },
        "company_number_document" : "8939849328",
-       "payment_date" : "15032018",
+       "payment_date" : "15-03-2018",
        "currency_type" : "BRL",
        "currency_amount" : "500",
        "payment_amount" : "500",
@@ -113,7 +113,7 @@
        }
     ]
     },{
-    "batch" : "01",
+    "batch" : "02",
     "service": "5",
     "book_entry_type" : "04",
     "message" : "",
@@ -127,7 +127,7 @@
     },
     "payments" : [
      {
-        "sequence_number" : "01",
+        "sequence_number" : "04",
         "movement_type" : "7",
         "movement_code" : "00",
         "favored" : {
@@ -141,12 +141,12 @@
             "name" : "Any Name"
         },
         "company_number_document" : "8939849328",
-        "payment_date" : "15032018",
+        "payment_date" : "15/03/2018",
         "currency_type" : "BRL",
         "currency_amount" : "500",
         "payment_amount" : "500",
         "document_number_by_bank" : "51641984618",
-        "real_date": "15032018",
+        "real_date": "15/03/2018",
         "real_amount" : "500",
         "information" : "",
         "finality_doc_code" : "01",

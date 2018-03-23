@@ -1,5 +1,5 @@
 defmodule ExCnab.Error do
-  def err(error_key) do
+  def err(error_key, opts \\ "") do
     case error_key do
       :operation_not_found  -> "Operation not found!"
       :config_not_loaded    -> "Configuration not loaded"
@@ -7,6 +7,7 @@ defmodule ExCnab.Error do
       :unrecognized_type    -> "Unrecognized type"
       :unrecognized_format  -> "Unrecognized format"
       :empty_json           -> "Json is empty"
+      :not_found            -> "#{opts} Not found"
     end
   end
 end

@@ -23,7 +23,7 @@ defmodule ExCnab.Base.Field do
 
   defp set_content_field(field, nil) do
     if field.default == false do
-      nil
+        {:error, err(:not_found, field.id)}
     else
       set_content_field(field, field.default)
     end
@@ -36,16 +36,33 @@ defmodule ExCnab.Base.Field do
     end
   end
 
-  defp enforce_format(field, content) do
+  def enforce_format(field, content) do
     case field.format do
       "int" ->
         {:ok, %{field | content: String.pad_leading(content, field.length, "0")}}
       "string" ->
         {:ok, %{field | content: String.pad_trailing(content, field.length, " ")}}
-      _ ->
+      "decimal" ->
+        {:ok, %{field | content: decimal_padding(content, field.length, String.contains?(content, ","))}}
+      "date" ->
+        {:ok, %{field | content: date_handler(content, field.length, String.contains?(content, "/"))}}
+        _ ->
         {:error, err(:unrecognized_format)}
     end
   end
+
+  defp decimal_padding(content, length, false), do: decimal_padding(Enum.join([content, "0"], ","), length, true)
+  defp decimal_padding(content, length, true) do
+      decimal_list = content |> String.split(",")
+      [
+       decimal_list |> List.first() |> String.pad_leading(length |> List.first, "0"),
+       decimal_list |> List.last() |> String.pad_trailing(length |> List.last(), "0")
+      ]
+      |> Enum.join()
+  end
+
+  defp date_handler(content, length, true), do: content |> String.split("/") |> Enum.join |> String.pad_trailing(length, " ")
+  defp date_handler(content, length, false), do: content |> String.split("-") |> Enum.join |> String.pad_trailing(length, " ")
 
   defp enforce_length(field) do
     %{field | content: String.slice(field.content, 0, field.length)}
@@ -54,5 +71,4 @@ defmodule ExCnab.Base.Field do
   defp convert_string_keys_to_atom(map) do
     for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
   end
-
 end
