@@ -52,19 +52,25 @@ defmodule ExCnab.Base.Register do
     defp load_header_file({:error, message}, _), do: {:error, message}
 
     defp load_header_batch(nil, _json), do: {:error, err(:not_found, "Header batch")}
+    defp load_header_batch(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
     defp load_header_batch(template, json), do: create_fields_in_template(template, json)
+    defp load_header_batch({:error, message}, _), do: {:error, message}
 
     defp load_init_batch(nil, _json), do: nil
+    defp load_init_batch(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
     defp load_init_batch(template, json), do: create_fields_in_template(template, json)
+    defp load_init_batch({:error, message}, _), do: {:error, message}
 
     defp load_detail(nil, _json), do: {:error, err(:not_found, "Details")}
     defp load_detail(template, json) do
         details =
             Enum.map(template, fn {_k, v} ->
-                case create_fields_in_template(v, json) do
-                    {:ok, fieldset} ->
-                        {:ok, register} = create_register(:detail, 3, fieldset)
-                        register
+                with detail_template <- extract_register_template(v),
+                     {:ok, fieldset} <- create_fields_in_template(detail_template, json),
+                     {:ok, register} <- create_register(:detail, 3, fieldset)
+                do
+                    register
+                else
                     {:error, message} -> {:error, message}
                 end
             end)
@@ -75,14 +81,21 @@ defmodule ExCnab.Base.Register do
     end
 
     defp load_final_batch(nil, _json), do: nil
+    defp load_final_batch(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
     defp load_final_batch(template, json), do: create_fields_in_template(template, json)
+    defp load_final_batch({:error, message}, _), do: {:error, message}
+
 
     defp load_trailer_batch(nil, _json), do: {:error, err(:not_found, "Trailer batch")}
+    defp load_trailer_batch(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
     defp load_trailer_batch(template, json), do: create_fields_in_template(template, json)
+    defp load_trailer_batch({:error, message}, _), do: {:error, message}
+
 
     defp load_trailer_file(nil, _json), do: {:error, err(:not_found, "Trailer file")}
     defp load_trailer_file(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
     defp load_trailer_file(template, json), do: create_fields_in_template(template, json)
+    defp load_trailer_file({:error, message}, _), do: {:error, message}
 
     defp extract_register_template(register_type) do
         case Template.load_json_config_by_regex(register_type) do

@@ -1,0 +1,145 @@
+{
+  "fields" : [
+    {
+      "id": "bank_code",
+      "length" : 3,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_batch",
+      "length" : 4,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "register",
+      "length" : 1,
+      "format" : "int",
+      "default" : "1"
+    },{
+      "id": "operation_type",
+      "length" : 1,
+      "format" : "string",
+      "default" : "C"
+    },{
+      "id": "batches_service",
+      "length" : 2,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_book_entry_type",
+      "length" : 2,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_layout",
+      "length" : 3,
+      "format" : "int",
+      "default" : "046"
+    },{
+      "id": "cnab_private_field_1",
+      "length" : 1,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "company_fiscal_type",
+      "length" : 1,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_fiscal_code",
+      "length" : 14,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_covenant_code",
+      "length" : 20,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_code",
+      "length" : 5,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_agency_vd",
+      "length" : 1,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_checking_account_code",
+      "length" : 12,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_checking_account_vd",
+      "length" : 1,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_checking_account_vd",
+      "length" : 1,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_name",
+      "length" : 30,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_message",
+      "length" : 40,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_street",
+      "length" : 30,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_number",
+      "length" : 5,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_address_complement",
+      "length" : 15,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_city",
+      "length" : 20,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_zip",
+      "length" : 5,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_address_zip_complement",
+      "length" : 3,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_state",
+      "length" : 2,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payment_type",
+      "length" : 2,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "cnab_private_field_2",
+      "length" : 6,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "occurrences",
+      "length" : 10,
+      "format" : "string",
+      "default" : " "
+    }
+  ]
+}

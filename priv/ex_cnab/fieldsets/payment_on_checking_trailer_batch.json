@@ -1,0 +1,55 @@
+{
+    "fields" : [
+      {
+      "id" : "bank_code",
+      "length" : 3,
+      "format" : "int",
+      "default" : false
+      },{
+      "id" : "batches_batch",
+      "length" : 4,
+      "format" : "int",
+      "default" : false
+      },{
+      "id" : "register",
+      "length" : 1,
+      "format" : "int",
+      "default" : "5"
+      },{
+      "id" : "cnab_private_field",
+      "length" : 9,
+      "format" : "string",
+      "default" : " "
+      },{
+      "id" : "batches_total_registers",
+      "length" : 6,
+      "format" : "int",
+      "default" : false
+      },{
+      "id" : "batches_total_amount",
+      "length" : [13, 5],
+      "format" : "decimal",
+      "default" : false
+      },{
+      "id" : "batches_total_currency",
+      "length" : 18,
+      "format" : "int",
+      "default" : false
+      },{
+      "id" : "batches_debit_warn_number",
+      "length" : 6,
+      "format" : "int",
+      "default" : false
+      },{
+      "id" : "cnab_private_field_1",
+      "length" : 165,
+      "format" : "string",
+      "default" : " "
+      },{
+      "id" : "batches_occurrences",
+      "length" : 10,
+      "format" : "string",
+      "default" : false
+      }
+  ]
+}
