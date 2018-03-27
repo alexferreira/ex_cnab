@@ -9,7 +9,7 @@
       "id" : "batches_batch",
       "length" : 4,
       "format" : "int",
-      "default" : false
+      "default" : "@batch_number"
       },{
       "id" : "register",
       "length" : 1,
@@ -24,7 +24,7 @@
       "id" : "batches_total_registers",
       "length" : 6,
       "format" : "int",
-      "default" : false
+      "default" : "@number_of_payments"
       },{
       "id" : "batches_total_amount",
       "length" : [13, 5],

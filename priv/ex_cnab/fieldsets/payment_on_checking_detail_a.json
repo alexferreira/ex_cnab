@@ -9,7 +9,7 @@
       "id": "batches_batch",
       "length" : 4,
       "format" : "int",
-      "default" : false
+      "default" : "@batch_number"
     },{
       "id": "register",
       "length" : 1,
@@ -19,7 +19,7 @@
       "id": "batches_payments_sequence_number",
       "length" : 5,
       "format" : "int",
-      "default" : false
+      "default" : "@payment_number"
     },{
       "id": "batches_payments_segment",
       "length" : 1,

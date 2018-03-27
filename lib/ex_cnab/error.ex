@@ -8,6 +8,7 @@ defmodule ExCnab.Error do
       :unrecognized_format  -> "Unrecognized format"
       :empty_json           -> "Json is empty"
       :not_found            -> "#{opts} Not found"
+      :not_found_context    -> "#{opts} Not found in context"
       :not_parse_inheritance-> "Not parse inheritance on template"
     end
   end

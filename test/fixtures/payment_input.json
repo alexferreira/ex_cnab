@@ -8,8 +8,6 @@
       "generation_time" : "151417",
       "sequence" : "1234",
       "density" : "2",
-      "total_batches" : "2",
-      "total_registers" : "2",
       "total_conciliate_accounts" : "1"
   },
   "bank_code" : "341",
@@ -40,7 +38,6 @@
   },
   "batches" : [
     {
-    "batch" : "01",
     "service": "5",
     "book_entry_type" : "04",
     "message" : "",
@@ -48,13 +45,11 @@
     "debit_warn_number" : "01",
     "occurrences" : "",
     "total" : {
-        "registers" : "02",
         "amount" : "500,50",
         "currency" : "01"
     },
     "payments" : [
      {
-        "sequence_number" : "01",
         "movement_type" : "7",
         "movement_code" : "00",
         "favored" : {
@@ -83,7 +78,6 @@
         "occurrences" : ""
     },
     {
-       "sequence_number" : "02",
        "movement_type" : "7",
        "movement_code" : "00",
        "favored" : {
@@ -113,7 +107,6 @@
        }
     ]
     },{
-    "batch" : "02",
     "service": "5",
     "book_entry_type" : "04",
     "message" : "",
@@ -121,13 +114,11 @@
     "debit_warn_number" : "01",
     "occurrences" : "",
     "total" : {
-        "registers" : "02",
         "amount" : "500",
         "currency" : "01"
     },
     "payments" : [
      {
-        "sequence_number" : "04",
         "movement_type" : "7",
         "movement_code" : "00",
         "favored" : {
