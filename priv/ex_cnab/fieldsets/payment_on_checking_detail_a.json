@@ -29,12 +29,12 @@
       "id": "batches_payments_movement_type",
       "length" : 1,
       "format" : "int",
-      "default" : false
+      "default" : "%get movement_type%"
     },{
       "id": "batches_payments_movement_code",
       "length" : 2,
       "format" : "int",
-      "default" : false
+      "default" : "%get movement_code%"
     },{
       "id": "batches_payments_favored_chamber",
       "length" : 3,
@@ -97,7 +97,7 @@
       "default" : false
     },{
       "id": "batches_payments_payment_amount",
-      "length" : [10, 5],
+      "length" : [13, 2],
       "format" : "decimal",
       "default" : false
     },{
@@ -112,7 +112,7 @@
       "default" : false
     },{
       "id": "batches_payments_real_amount",
-      "length" : [10, 5],
+      "length" : [13, 2],
       "format" : "decimal",
       "default" : false
     },{
@@ -144,7 +144,7 @@
       "id": "batches_payments_warning",
       "length" : 1,
       "format" : "int",
-      "default" : false
+      "default" : "%get warning%"
     },{
       "id": "batches_payments_occurrences",
       "length" : 10,

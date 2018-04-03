@@ -5,7 +5,7 @@
       "type" : "request",
       "code" : "2",
       "generation_date" : "09/03/2018",
-      "generation_time" : "151417",
+      "generation_time" : "15:14:17",
       "sequence" : "1234",
       "density" : "2",
       "total_conciliate_accounts" : "1"
@@ -17,7 +17,7 @@
   "message" : "teste de geracao de CNAB",
   "company" : {
     "name" : "SyLabs",
-    "fiscal_type" : "2",
+    "fiscal_type" : "CNPJ",
     "fiscal_code" : "08261545000163",
     "covenant_code" : "43528469045098685540",
     "agency_code" : "7352",
@@ -38,20 +38,21 @@
   },
   "batches" : [
     {
-    "service": "5",
-    "book_entry_type" : "04",
+    "batch" : "01",
+    "service": "Cobrança",
+    "book_entry_type" : "DOC/TED",
     "message" : "",
-    "payment_type" : "01",
+    "payment_type" : "Débito em Conta Corrente",
     "debit_warn_number" : "01",
     "occurrences" : "",
     "total" : {
-        "amount" : "500,50",
+        "amount" : "500.50",
         "currency" : "01"
     },
     "payments" : [
      {
-        "movement_type" : "7",
-        "movement_code" : "00",
+        "movement_type" : "LIQUIDAÇAO",
+        "movement_code" : "Inclusão de Registro Detalhe Liberado",
         "favored" : {
             "chamber" : "123",
             "bank" : "098",
@@ -65,21 +66,21 @@
         "company_number_document" : "8939849328",
         "payment_date" : "15-03-2018",
         "currency_type" : "BRL",
-        "currency_amount" : "500,5",
-        "payment_amount" : "500,5",
+        "currency_amount" : "500.5",
+        "payment_amount" : "500.5",
         "document_number_by_bank" : "51641984618",
-        "real_date": "15032018",
-        "real_amount" : "500,50",
+        "real_date": "15:03:2018",
+        "real_amount" : "500.50",
         "information" : "",
         "finality_doc_code" : "01",
         "finality_ted_code" : "9087",
         "finality_complement_code" : "01",
-        "warning" : "0",
+        "warning" : "Não Emite Aviso",
         "occurrences" : ""
     },
     {
-       "movement_type" : "7",
-       "movement_code" : "00",
+       "movement_type" : "LIQUIDAÇAO",
+       "movement_code" : "Inclusão de Registro Detalhe Liberado",
        "favored" : {
            "chamber" : "123",
            "bank" : "098",
@@ -96,21 +97,21 @@
        "currency_amount" : "500",
        "payment_amount" : "500",
        "document_number_by_bank" : "51641984618",
-       "real_date": "15032018",
+       "real_date": "15:03:2018",
        "real_amount" : "500",
        "information" : "",
        "finality_doc_code" : "01",
        "finality_ted_code" : "9087",
        "finality_complement_code" : "01",
-       "warning" : "0",
+       "warning" : "Não Emite Aviso",
        "occurrences" : ""
        }
     ]
     },{
-    "service": "5",
-    "book_entry_type" : "04",
+    "service": "Cobrança",
+    "book_entry_type" : "DOC/TED",
     "message" : "",
-    "payment_type" : "01",
+    "payment_type" : "Débito em Conta Corrente",
     "debit_warn_number" : "01",
     "occurrences" : "",
     "total" : {
@@ -119,8 +120,8 @@
     },
     "payments" : [
      {
-        "movement_type" : "7",
-        "movement_code" : "00",
+        "movement_type" : "LIQUIDAÇAO",
+        "movement_code" : "Inclusão de Registro Detalhe Liberado",
         "favored" : {
             "chamber" : "123",
             "bank" : "098",
@@ -143,7 +144,7 @@
         "finality_doc_code" : "01",
         "finality_ted_code" : "9087",
         "finality_complement_code" : "01",
-        "warning" : "0",
+        "warning" : "Não Emite Aviso",
         "occurrences" : ""
     }
     ]

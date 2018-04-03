@@ -27,13 +27,13 @@
       "default" : "@number_of_payments"
       },{
       "id" : "batches_total_amount",
-      "length" : [13, 5],
+      "length" : [16, 2],
       "format" : "decimal",
       "default" : false
       },{
       "id" : "batches_total_currency",
-      "length" : 18,
-      "format" : "int",
+      "length" : [13, 5],
+      "format" : "decimal",
       "default" : false
       },{
       "id" : "batches_debit_warn_number",

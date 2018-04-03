@@ -24,7 +24,7 @@
       "id": "company_fiscal_type",
       "length" : 1,
       "format" : "int",
-      "default" : false
+      "default" : "%get fiscal_type%"
     },{
       "id": "company_fiscal_code",
       "length" : 14,
@@ -88,7 +88,7 @@
     },{
       "id": "file_generation_time",
       "length" : 6,
-      "format" : "int",
+      "format" : "time",
       "default" : false
     },{
       "id": "file_sequence",
