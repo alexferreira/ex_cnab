@@ -24,12 +24,12 @@
       "id" : "file_total_batches",
       "length" : 6,
       "format" : "int",
-      "default" : false
+      "default" : "@total_batches"
     },{
       "id" : "file_total_registers",
       "length" : 6,
       "format" : "int",
-      "default" : false
+      "default" : "@total_registers"
     },{
       "id" : "file_total_conciliate_accounts",
       "length" : 6,

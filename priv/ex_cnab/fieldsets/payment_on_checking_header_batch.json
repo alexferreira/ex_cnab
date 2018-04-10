@@ -9,7 +9,7 @@
       "id": "batches_batch",
       "length" : 4,
       "format" : "int",
-      "default" : false
+      "default" : "@batch_number"
     },{
       "id": "register",
       "length" : 1,
