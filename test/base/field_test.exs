@@ -79,7 +79,7 @@ defmodule ExCnab.Test.Base.FieldTest do
     end
 
     test "Do: get a content from context" do
-        number = Faker.Number.digit() |> Integer.to_string()
+        number = Faker.Number.digit()
         length = Faker.Number.between(1..9)
         template = %{
             "id" => Faker.Name.name(),
@@ -89,7 +89,7 @@ defmodule ExCnab.Test.Base.FieldTest do
         }
         assert {:ok, content} = Field.from_template(template, nil, %{any_counter: number}) |> Map.fetch(:content)
         assert String.length(content) == length
-        assert String.to_integer(content) |> Integer.to_string() == number
+        assert String.to_integer(content) == number
     end
 
     test "Do not: get a content from context Why? Content not found" do
@@ -100,5 +100,18 @@ defmodule ExCnab.Test.Base.FieldTest do
             "default" => "@any_counter"
         }
         assert {:error, _content} = Field.from_template(template, nil, %{})
+    end
+
+    test "Do: create field using regex to change the content" do
+        template = %{
+          "id" => Faker.Name.name(),
+          "length" => 2,
+          "format" => "int",
+          "default" => "%get services%"
+        }
+
+        content = "Cobrança"
+        assert field = ExCnab.Base.Field.from_template(template, content, %{})
+        assert field.content == "01"
     end
 end

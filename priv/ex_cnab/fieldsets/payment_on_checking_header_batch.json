@@ -24,12 +24,12 @@
       "id": "batches_service",
       "length" : 2,
       "format" : "int",
-      "default" : false
+      "default" : "%get services%"
     },{
       "id": "batches_book_entry_type",
       "length" : 2,
       "format" : "int",
-      "default" : false
+      "default" : "%get book_entry_type%"
     },{
       "id": "batches_layout",
       "length" : 3,
@@ -44,7 +44,7 @@
       "id": "company_fiscal_type",
       "length" : 1,
       "format" : "int",
-      "default" : false
+      "default" : "%get fiscal_type%"
     },{
       "id": "company_fiscal_code",
       "length" : 14,
@@ -129,7 +129,7 @@
       "id": "batches_payment_type",
       "length" : 2,
       "format" : "int",
-      "default" : false
+      "default" : "%get payment_type%"
     },{
       "id": "cnab_private_field_2",
       "length" : 6,

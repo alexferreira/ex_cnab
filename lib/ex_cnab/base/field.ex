@@ -33,6 +33,7 @@ defmodule ExCnab.Base.Field do
   defp set_content_field(field, :error, _context), do: {:error, err(:not_found_context, field.id)}
   defp set_content_field(field, content, _context) do
     with true <- is_binary(content),
+         {:ok, content} <- content_by_regex(field.default, content),
          {:ok, field} <- enforce_format(field, content)
     do
         enforce_length(field)
@@ -42,49 +43,75 @@ defmodule ExCnab.Base.Field do
     end
   end
 
-
   defp content_extract(content, context) do
     case Regex.run(~r/@.+/, content) do
-        nil -> content
-        [new_content] ->
-            atom = Regex.replace(~r/@/, new_content, "") |> String.to_atom
-            Map.fetch(context, atom)
+         nil  -> {:ok, content}
+         [content] ->
+            {:ok, Map.fetch(context, Regex.replace(~r/@/, content, "")
+                                     |> String.to_atom)}
     end
+  end
+
+  defp content_by_regex(false, content), do: {:ok, content}
+  defp content_by_regex(call, content) do
+      case Regex.run(~r/%([a-z]|_)+ ([a-z]|_)+%/, call) do
+        nil -> {:ok, content}
+        _ ->
+            list = call
+                   |> String.trim("%")
+                   |> String.split
+
+            apply(__MODULE__, List.first(list)
+                              |> String.to_atom(), [List.last(list)
+                                                    |> String.to_atom(), content])
+      end
   end
 
   def enforce_format(field, content) do
     case field.format do
       "int" ->
-        {:ok, %{field | content: String.pad_leading(content, field.length, "0")}}
+        content_input(field, {:ok, String.pad_leading(content, field.length, "0")})
       "string" ->
-        {:ok, %{field | content: String.pad_trailing(content, field.length, " ")}}
+        content_input(field, {:ok, String.pad_trailing(content, field.length, " ")})
       "decimal" ->
-        {:ok, %{field | content: decimal_padding(content, field.length, String.contains?(content, ","))}}
+        content_input(field, decimal_padding(content, field.length, String.contains?(content, ".")))
       "date" ->
-        {:ok, %{field | content: date_handler(content, field.length, String.contains?(content, "/"))}}
+        content_input(field, date_time_handler(content, field.length, String.contains?(content, ["/", "-", ":"])))
+      "time" ->
+        content_input(field, date_time_handler(content, field.length, String.contains?(content, ["-", ":"])))
         _ ->
         {:error, err(:unrecognized_format)}
     end
   end
 
-  defp decimal_padding(content, length, false), do: decimal_padding(Enum.join([content, "0"], ","), length, true)
+  defp content_input(field, {:ok, content}), do: {:ok, %{field | content: content}}
+  defp content_input(field, {:error, message}), do: {:error, message}
+
+  defp decimal_padding(content, length, false), do: decimal_padding(Enum.join([content, "0"], "."), length, true)
   defp decimal_padding(content, length, true) do
-      decimal_list = content |> String.split(",")
-      [
-       decimal_list |> List.first() |> String.pad_leading(length |> List.first, "0"),
-       decimal_list |> List.last() |> String.pad_trailing(length |> List.last(), "0")
-      ]
-      |> Enum.join()
+      decimal_list = content |> String.split(".")
+      {:ok,
+        [
+            decimal_list |> List.first() |> String.pad_leading(length |> List.first, "0"),
+            decimal_list |> List.last() |> String.pad_trailing(length |> List.last(), "0")
+        ]
+        |> Enum.join()}
   end
 
-  defp date_handler(content, length, true), do: content |> String.split("/") |> Enum.join |> String.pad_trailing(length, " ")
-  defp date_handler(content, length, false), do: content |> String.split("-") |> Enum.join |> String.pad_trailing(length, " ")
+  defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, " ")}
+  defp date_time_handler(content, length, false), do: {:error, :unrecognized_format}
 
-  defp enforce_length(field) do
-    %{field | content: String.slice(field.content, 0, field.length)}
-  end
+  defp enforce_length(field), do: %{field | content: String.slice(field.content, 0, field.length)}
 
-  defp convert_string_keys_to_atom(map) do
-    for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
+  defp convert_string_keys_to_atom(map), do: for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
+
+  def get(key, content) do
+    with {:ok, map} <- ExCnab.Table.tables() |> Map.fetch(key),
+         {:ok, content} <- Map.fetch(map, content)
+    do
+        {:ok, content}
+    else
+        :error -> {:error, err(:not_found, Enum.join([key, "or", content], " "))}
+    end
   end
 end
