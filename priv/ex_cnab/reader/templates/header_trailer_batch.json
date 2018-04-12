@@ -1,0 +1,13 @@
+{
+    "batch" : "",
+    "operation_type": "",
+    "service": "",
+    "book_entry_type" : "",
+    "message" : "",
+    "payment_type" : "",
+    "debit_warn_number" : "",
+    "occurrences" : "",
+    "total_registers": "",
+    "total_amount": "",
+    "total_currency": ""
+}

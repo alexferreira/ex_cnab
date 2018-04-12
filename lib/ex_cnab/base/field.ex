@@ -11,10 +11,10 @@ defmodule ExCnab.Base.Field do
   def from_template(template, content, context) do
     template = convert_string_keys_to_atom(template)
 
-    with {:ok, id}      <- Map.fetch(template, :id),
-         {:ok, length}  <- Map.fetch(template, :length),
-         {:ok, format}  <- Map.fetch(template, :format),
-         {:ok, default} <- Map.fetch(template, :default)
+    with {:ok, _id}      <- Map.fetch(template, :id),
+         {:ok, _length}  <- Map.fetch(template, :length),
+         {:ok, _format}  <- Map.fetch(template, :format),
+         {:ok, _default} <- Map.fetch(template, :default)
     do
       struct(__MODULE__, Keyword.new(template))
       |> set_content_field(content, context)

@@ -11,7 +11,7 @@ defmodule ExCnab.Test.Base.RegisterTest do
         register_type = register_type()
         batch = json["batches"] |> List.first
         batch = %{batch | "payments" => batch["payments"] |> List.first}
-        json = %{json | "batches" => batch} |> CNAB.prepare_json()
+        json = %{json | "batches" => batch} |> CNAB.Encoder.prepare_json()
 
         context = %{number_of_payments: Faker.Number.digit(),
                     batch_number: Faker.Number.digit(),
@@ -30,7 +30,7 @@ defmodule ExCnab.Test.Base.RegisterTest do
 
         batch = json["batches"] |> List.first
         batch = %{batch | "payments" => batch["payments"] |> List.first}
-        json = %{json | "batches" => batch} |> CNAB.prepare_json()
+        json = %{json | "batches" => batch} |> CNAB.Encoder.prepare_json()
 
         {:ok, header_file} = CNAB.Template.load_json_config_by_regex("{{header_file}}")
         {:ok, header_batch} = CNAB.Template.load_json_config_by_regex("{{payment_on_checking_header_batch}}")
@@ -59,10 +59,10 @@ defmodule ExCnab.Test.Base.RegisterTest do
     test "Do: New  register detail", context do
         assert {:ok, template} = ExCnab.CNAB.Template.load_json_config(Map.get(context.payment_json, "operation"))
 
-        json = context.payment_json |> ExCnab.CNAB.prepare_json()
+        json = context.payment_json |> ExCnab.CNAB.Encoder.prepare_json()
         batch = json["batches"] |> List.first
         batch = %{batch | "payments" => batch["payments"] |> List.first}
-        json = %{json | "batches" => batch} |> CNAB.prepare_json()
+        json = %{json | "batches" => batch} |>  ExCnab.CNAB.Encoder.prepare_json()
         in_context = %{number_of_payments: Faker.Number.digit(),
                     batch_number: Faker.Number.digit(),
                     payment_number: Faker.Number.digit()

@@ -3,151 +3,181 @@
     {
       "id": "bank_code",
       "length" : 3,
+      "offset": 0,
       "format" : "int",
       "default" : false
     },{
       "id": "batches_batch",
       "length" : 4,
+      "offset": 3,
       "format" : "int",
       "default" : "@batch_number"
     },{
       "id": "register",
       "length" : 1,
+      "offset": 7,
       "format" : "int",
       "default" : "3"
     },{
       "id": "batches_payments_sequence_number",
       "length" : 5,
+      "offset": 8,
       "format" : "int",
       "default" : "@payment_number"
     },{
       "id": "batches_payments_segment",
       "length" : 1,
+      "offset": 13,
       "format" : "string",
       "default" : "A"
     },{
       "id": "batches_payments_movement_type",
       "length" : 1,
+      "offset": 14,
       "format" : "int",
       "default" : "%get movement_type%"
     },{
       "id": "batches_payments_movement_code",
       "length" : 2,
+      "offset": 15,
       "format" : "int",
       "default" : "%get movement_code%"
     },{
       "id": "batches_payments_favored_chamber",
       "length" : 3,
+      "offset": 17,
       "format" : "int",
       "default" : false
     },{
       "id": "batches_payments_favored_bank",
       "length" : 3,
+      "offset": 20,
       "format" : "int",
       "default" : false
     },{
       "id": "batches_payments_favored_agency_code",
       "length" : 5,
+      "offset": 23,
       "format" : "int",
       "default" : false
     },{
       "id": "batches_payments_favored_agency_vd",
       "length" : 1,
+      "offset": 28,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_favored_checking_account_number",
       "length" : 12,
+      "offset": 29,
       "format" : "int",
       "default" : false
     },{
       "id": "batches_payments_favored_checking_account_vd",
       "length" : 1,
+      "offset": 41,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_favored_agency_account_vd",
       "length" : 1,
+      "offset": 42,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_favored_name",
       "length" : 30,
+      "offset": 43,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_company_number_document",
       "length" : 20,
+      "offset": 73,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_payment_date",
       "length" : 8,
+      "offset": 93,
       "format" : "date",
       "default" : false
     },{
       "id": "batches_payments_currency_type",
       "length" : 3,
+      "offset": 101,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_currency_amount",
       "length" : [10, 5],
+      "offset": 104,
       "format" : "decimal",
       "default" : false
     },{
       "id": "batches_payments_payment_amount",
       "length" : [13, 2],
+      "offset": 119,
       "format" : "decimal",
       "default" : false
     },{
       "id": "batches_payments_document_number_by_bank",
       "length" : 20,
+      "offset": 134,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_real_date",
       "length" : 8,
+      "offset": 154,
       "format" : "date",
       "default" : false
     },{
       "id": "batches_payments_real_amount",
       "length" : [13, 2],
+      "offset": 162,
       "format" : "decimal",
       "default" : false
     },{
       "id": "batches_payments_information",
       "length" : 40,
+      "offset": 177,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_finality_doc_code",
       "length" : 2,
+      "offset": 217,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_finality_ted_code",
       "length" : 5,
+      "offset": 219,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_finality_complement_code",
       "length" : 2,
+      "offset": 224,
       "format" : "string",
       "default" : false
     },{
       "id": "batches_payments_cnab_private_field",
       "length" : 3,
+      "offset": 226,
       "format" : "string",
       "default" : " "
     },{
       "id": "batches_payments_warning",
       "length" : 1,
+      "offset": 229,
       "format" : "int",
       "default" : "%get warning%"
     },{
       "id": "batches_payments_occurrences",
       "length" : 10,
+      "offset": 230,
       "format" : "string",
       "default" : false
     }
