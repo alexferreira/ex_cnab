@@ -10,7 +10,7 @@ defmodule ExCnab.CNAB.Reader do
         cnab_decoded = CNAB.Decoder.decode(document)
 
         #Create a json from a cnab_decoded structure
-        file_json = create_file_json(cnab_decoded.content.header_file,
+        file_json = create_header_trailer_file_json(cnab_decoded.content.header_file,
                                             cnab_decoded.content.trailer_file)
         batches_json = create_batches_json(cnab_decoded.content.batches)
 
@@ -21,7 +21,7 @@ defmodule ExCnab.CNAB.Reader do
         |> Poison.encode()
     end
 
-    defp create_file_json(header_file, trailer_file) do
+    defp create_header_trailer_file_json(header_file, trailer_file) do
         {:ok, template_json } = load_json_config("header_trailer_file")
 
         header_file_fieldset =
@@ -32,26 +32,19 @@ defmodule ExCnab.CNAB.Reader do
             trailer_file.fieldset
             |> serialize_fieldset_map()
 
+        header_trailer_file_fieldset =
+            Map.merge(header_file_fieldset, trailer_file_fieldset)
+
         template_json
         |> Enum.map(fn {template_key, _template_value} ->
-            case Map.fetch(header_file_fieldset, "file_" <> template_key) do
-                {:ok, value} ->
-                    {template_key, value}
-                _ ->
-                    case Map.fetch(trailer_file_fieldset, "file_" <> template_key) do
-                        {:ok, value} ->
-                            {template_key, value}
-                        _ ->
-                            {template_key, nil}
-                    end
-            end
+            match_template_with_fieldset(template_key, "file_", header_trailer_file_fieldset)
         end)
         |> serialize_fieldset_map()
     end
 
-    #iterate the batches list
-    #find the template to each batch operation
-    #generate a json batches list
+    #Iterate the batches list
+    #Find the template to each batch operation
+    #Generate a json batches list
     defp create_batches_json(batches) do
         batches
         |> Enum.map(fn batch ->
@@ -77,20 +70,13 @@ defmodule ExCnab.CNAB.Reader do
             |> Map.get(:fieldset)
             |> serialize_fieldset_map
 
-        batch_header_trailer =
+        header_trailer_batch_fieldset =
+            Map.merge(header_batch_fieldset, trailer_batch_fieldset)
+
+        header_trailer_batch =
             batch_json
-            |> Enum.map(fn {k, _v} ->
-                case Map.fetch(header_batch_fieldset, "batches_" <> k) do
-                    {:ok, value} ->
-                        {k, value}
-                    _ ->
-                        case Map.fetch(trailer_batch_fieldset, "batches_" <> k) do
-                            {:ok, value} ->
-                                {k, value}
-                                _ ->
-                                {k, nil}
-                        end
-                end
+            |> Enum.map(fn {template_key, _template_value} ->
+                match_template_with_fieldset(template_key, "batches_", header_trailer_batch_fieldset)
             end)
             |> serialize_fieldset_map()
 
@@ -109,20 +95,15 @@ defmodule ExCnab.CNAB.Reader do
             end)
 
         #Construct the map of batches
-        batch_header_trailer
+        header_trailer_batch
         |> Map.put(preffix(operation), batch_detail_list)
     end
 
     # Create a detail register json according to the template
     defp create_detail_register(register_fieldset, template_json, operation) do
         template_json
-        |> Enum.map(fn {k, _v} ->
-            case Map.fetch(register_fieldset, "batches_" <> preffix(operation) <> "_" <> k) do
-                {:ok, value} ->
-                    {k, value}
-                _ ->
-                    {k, nil}
-            end
+        |> Enum.map(fn {template_key, _template_value} ->
+            match_template_with_fieldset(template_key, "batches_", preffix(operation), register_fieldset)
         end)
         |> serialize_fieldset_map()
     end
@@ -140,6 +121,21 @@ defmodule ExCnab.CNAB.Reader do
             "payment_on_checking" -> "A"
             "statement_for_cash_management" -> "F"
             _ -> nil
+        end
+    end
+
+    #Fetch a value from the fieldset_map that its key matches
+    #with the result of concatenation between template_preffix and template_key
+    defp match_template_with_fieldset(template_key, template_preffix, fieldset_map) do
+        case Map.fetch(fieldset_map, template_preffix <> template_key) do
+            {:ok, value} -> {template_key, value}
+            _ -> {template_key, nil}
+        end
+    end
+    defp match_template_with_fieldset(template_key, template_preffix, operation_preffix, fieldset_map) do
+        case Map.fetch(fieldset_map, template_preffix <> operation_preffix <> "_" <> template_key) do
+            {:ok, value} -> {template_key, value}
+            _ -> {template_key, nil}
         end
     end
 

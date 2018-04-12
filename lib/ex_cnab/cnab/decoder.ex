@@ -59,29 +59,43 @@ defmodule ExCnab.CNAB.Decoder do
     end
 
     defp decode_header_file(cnab_line) do
-        info("header_file -> #{cnab_line}")
-
-        build_register("header_file", cnab_line, :header_file)
+        pre_build(cnab_line, :header_file)
     end
 
     defp decode_header_batch(cnab_line, template_suffix) do
-        info("header_batch -> #{cnab_line}")
-
-        template_suffix
-        |> Kernel.<>("_header_batch")
-        |> build_register(cnab_line, :header_batch)
+        pre_build(cnab_line, template_suffix, :header_batch)
     end
 
     defp decode_init_batch(cnab_line, template_suffix) do
-        info("init_batch -> #{cnab_line}") #NOCOVER
-
-        template_suffix
-        |> Kernel.<>("_init_batch")
-        |> build_register(cnab_line, :init_batch) #NOCOVER
+        pre_build(cnab_line, template_suffix, :init_batch)
     end
 
     defp decode_detail(cnab_line, template_suffix) do
-        info("detail -> #{cnab_line}")
+        pre_build(cnab_line, template_suffix, :detail)
+    end
+
+    defp decode_final_batch(cnab_line, template_suffix) do
+        pre_build(cnab_line, template_suffix, :final_batch)
+    end
+
+    defp decode_trailer_batch(cnab_line, template_suffix) do
+        pre_build(cnab_line, template_suffix, :trailer_batch)
+    end
+
+    defp decode_trailer_file(cnab_line) do
+        pre_build(cnab_line, :trailer_file)
+    end
+
+    #Prepare the template name and calls build_register
+    defp pre_build(cnab_line, register_type) do
+        info("#{register_type} -> cnab_line")
+
+        register_type
+        |> Atom.to_string
+        |> build_register(cnab_line, register_type)
+    end
+    defp pre_build(cnab_line, template_suffix, register_type = :detail) do
+        info("#{register_type} -> cnab_line")
 
         operation_type = String.slice(cnab_line, 13, 1)
 
@@ -89,31 +103,22 @@ defmodule ExCnab.CNAB.Decoder do
         |> Kernel.<>("_detail_")
         |> Kernel.<>(operation_type)
         |> String.downcase()
-        |> build_register(cnab_line, :detail)
+        |> build_register(cnab_line, register_type)
     end
+    defp pre_build(cnab_line, template_suffix, register_type) do
+        info("#{register_type} -> cnab_line")
 
-    defp decode_final_batch(cnab_line, template_suffix) do
-        info("final_batch -> #{cnab_line}") #NOCOVER
+        register_type_string =
+            register_type
+            |> Atom.to_string()
 
         template_suffix
-        |> Kernel.<>("_final_batch")
-        |> build_register(cnab_line, :final_batch) #NOCOVER
+        |> Kernel.<>("_")
+        |> Kernel.<>(register_type_string)
+        |> build_register(cnab_line, register_type)
     end
 
-    defp decode_trailer_batch(cnab_line, template_suffix) do
-        info("trailer_batch -> #{cnab_line}")
-
-        template_suffix
-        |> Kernel.<>("_trailer_batch")
-        |> build_register(cnab_line, :trailer_batch)
-    end
-
-    defp decode_trailer_file(cnab_line) do
-        info("trailer_file -> #{cnab_line}")
-
-        build_register("trailer_file", cnab_line, :trailer_file)
-    end
-
+    #Load the template and calls Register.new()
     defp build_register(template_name, cnab_line, register_type) do
         {:ok, template_file} = ExCnab.CNAB.Template.load_json_config(template_name)
         template = %{Atom.to_string(register_type) => template_file}
