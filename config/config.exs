@@ -3,21 +3,7 @@
 use Mix.Config
 
 config :ex_cnab,
-  cnab_fieldset_templates: "/ex_cnab/fieldsets/",
-  structure: %{
-    register_types: [
-      header_file: 0,
-      header_batch: 1,
-      init_batch: 2,
-      detail: 3,
-      final_batch: 4,
-      trailer_batch: 5,
-      trailer_file: 9
-    ]
-  }
-
-config :logger, level: :warn
-
+      cnab_writing_path: "./priv/cnabs/"
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
 # file won't be loaded nor affect the parent project. For this reason,

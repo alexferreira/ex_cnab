@@ -98,8 +98,10 @@ defmodule ExCnab.Base.Field do
         |> Enum.join()}
   end
 
-  defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, " ")}
-  defp date_time_handler(content, length, false), do: {:error, :unrecognized_format}
+  defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, "0")}
+  defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, "0")}
+  defp date_time_handler(content, length, false) when content == "", do: {:ok, content |> String.pad_trailing(length, "0")}
+  defp date_time_handler(content, length, false), do: {:error, err(:unrecognized_format, "in date or time")}
 
   defp enforce_length(field), do: %{field | content: String.slice(field.content, 0, field.length)}
 

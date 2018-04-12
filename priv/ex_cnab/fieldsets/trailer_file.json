@@ -41,7 +41,7 @@
       "length" : 6,
       "offset": 29,
       "format" : "int",
-      "default" : false
+      "default" : ""
     },{
       "id" : "cnab_private_field",
       "length" : 205,

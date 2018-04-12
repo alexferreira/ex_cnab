@@ -1,20 +1,16 @@
 {
   "operation" : "payment_by_credit_on_checking",
-  "payment_type" : "3",
   "file":{
-      "type" : "request",
-      "code" : "2",
+      "code" : "Remessa",
       "generation_date" : "09/03/2018",
       "generation_time" : "15:14:17",
       "sequence" : "1234",
-      "density" : "2",
-      "total_conciliate_accounts" : "1"
+      "density" : "2"
   },
   "bank_code" : "341",
   "bank_name" : "Banco SA",
   "bank_private_field" : "",
   "company_private_field" : "",
-  "message" : "teste de geracao de CNAB",
   "company" : {
     "name" : "SyLabs",
     "fiscal_type" : "CNPJ",
@@ -31,7 +27,6 @@
       "street" : "Rua Luis Tomás",
       "number" : "455",
       "complement" : "casa",
-      "district" : "Luz",
       "city" : "Nova Iguaçu",
       "state" : "RJ"
     }
@@ -68,13 +63,10 @@
         "currency_type" : "BRL",
         "currency_amount" : "500.5",
         "payment_amount" : "500.5",
-        "document_number_by_bank" : "51641984618",
-        "real_date": "15:03:2018",
-        "real_amount" : "500.50",
         "information" : "",
-        "finality_doc_code" : "01",
-        "finality_ted_code" : "9087",
-        "finality_complement_code" : "01",
+        "finality_doc_code" : "",
+        "finality_ted_code" : "",
+        "finality_complement_code" : "",
         "warning" : "Não Emite Aviso",
         "occurrences" : ""
     },
@@ -96,13 +88,10 @@
        "currency_type" : "BRL",
        "currency_amount" : "500",
        "payment_amount" : "500",
-       "document_number_by_bank" : "51641984618",
-       "real_date": "15:03:2018",
-       "real_amount" : "500",
        "information" : "",
-       "finality_doc_code" : "01",
-       "finality_ted_code" : "9087",
-       "finality_complement_code" : "01",
+       "finality_doc_code" : "",
+       "finality_ted_code" : "",
+       "finality_complement_code" : "",
        "warning" : "Não Emite Aviso",
        "occurrences" : ""
        }
@@ -137,13 +126,10 @@
         "currency_type" : "BRL",
         "currency_amount" : "500",
         "payment_amount" : "500",
-        "document_number_by_bank" : "51641984618",
-        "real_date": "15/03/2018",
-        "real_amount" : "500",
         "information" : "",
-        "finality_doc_code" : "01",
-        "finality_ted_code" : "9087",
-        "finality_complement_code" : "01",
+        "finality_doc_code" : "",
+        "finality_ted_code" : "",
+        "finality_complement_code" : "",
         "warning" : "Não Emite Aviso",
         "occurrences" : ""
     }
