@@ -39,8 +39,8 @@
   "batches" : [
     {
     "batch" : "01",
-    "service": "Cobrança",
-    "book_entry_type" : "DOC/TED",
+    "service": "Pagamentos Diversos",
+    "book_entry_type" : "Crédito em Conta Corrente/Salário",
     "message" : "",
     "payment_type" : "Débito em Conta Corrente",
     "debit_warn_number" : "01",
@@ -108,8 +108,8 @@
        }
     ]
     },{
-    "service": "Cobrança",
-    "book_entry_type" : "DOC/TED",
+    "service": "Pagamentos Diversos",
+    "book_entry_type" : "Crédito em Conta Corrente/Salário",
     "message" : "",
     "payment_type" : "Débito em Conta Corrente",
     "debit_warn_number" : "01",

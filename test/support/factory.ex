@@ -11,4 +11,11 @@ defmodule ExCnab.Test.Support.Factory do
 
     [field: field]
   end
+
+  def cnab_document() do
+      cnab_path = :code.priv_dir(:ex_cnab) |> Path.join("cnabs/cnab")
+      {:ok, document} = File.read(cnab_path)
+      document
+  end
+
 end

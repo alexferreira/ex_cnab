@@ -1,5 +1,5 @@
-defmodule ExCnab.CNAB do
-    @moduledoc false
+defmodule ExCnab.CNAB.Encoder do
+  @moduledoc false
 
     import ExCnab.Error
     alias ExCnab.CNAB.Template

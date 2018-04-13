@@ -18,6 +18,17 @@ defmodule ExCnab.Base.Document do
         end
     end
 
+    def new_header_file(template, json) when is_map(json) do
+        case not(Enum.empty?(template)) and not(Enum.empty?(json)) do
+            true ->
+                {:ok, %__MODULE__{
+                type: :header_file,
+                content: load_content(template, json)}}
+
+            false -> {:error, err :empty_json}
+        end
+    end
+
     def load_content(template, json) do
         with {:ok, header_file} <- header_file(template, json),
              {:ok, batches, context} <- batches(template, json),
@@ -40,7 +51,7 @@ defmodule ExCnab.Base.Document do
     defp batch_maker(json, template, counter, context, acc \\ []) do
         mod_json = Access.get_and_update(json, "batches", fn n -> {n, Enum.at(n, counter)} end)
                         |> elem(1)
-                        |> ExCnab.CNAB.prepare_json()
+                        |> ExCnab.CNAB.Encoder.prepare_json()
 
         payment_counter = Enum.count(mod_json["batches_payments"])
         context = Map.merge(context, %{number_of_payments: payment_counter,
@@ -58,7 +69,7 @@ defmodule ExCnab.Base.Document do
     defp detail_maker(json, template, counter, context,  acc \\ []) do
         mod_json = Access.get_and_update(json, "batches_payments", fn n -> {n, Enum.at(n, counter)} end)
                    |> elem(1)
-                   |> ExCnab.CNAB.prepare_json()
+                   |> ExCnab.CNAB.Encoder.prepare_json()
 
         context = Map.merge(%{context | total_registers: context.total_registers + 1},
                             %{payment_number: counter + 1})

@@ -6,7 +6,7 @@ defmodule ExCnab.CNAB.Writer do
     alias ExCnab.CNAB
 
     def write_cnab(json) do
-        {:ok, document} = CNAB.encode(json)
+        {:ok, document} = CNAB.Encoder.encode(json)
         cnab_path = :code.priv_dir(:ex_cnab) |> Path.join("cnabs/cnab")
         Enum.filter(document.content, fn(n)-> is_nil(n) == false end)
         |> Enum.map(fn n -> n.fieldset end)
