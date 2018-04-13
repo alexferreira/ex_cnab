@@ -95,7 +95,7 @@
       "length" : 1,
       "offset": 142,
       "format" : "int",
-      "default" : false
+      "default" : "%get file_code%"
     },{
       "id": "file_generation_date",
       "length" : 8,

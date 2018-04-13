@@ -1,8 +1,9 @@
 defmodule ExCnab.CNAB.Template do
 
   import ExCnab.Error
-  
+
   @regex ~r/\{\{([a-zA-Z0-9\.\_]+)\}\}/
+  @cnab_fieldset_templates "/ex_cnab/fieldsets/"
 
   def load_json_config_by_regex(name) do
       case Regex.match?(@regex, name) do
@@ -28,7 +29,7 @@ defmodule ExCnab.CNAB.Template do
 
   defp build_template_path(name) do
     template_path =
-        Application.get_env(:ex_cnab, :cnab_fieldset_templates)
+        @cnab_fieldset_templates
         |> Path.join("#{name}.json")
 
     path =

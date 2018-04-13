@@ -1,4 +1,15 @@
 defmodule ExCnab.Table do
+    @structure %{
+        register_types: [
+          header_file: 0,
+          header_batch: 1,
+          init_batch: 2,
+          detail: 3,
+          final_batch: 4,
+          trailer_batch: 5,
+          trailer_file: 9
+        ]
+      }
     @tables %{
         services: %{
             "Cobrança" => "01",
@@ -251,8 +262,13 @@ defmodule ExCnab.Table do
             "Beneficiário divergente" => "ZI",
             "Limite de pagamentos parciais excedido" => "ZJ",
             "Boleto já liquidado" => "ZK"
+            },
+        file_code: %{
+            "Remessa" => "1",
+            "Retorno" => "2"
             }
         }
 
     def tables, do: @tables
+    def structure, do: @structure
 end

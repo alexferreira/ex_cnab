@@ -2,15 +2,17 @@ defmodule ExCnab.CNAB.Encoder do
   @moduledoc false
 
     import ExCnab.Error
+
     alias ExCnab.CNAB.Template
+    alias ExCnab.Table
 
     def encode(json) do
-        global_config = load_global_config()
+        config = Table.structure
 
         case load_encoder_template(json) do
             {:ok, encoder_template} ->
                 json = prepare_json(json)
-                start_encode(global_config, encoder_template, json)
+                start_encode(config, encoder_template, json)
             error ->
                 error
         end

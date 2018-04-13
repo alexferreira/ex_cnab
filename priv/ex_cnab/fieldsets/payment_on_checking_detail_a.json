@@ -125,19 +125,19 @@
       "length" : 20,
       "offset": 134,
       "format" : "string",
-      "default" : false
+      "default" : ""
     },{
       "id": "batches_payments_real_date",
       "length" : 8,
       "offset": 154,
       "format" : "date",
-      "default" : false
+      "default" : ""
     },{
       "id": "batches_payments_real_amount",
       "length" : [13, 2],
       "offset": 162,
       "format" : "decimal",
-      "default" : false
+      "default" : ""
     },{
       "id": "batches_payments_information",
       "length" : 40,

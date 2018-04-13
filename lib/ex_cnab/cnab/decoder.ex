@@ -4,6 +4,7 @@ defmodule ExCnab.CNAB.Decoder do
   use ExCnab.Logger
 
   alias ExCnab.Base.Reader, as: Base
+  alias ExCnab.Table
 
   @header_file_batch_number "0000"
   @trailer_file_batch_number "9999"
@@ -124,7 +125,7 @@ defmodule ExCnab.CNAB.Decoder do
         template = %{Atom.to_string(register_type) => template_file}
 
         register_type_code =
-            Application.get_env(:ex_cnab, :structure)
+            Table.structure()
             |> Map.fetch!(:register_types)
             |> Keyword.fetch!(register_type)
 
