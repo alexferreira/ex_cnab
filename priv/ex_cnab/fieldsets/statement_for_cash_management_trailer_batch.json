@@ -1,0 +1,179 @@
+{
+  "fields" : [
+    {
+      "id": "bank_code",
+      "length" : 3,
+      "offset": 0,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_batch",
+      "length" : 4,
+      "offset": 3,
+      "format" : "int",
+      "default" : "@batch_number"
+    },{
+      "id": "register",
+      "length" : 1,
+      "offset": 7,
+      "format" : "int",
+      "default" : "5"
+    },{
+      "id": "batches_operation_type",
+      "length" : 1,
+      "offset": 8,
+      "format" : "string",
+      "default" : "G"
+    },{
+      "id": "batches_service",
+      "length" : 2,
+      "offset": 9,
+      "format" : "int",
+      "default" : "07"
+    },{
+      "id": "batches_book_entry_type",
+      "length" : 2,
+      "offset": 11,
+      "format" : "int",
+      "default" : "70"
+    },{
+      "id": "batches_layout",
+      "length" : 3,
+      "offset": 13,
+      "format" : "int",
+      "default" : "010"
+    },{
+      "id": "cnab_private_field_1",
+      "length" : 1,
+      "offset": 16,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "company_fiscal_type",
+      "length" : 1,
+      "offset": 17,
+      "format" : "int",
+      "default" : "%get fiscal_type%"
+    },{
+      "id": "company_fiscal_code",
+      "length" : 14,
+      "offset": 18,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_covenant_code",
+      "length" : 20,
+      "offset": 32,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_code",
+      "length" : 5,
+      "offset": 52,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_agency_vd",
+      "length" : 1,
+      "offset": 57,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_checking_account_code",
+      "length" : 12,
+      "offset": 58,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_checking_account_vd",
+      "length" : 1,
+      "offset": 70,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_checking_account_vd",
+      "length" : 1,
+      "offset": 71,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_name",
+      "length" : 30,
+      "offset": 72,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "balance_type",
+      "length" : 3,
+      "offset": 102,
+      "format" : "string",
+      "default" : "SDS"
+    },{
+      "id": "final_balance_time",
+      "length" : 6,
+      "offset": 105,
+      "format" : "time",
+      "default" : false
+    },{
+      "id": "cnab_private_field_2",
+      "length" : 13,
+      "offset": 111,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "account_limit",
+      "length" : [16, 2],
+      "offset": 124,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "final_balance_date",
+      "length" : 8,
+      "offset": 142,
+      "format" : "date",
+      "default" : false
+    },{
+      "id": "final_balance_total_amount",
+      "length" : [16, 2],
+      "offset": 150,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "final_balance_situation",
+      "length" : 1,
+      "offset": 168,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "final_balance_status",
+      "length" : 1,
+      "offset": 169,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "currency_type",
+      "length" : 3,
+      "offset": 170,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "statement_sequence_number",
+      "length" : 5,
+      "offset": 173,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "total_registers",
+      "length" : 6,
+      "offset": 178,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "cnab_private_field_3",
+      "length" : 56,
+      "offset": 184,
+      "format" : "string",
+      "default" : " "
+    }
+  ]
+}
