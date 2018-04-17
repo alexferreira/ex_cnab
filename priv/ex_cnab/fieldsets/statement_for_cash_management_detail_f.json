@@ -1,0 +1,119 @@
+{
+  "fields" : [
+    {
+      "id": "bank_code",
+      "length" : 3,
+      "offset": 0,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_batch",
+      "length" : 4,
+      "offset": 3,
+      "format" : "int",
+      "default" : "@batch_number"
+    },{
+      "id": "register",
+      "length" : 1,
+      "offset": 7,
+      "format" : "int",
+      "default" : "3"
+    },{
+      "id": "batches_register_sequence_number",
+      "length" : 5,
+      "offset": 8,
+      "format" : "int",
+      "default" : "@register_number"
+    },{
+      "id": "batches_register_segment",
+      "length" : 1,
+      "offset": 13,
+      "format" : "string",
+      "default" : "F"
+    },{
+      "id": "batches_statement_cnab_private_field",
+      "length" : 88,
+      "offset": 14,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "transaction_time",
+      "length" : 6,
+      "offset": 102,
+      "format" : "time",
+      "default" : false
+    },{
+      "id": "book_entry_nature",
+      "length" : 3,
+      "offset": 108,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "book_entry_complement_type",
+      "length" : 2,
+      "offset": 111,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "book_entry_complement",
+      "length" : 20,
+      "offset": 113,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "cpmf_immunity_id",
+      "length" : 1,
+      "offset": 133,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "contability_date",
+      "length" : 8,
+      "offset": 134,
+      "format" : "date",
+      "default" : false
+    },{
+      "id": "book_entry_date",
+      "length" : 8,
+      "offset": 142,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "book_entry_amount",
+      "length" : [16, 2],
+      "offset": 150,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "book_entry_type",
+      "length" : 1,
+      "offset": 168,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "book_entry_category",
+      "length" : 3,
+      "offset": 169 ,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "book_entry_history_code",
+      "length" : 5,
+      "offset": 172,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "book_entry_history",
+      "length" : 25,
+      "offset": 177,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "book_entry_document_number",
+      "length" : 38,
+      "offset": 202,
+      "format" : "string",
+      "default" : false
+    }
+  ]
+}
