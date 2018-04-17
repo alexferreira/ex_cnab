@@ -5,10 +5,20 @@ defmodule ExCnab.Test.CNAB.WriterTest do
     import ExCnab.Test.Support.Fixtures
 
     setup :payment_json
+    setup :statement_json
 
-    test "Do: write a cnab file", context do
+    test "Do: write a payment cnab file", context do
         path = Application.get_env(:ex_cnab, :cnab_writing_path) |> Kernel.<>("cnab") |> Path.expand
         assert {:ok, _} = CNAB.Writer.write_cnab(context.payment_json, "cnab")
+        assert {:ok, string} = File.read(path)
+        assert string != ""
+        assert n_lines = String.split(string, "\n") |> Enum.filter(fn n -> n != "" end) |> Enum.count
+        assert String.length(string) == n_lines * 241
+    end
+
+    test "Do: write a statement cnab file", context do
+        path = Application.get_env(:ex_cnab, :cnab_writing_path) |> Kernel.<>("cnab") |> Path.expand
+        assert {:ok, _} = CNAB.Writer.write_cnab(context.statement_json, "statement_cnab")
         assert {:ok, string} = File.read(path)
         assert string != ""
         assert n_lines = String.split(string, "\n") |> Enum.filter(fn n -> n != "" end) |> Enum.count
@@ -19,8 +29,9 @@ defmodule ExCnab.Test.CNAB.WriterTest do
         assert {:error, _} = CNAB.Writer.write_cnab(%{})
     end
 
-    test "Do: write a cnab file ", context do
-        assert {:ok, _} = CNAB.Writer.write_cnab(context.payment_json)
+    test "Do: write a cnab statement file ", context do
+        assert {:ok, path} = CNAB.Writer.write_cnab(context.statement_json)
+        assert :ok = File.rm(path)
     end
 
     test "Do not: write a cnab file, Why? Json input not valid", context do

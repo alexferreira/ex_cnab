@@ -109,7 +109,7 @@
       "format" : "string",
       "default" : "SDS"
     },{
-      "id": "final_balance_time",
+      "id": "batches_total_final_balance_time",
       "length" : 6,
       "offset": 105,
       "format" : "time",
@@ -121,43 +121,43 @@
       "format" : "string",
       "default" : " "
     },{
-      "id": "account_limit",
+      "id": "batches_account_limit",
       "length" : [16, 2],
       "offset": 124,
       "format" : "decimal",
       "default" : false
     },{
-      "id": "final_balance_date",
+      "id": "batches_total_final_balance_date",
       "length" : 8,
       "offset": 142,
       "format" : "date",
       "default" : false
     },{
-      "id": "final_balance_total_amount",
+      "id": "batches_total_final_balance_amount",
       "length" : [16, 2],
       "offset": 150,
       "format" : "decimal",
       "default" : false
     },{
-      "id": "final_balance_situation",
+      "id": "batches_total_final_balance_situation",
       "length" : 1,
       "offset": 168,
       "format" : "string",
       "default" : false
     },{
-      "id": "final_balance_status",
+      "id": "batches_total_final_balance_status",
       "length" : 1,
       "offset": 169,
       "format" : "string",
       "default" : false
     },{
-      "id": "currency_type",
+      "id": "batches_currency_type",
       "length" : 3,
       "offset": 170,
       "format" : "string",
       "default" : false
     },{
-      "id": "statement_sequence_number",
+      "id": "batches_statement_sequence_number",
       "length" : 5,
       "offset": 173,
       "format" : "int",
@@ -167,7 +167,7 @@
       "length" : 6,
       "offset": 178,
       "format" : "string",
-      "default" : false
+      "default" : "@number_of_details"
     },{
       "id": "cnab_private_field_3",
       "length" : 56,

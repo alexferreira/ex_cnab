@@ -37,9 +37,9 @@ defmodule ExCnab.Base.Register do
         case type do
             0 -> load_header_file(template["header_file"], json)
             1 -> load_header_batch(template["header_batch"], json, context)
-            2 -> load_init_batch(template["init_batch"], json)
+            2 -> load_init_batch(template["init_batch"], json, context)
             3 -> load_detail(template["detail"], json, context)
-            4 -> load_final_batch(template["final_batch"], json)
+            4 -> load_final_batch(template["final_batch"], json, context)
             5 -> load_trailer_batch(template["trailer_batch"], json, context)
             9 -> load_trailer_file(template["trailer_file"], json, context)
             _ -> {:error, err(:not_recognized_type)}
@@ -56,10 +56,10 @@ defmodule ExCnab.Base.Register do
     defp load_header_batch(template, json, context) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json, context)
     defp load_header_batch(template, json, context), do: create_fields_in_template(template, json, context)
 
-    defp load_init_batch(nil, _json), do: nil
-    defp load_init_batch({:error, message}, _), do: {:error, message}
-    defp load_init_batch(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
-    defp load_init_batch(template, json), do: create_fields_in_template(template, json)
+    defp load_init_batch(nil, _json, _context), do: nil
+    defp load_init_batch({:error, message}, _, _), do: {:error, message}
+    defp load_init_batch(template, json, context) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json, context)
+    defp load_init_batch(template, json, context), do: create_fields_in_template(template, json, context)
 
     defp load_detail(nil, _json, _context), do: {:error, err(:not_found, "Details")}
     defp load_detail(template, json, context) do
@@ -80,10 +80,10 @@ defmodule ExCnab.Base.Register do
         end
     end
 
-    defp load_final_batch(nil, _json), do: nil
-    defp load_final_batch({:error, message}, _), do: {:error, message}
-    defp load_final_batch(template, json) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json)
-    defp load_final_batch(template, json), do: create_fields_in_template(template, json)
+    defp load_final_batch(nil, _json, _), do: nil
+    defp load_final_batch({:error, message}, _, _), do: {:error, message}
+    defp load_final_batch(template, json, context) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json, context)
+    defp load_final_batch(template, json, context), do: create_fields_in_template(template, json, context)
 
 
     defp load_trailer_batch(nil, _json, context), do: {:error, err(:not_found, "Trailer batch")}

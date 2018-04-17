@@ -45,7 +45,7 @@ defmodule ExCnab.Table do
             "Pagamento Representantes / Vendedores Autorizados" => "80",
             "Pagamento Benefícios" => "90",
             "Pagamentos Diversos" => "98"
-            },
+        },
         book_entry_type: %{
             "Crédito em Conta Corrente/Salário" => "01",
             "Cheque Pagamento / Administrativo" => "02",
@@ -77,7 +77,7 @@ defmodule ExCnab.Table do
             "Depósito Judicial em Conta Corrente" => "71",
             "Depósito Judicial em Poupança" => "72",
             "Extrato de Conta Investimento" => "73"
-            },
+        },
         fiscal_type: %{
             "Isento" => "0",
             "Não Informado" => "0",
@@ -87,7 +87,7 @@ defmodule ExCnab.Table do
             "PIS" => "3",
             "PASEP" => "3",
             "Outros" => "9"
-            },
+        },
         movement_type: %{
             "INCLUSÃO" => "0",
             "CONSULTA" => "1",
@@ -97,7 +97,7 @@ defmodule ExCnab.Table do
             "ALTERAÇÃO" => "5",
             "LIQUIDAÇAO" => "7",
             "EXCLUSÃO" => "9"
-            },
+        },
         movement_code: %{
             "Inclusão de Registro Detalhe Liberado" => "00",
             "Inclusão do Registro Detalhe Bloqueado" => "09",
@@ -111,12 +111,12 @@ defmodule ExCnab.Table do
             "Estorno por Devolução da Câmara Centralizadora" => "33",
             "Alegação do Pagador" => "40",
             "Exclusão do Registro Detalhe Incluído Anteriormente" => "99"
-            },
+        },
         payment_type: %{
             "Débito em Conta Corrente" => "01",
             "Débito Empréstimo/Financiamento" => "02",
             "Débito em Cartão de Crédito" => "03"
-            },
+        },
 
         warning: %{
             "Não Emite Aviso" => "0",
@@ -124,7 +124,7 @@ defmodule ExCnab.Table do
             "Emite Aviso Somente para o Favorecido" => "5",
             "Emite Aviso para o Remetente e Favorecido" => "6",
             "Emite Aviso para o Favorecido e 2 Vias para o Remetente" => "7"
-            },
+        },
         ocurrences: %{
             "Crédito ou Débito Efetivado" => "00",
             "Insuficiência de Fundos - Débito Não Efetuado" => "01",
@@ -262,12 +262,27 @@ defmodule ExCnab.Table do
             "Beneficiário divergente" => "ZI",
             "Limite de pagamentos parciais excedido" => "ZJ",
             "Boleto já liquidado" => "ZK"
-            },
+        },
         file_code: %{
             "Remessa" => "1",
             "Retorno" => "2"
-            }
+        },
+        initial_balance_situation: %{
+            "Credor" => "C",
+            "Devedor" => "D"
+        },
+        initial_balance_status: %{
+            "Parcial" => "P",
+            "Final" => "F",
+            "Intra-Dia" => "I"
+        },
+        balance_nature: %{
+            "Disponível" => "DPV",
+            "Vinculado" => "SCR",
+            "Bloqueado" => "SSR",
+            "Somatório dos Saldos" => "SDS",
         }
+    }
 
     def tables, do: @tables
     def structure, do: @structure
