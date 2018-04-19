@@ -4,8 +4,8 @@
       "code" : "Remessa",
       "generation_date" : "09/03/2018",
       "generation_time" : "15:14:17",
-      "sequence" : "1234",
-      "density" : "2"
+      "sequence" : "0002",
+      "density" : "6250"
   },
   "bank_code" : "341",
   "bank_name" : "Banco SA",
@@ -24,16 +24,15 @@
     "address" : {
       "zip" : "26256",
       "zip_complement" : "100",
-      "street" : "Rua Luis Tomás",
-      "number" : "455",
+      "street" : "Rua Street Name",
+      "number" : "000",
       "complement" : "casa",
-      "city" : "Nova Iguaçu",
+      "city" : "City Name",
       "state" : "RJ"
     }
   },
   "batches" : [
     {
-    "batch" : "01",
     "service": "Pagamentos Diversos",
     "book_entry_type" : "Crédito em Conta Corrente/Salário",
     "message" : "",
@@ -44,7 +43,7 @@
         "amount" : "500.50",
         "currency" : "01"
     },
-    "payments" : [
+    "details" : [
      {
         "movement_type" : "LIQUIDAÇAO",
         "movement_code" : "Inclusão de Registro Detalhe Liberado",
@@ -107,7 +106,7 @@
         "amount" : "500",
         "currency" : "01"
     },
-    "payments" : [
+    "details" : [
      {
         "movement_type" : "LIQUIDAÇAO",
         "movement_code" : "Inclusão de Registro Detalhe Liberado",

@@ -43,23 +43,24 @@ defmodule ExCnab.Base.Document do
 
 
     defp batch_maker(json, template, counter, context, acc \\ []) do
-
-        with {:ok, mod_json, context} <- validation(json, context, counter, :batche_maker),
-             {:ok, details, context} <- detail_maker(mod_json, template, context.number_of_payments - 1, context),
+        with {:ok, mod_json, context} <- validation(json, context, counter, :batch_maker),
+             {:ok, details, context} <- detail_maker(mod_json, template, context.number_of_details - 1, context),
              {:ok, header_batch} <- ExCnab.Base.Register.new(template, mod_json, :header_batch, 1, context),
-             {:ok, trailer_batch} <- ExCnab.Base.Register.new(template, mod_json, :trail_batch, 5, context)
+             {:ok, trailer_batch} <- ExCnab.Base.Register.new(template, mod_json, :trailer_batch, 5, context),
+             {:ok, init_batch, _} <- init_final_batch_maker(mod_json, template, context.total_balances - 1, :init_batch, 2, context),
+             {:ok, final_batch, _} <- init_final_batch_maker(mod_json, template, context.total_balances - 1, :final_batch, 4, context)
         do
-            acc = [header_batch] ++ details ++ [trailer_batch] ++ acc
+            acc = [header_batch] ++ init_batch ++ details ++ final_batch ++ [trailer_batch] ++ acc
             counter(counter, json, template, acc, :batch, context)
         else
-            err -> err
+            {:error, message} -> {:error, message}
         end
     end
 
     defp detail_maker(json, template, counter, context,  acc \\ []) do
-        context = Map.merge(%{context | total_registers: context.total_registers + 1}, %{payment_number: counter + 1})
+        context = Map.merge(%{context | total_registers: context.total_registers + 1}, %{detail_number: counter + 1})
 
-        with {:ok, mod_json} <- modify_json(json, counter, "batches_payments"),
+        with {:ok, mod_json} <- modify_json(json, counter, "batches_details"),
              {:ok, register} <- ExCnab.Base.Register.new(template, mod_json, :detail, 3, context)
         do
             acc = Enum.concat(register, acc)
@@ -69,9 +70,25 @@ defmodule ExCnab.Base.Document do
         end
     end
 
+    defp init_final_batch_maker(json, template, counter, register_name, register_code, context, acc \\ []) do
+        with true <- json["operation"] == "statement_for_cash_management",
+             {:ok, mod_json} <- modify_json(json, counter, "batches_balances"),
+             {:ok, register} <- ExCnab.Base.Register.new(template, mod_json, register_name, register_code, context)
+        do
+            acc = Enum.concat([register], acc)
+            counter(counter, json, template, acc, register_name, register_code, context)
+        else
+            false -> {:ok, [], context}
+            err -> err
+        end
+    end
+
     def counter(0, _json, _template, acc, _fun, context), do: {:ok, acc, context}
     def counter(counter, json, template, acc, :detail, context), do: detail_maker(json, template, counter - 1, context, acc)
     def counter(counter, json, template, acc, :batch, context), do: batch_maker(json, template, counter - 1, context, acc)
+
+    def counter(0, _json, _template, acc, _register_name, _register_code, context), do: {:ok, acc, context}
+    def counter(counter, json, template, acc, register_name, register_code, context), do: init_final_batch_maker(json, template, counter - 1, register_name, register_code, context, acc)
 
     defp modify_json(json, counter, key) do
         {:ok,
@@ -81,18 +98,34 @@ defmodule ExCnab.Base.Document do
                 |> ExCnab.CNAB.Encoder.prepare_json()}
     end
 
-    defp check_key(json, key) do
-        case Map.fetch(json, key) do
-            {:ok, content} -> {:ok, content}
-            :error -> {:error, err(:not_found, key)}
+    defp check_and_count_key(json, key) do
+        cond do
+            Map.fetch(json, key) == :error and
+                json["operation"] != "statement_for_cash_management" and
+                key == "batches_balances" ->
+                    1
+
+            key == "batches_balances" ->
+                Map.fetch(json, key)
+                |> elem(1)
+                |> Enum.count()
+
+            Map.fetch(json, key) == :error ->
+                {:error, err(:not_found, key)}
+
+            true ->
+                {:ok,
+                    Map.fetch(json, key)
+                    |> elem(1)
+                    |> Enum.count()}
         end
     end
 
     defp validation(json, atom)
     defp validation(json, :batches) do
-        case check_key(json, "batches") do
+        case check_and_count_key(json, "batches") do
             {:ok, batches} ->
-                {:ok, %{total_batches: Enum.count(batches),
+                {:ok, %{total_batches: batches,
                         total_registers: 0}}
 
             {:error, message} -> {:error, message}
@@ -100,15 +133,16 @@ defmodule ExCnab.Base.Document do
     end
 
 
-    defp validation(json, context, counter, :batche_maker) do
+    defp validation(json, context, counter, :batch_maker) do
         with {:ok, mod_json} <- modify_json(json, counter, "batches"),
-             {:ok, payments} <- check_key(mod_json, "batches_payments")
+             {:ok, details} <- check_and_count_key(mod_json, "batches_details")
         do
             {:ok,
                 mod_json,
                     Map.merge(context,
-                     %{number_of_payments: Enum.count(payments),
-                       batch_number: counter + 1})}
+                     %{number_of_details: details,
+                       batch_number: counter + 1,
+                       total_balances: check_and_count_key(mod_json, "batches_balances")})}
         else
             err -> err
         end

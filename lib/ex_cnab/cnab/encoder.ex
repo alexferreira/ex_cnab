@@ -47,7 +47,6 @@ defmodule ExCnab.CNAB.Encoder do
     end
 
     defp start_encode(config, encoder_template, json) do
-        document = ExCnab.Base.Document.new(config, encoder_template, json)
-        document
+        ExCnab.Base.Document.new(config, encoder_template, json)
     end
 end

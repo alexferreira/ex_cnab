@@ -23,7 +23,7 @@
       "length" : 5,
       "offset": 8,
       "format" : "int",
-      "default" : "@register_number"
+      "default" : "@detail_number"
     },{
       "id": "batches_register_segment",
       "length" : 1,
@@ -37,79 +37,79 @@
       "format" : "string",
       "default" : " "
     },{
-      "id": "transaction_time",
+      "id": "batches_details_transaction_time",
       "length" : 6,
       "offset": 102,
       "format" : "time",
       "default" : false
     },{
-      "id": "book_entry_nature",
+      "id": "batches_details_book_entry_nature",
       "length" : 3,
       "offset": 108,
       "format" : "string",
-      "default" : false
+      "default" : "%get balance_nature%"
     },{
-      "id": "book_entry_complement_type",
+      "id": "batches_details_book_entry_complement_type",
       "length" : 2,
       "offset": 111,
       "format" : "int",
       "default" : false
     },{
-      "id": "book_entry_complement",
+      "id": "batches_details_book_entry_complement",
       "length" : 20,
       "offset": 113,
       "format" : "string",
       "default" : false
     },{
-      "id": "cpmf_immunity_id",
+      "id": "batches_details_cpmf_immunity_id",
       "length" : 1,
       "offset": 133,
       "format" : "string",
       "default" : false
     },{
-      "id": "contability_date",
+      "id": "batches_details_contability_date",
       "length" : 8,
       "offset": 134,
       "format" : "date",
       "default" : false
     },{
-      "id": "book_entry_date",
+      "id": "batches_details_book_entry_date",
       "length" : 8,
       "offset": 142,
-      "format" : "int",
+      "format" : "date",
       "default" : false
     },{
-      "id": "book_entry_amount",
+      "id": "batches_details_book_entry_amount",
       "length" : [16, 2],
       "offset": 150,
       "format" : "decimal",
       "default" : false
     },{
-      "id": "book_entry_type",
+      "id": "batches_details_book_entry_type",
       "length" : 1,
       "offset": 168,
       "format" : "string",
       "default" : false
     },{
-      "id": "book_entry_category",
+      "id": "batches_details_book_entry_category",
       "length" : 3,
       "offset": 169 ,
       "format" : "int",
       "default" : false
     },{
-      "id": "book_entry_history_code",
+      "id": "batches_details_book_entry_history_code",
       "length" : 5,
       "offset": 172,
       "format" : "string",
       "default" : false
     },{
-      "id": "book_entry_history",
+      "id": "batches_details_book_entry_history",
       "length" : 25,
       "offset": 177,
       "format" : "string",
       "default" : false
     },{
-      "id": "book_entry_document_number",
+      "id": "batches_details_book_entry_document_number",
       "length" : 38,
       "offset": 202,
       "format" : "string",

@@ -19,163 +19,163 @@
       "format" : "int",
       "default" : "3"
     },{
-      "id": "batches_payments_sequence_number",
+      "id": "batches_details_sequence_number",
       "length" : 5,
       "offset": 8,
       "format" : "int",
-      "default" : "@payment_number"
+      "default" : "@detail_number"
     },{
-      "id": "batches_payments_segment",
+      "id": "batches_details_segment",
       "length" : 1,
       "offset": 13,
       "format" : "string",
       "default" : "A"
     },{
-      "id": "batches_payments_movement_type",
+      "id": "batches_details_movement_type",
       "length" : 1,
       "offset": 14,
       "format" : "int",
       "default" : "%get movement_type%"
     },{
-      "id": "batches_payments_movement_code",
+      "id": "batches_details_movement_code",
       "length" : 2,
       "offset": 15,
       "format" : "int",
       "default" : "%get movement_code%"
     },{
-      "id": "batches_payments_favored_chamber",
+      "id": "batches_details_favored_chamber",
       "length" : 3,
       "offset": 17,
       "format" : "int",
       "default" : false
     },{
-      "id": "batches_payments_favored_bank",
+      "id": "batches_details_favored_bank",
       "length" : 3,
       "offset": 20,
       "format" : "int",
       "default" : false
     },{
-      "id": "batches_payments_favored_agency_code",
+      "id": "batches_details_favored_agency_code",
       "length" : 5,
       "offset": 23,
       "format" : "int",
       "default" : false
     },{
-      "id": "batches_payments_favored_agency_vd",
+      "id": "batches_details_favored_agency_vd",
       "length" : 1,
       "offset": 28,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_favored_checking_account_number",
+      "id": "batches_details_favored_checking_account_number",
       "length" : 12,
       "offset": 29,
       "format" : "int",
       "default" : false
     },{
-      "id": "batches_payments_favored_checking_account_vd",
+      "id": "batches_details_favored_checking_account_vd",
       "length" : 1,
       "offset": 41,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_favored_agency_account_vd",
+      "id": "batches_details_favored_agency_account_vd",
       "length" : 1,
       "offset": 42,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_favored_name",
+      "id": "batches_details_favored_name",
       "length" : 30,
       "offset": 43,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_company_number_document",
+      "id": "batches_details_company_number_document",
       "length" : 20,
       "offset": 73,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_payment_date",
+      "id": "batches_details_payment_date",
       "length" : 8,
       "offset": 93,
       "format" : "date",
       "default" : false
     },{
-      "id": "batches_payments_currency_type",
+      "id": "batches_details_currency_type",
       "length" : 3,
       "offset": 101,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_currency_amount",
+      "id": "batches_details_currency_amount",
       "length" : [10, 5],
       "offset": 104,
       "format" : "decimal",
       "default" : false
     },{
-      "id": "batches_payments_payment_amount",
+      "id": "batches_details_payment_amount",
       "length" : [13, 2],
       "offset": 119,
       "format" : "decimal",
       "default" : false
     },{
-      "id": "batches_payments_document_number_by_bank",
+      "id": "batches_details_document_number_by_bank",
       "length" : 20,
       "offset": 134,
       "format" : "string",
       "default" : ""
     },{
-      "id": "batches_payments_real_date",
+      "id": "batches_details_real_date",
       "length" : 8,
       "offset": 154,
       "format" : "date",
       "default" : ""
     },{
-      "id": "batches_payments_real_amount",
+      "id": "batches_details_real_amount",
       "length" : [13, 2],
       "offset": 162,
       "format" : "decimal",
       "default" : ""
     },{
-      "id": "batches_payments_information",
+      "id": "batches_details_information",
       "length" : 40,
       "offset": 177,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_finality_doc_code",
+      "id": "batches_details_finality_doc_code",
       "length" : 2,
       "offset": 217,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_finality_ted_code",
+      "id": "batches_details_finality_ted_code",
       "length" : 5,
       "offset": 219,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_finality_complement_code",
+      "id": "batches_details_finality_complement_code",
       "length" : 2,
       "offset": 224,
       "format" : "string",
       "default" : false
     },{
-      "id": "batches_payments_cnab_private_field",
+      "id": "batches_details_cnab_private_field",
       "length" : 3,
       "offset": 226,
       "format" : "string",
       "default" : " "
     },{
-      "id": "batches_payments_warning",
+      "id": "batches_details_warning",
       "length" : 1,
       "offset": 229,
       "format" : "int",
       "default" : "%get warning%"
     },{
-      "id": "batches_payments_occurrences",
+      "id": "batches_details_occurrences",
       "length" : 10,
       "offset": 230,
       "format" : "string",
