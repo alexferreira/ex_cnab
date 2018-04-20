@@ -5,8 +5,9 @@ defmodule ExCnab.CNAB.Writer do
 
     alias ExCnab.CNAB
 
+    def write_cnab(json, cnab_name \\ cnab_random_name_gen())
     def write_cnab(json, _cnab_name) when json == %{}, do: {:error, err :empty_json}
-    def write_cnab(json, cnab_name \\ cnab_random_name_gen()) do
+    def write_cnab(json, cnab_name) do
         with {:ok, document} <- CNAB.Encoder.encode(json),
              {:ok, cnab_path} <- Application.get_env(:ex_cnab, :cnab_writing_path) |> Path.expand |> build_cnab_path(cnab_name)
         do
@@ -30,13 +31,24 @@ defmodule ExCnab.CNAB.Writer do
     end
 
     defp file_writer(list, cnab_path) do
-        lines = Enum.reduce(list, "", fn(x, acc) ->
-            Enum.join(
-            [acc, Enum.join(
-            [Enum.join(x), "\n"])]
-            ) end)
-        File.open(cnab_path, [:write], fn file -> IO.binwrite(file, lines)
-        File.close(file) end)
-        {:ok, cnab_path}
+        list
+        |> create_cnab_string()
+        |> write_in_file(cnab_path)
+    end
+
+    defp create_cnab_string(list) do
+        list |> Enum.map_join(&(&1 |> Enum.join() |> Kernel.<>("\n")))
+    end
+
+    defp write_in_file(cnab_string, cnab_path) do
+        case File.open(cnab_path, [:write]) do
+            {:ok, file} ->
+                IO.write(file, cnab_string)
+                File.close(file)
+                {:ok, cnab_path}
+
+            {:error, message} ->
+                {:error, err(message, :earlang_file)}
+        end
     end
 end
