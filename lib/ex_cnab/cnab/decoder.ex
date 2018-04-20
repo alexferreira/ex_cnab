@@ -3,11 +3,16 @@ defmodule ExCnab.CNAB.Decoder do
 
   use ExCnab.Logger
 
+  import ExCnab.Error
+
   alias ExCnab.Base.Reader, as: Base
   alias ExCnab.Table
 
   @header_file_batch_number "0000"
   @trailer_file_batch_number "9999"
+
+  @payment_on_checking "C9801"
+  @statement_for_cash_management "G0770"
 
     def decode(document) do
         data_list = document |> String.trim("\n") |> String.split("\n")
@@ -16,16 +21,19 @@ defmodule ExCnab.CNAB.Decoder do
         #Next create a ExCnab.Document structure
         data_list
         |> Enum.group_by(fn cnab_line -> String.slice(cnab_line, 3, 4) end)
-        |> Enum.map(fn {batch_number, register_list} -> {batch_number, decode_batch(batch_number, register_list)} end)
+        |> Enum.map(fn {batch_number, register_list} -> decode_batch(batch_number, register_list) end)
+        |> Enum.reject(&is_nil/1)
         |> Base.Document.new()
     end
 
     defp decode_batch(@header_file_batch_number, register_list) do
-        register_list |> List.to_string |> decode_header_file()
+        header_file = register_list |> List.to_string |> decode_header_file()
+        {@header_file_batch_number, header_file}
     end
 
     defp decode_batch(@trailer_file_batch_number, register_list) do
-        register_list |> List.to_string |> decode_trailer_file()
+        trailer_file = register_list |> List.to_string |> decode_trailer_file()
+        {@trailer_file_batch_number, trailer_file}
     end
 
     defp decode_batch(batch_number, register_list) do
@@ -33,18 +41,20 @@ defmodule ExCnab.CNAB.Decoder do
             register_list
             |> Enum.find(fn cnab_line -> String.slice(cnab_line, 7, 1) == "1" end)
 
-        batch_operation = identify_batch_operation(header_batch)
-
-        batch = Enum.map(register_list, fn cnab_line -> decode_batch_by_line(cnab_line, batch_operation) end)
-
-        Base.Batch.new(batch_operation, batch_number, batch)
+        case identify_batch_operation(header_batch) do
+            {:ok, batch_operation} ->
+                batch = Enum.map(register_list, fn cnab_line -> decode_batch_by_line(cnab_line, batch_operation) end)
+                {batch_number, Base.Batch.new(batch_operation, batch_number, batch)}
+            {:error, _} ->
+                nil
+        end
     end
 
     defp identify_batch_operation(header_batch) do
         case String.slice(header_batch, 8, 5) do
-            "C9801" -> "payment_on_checking"
-            "G0770" -> "statement_for_cash_management"
-            _ -> nil
+            @payment_on_checking -> {:ok, "payment_on_checking"}
+            @statement_for_cash_management -> {:ok, "statement_for_cash_management"}
+            _ -> {:error, err :batch_operation_not_found}
         end
     end
 
@@ -89,14 +99,14 @@ defmodule ExCnab.CNAB.Decoder do
 
     #Prepare the template name and calls build_register
     defp pre_build(cnab_line, register_type) do
-        info("#{register_type} -> cnab_line")
+        info("#{register_type} -> #{cnab_line}")
 
         register_type
         |> Atom.to_string
         |> build_register(cnab_line, register_type)
     end
     defp pre_build(cnab_line, template_suffix, register_type = :detail) do
-        info("#{register_type} -> cnab_line")
+        info("#{register_type} -> #{cnab_line}")
 
         operation_type = String.slice(cnab_line, 13, 1)
 
@@ -107,7 +117,7 @@ defmodule ExCnab.CNAB.Decoder do
         |> build_register(cnab_line, register_type)
     end
     defp pre_build(cnab_line, template_suffix, register_type) do
-        info("#{register_type} -> cnab_line")
+        info("#{register_type} -> #{cnab_line}")
 
         register_type_string =
             register_type

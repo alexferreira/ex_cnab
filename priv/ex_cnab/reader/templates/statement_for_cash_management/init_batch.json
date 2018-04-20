@@ -1,0 +1,18 @@
+{
+  "bank_code" : "",
+  "bank_private_field" : "",
+  "batches_balances_balance_type" : "",
+  "batches_balances_initial_balance_amount" : "",
+  "batches_balances_initial_balance_date" : "",
+  "batches_balances_initial_balance_situation" : "",
+  "batches_balances_initial_balance_time" : "",
+  "batches_batch" : "",
+  "batches_book_entry_type" : "",
+  "batches_layout" : "",
+  "batches_operation_type" : "",
+  "batches_service" : "",
+  "cnab_private_field_1" : "",
+  "cnab_private_field_2" : "",
+  "cnab_private_field_3" : "",
+  "register" : ""
+}

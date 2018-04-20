@@ -11,7 +11,8 @@ defmodule ExCnab.Error do
       :not_found_context    -> "#{opts} Not found in context"
       :not_parse_inheritance-> "Not parse inheritance on template"
       :invalid_path         -> "Path to create CNAB does not exist"
-      :empty_json           -> "Json is empty"
+      :batch_operation_not_found -> "Batch operation not found"
+      :template_not_found   -> "Template not found"
     end
   end
 end

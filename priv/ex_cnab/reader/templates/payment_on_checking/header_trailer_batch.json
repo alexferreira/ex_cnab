@@ -9,5 +9,9 @@
     "occurrences" : "",
     "total_registers": "",
     "total_amount": "",
-    "total_currency": ""
+    "total_currency": "",
+    "total" : {
+        "amount" : "",
+        "currency" : ""
+    }
 }
