@@ -1,0 +1,15 @@
+{
+  "transaction_time" : "15:10:02",
+  "contability_date" : "18/03/2018",
+  "cpmf_immunity_id" : "",
+  "book_entry_nature" : "Disponível",
+  "book_entry_complement_type" : "00",
+  "book_entry_complement" : "",
+  "book_entry_date" : "18/03/2018",
+  "book_entry_amount" : "5000.00",
+  "book_entry_type" : "Extrato para Gestão de Caixa",
+  "book_entry_category" : "202",
+  "book_entry_history_code" : "1",
+  "book_entry_history" : "",
+  "book_entry_document_number" : "1"
+}

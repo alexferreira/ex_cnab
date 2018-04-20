@@ -65,7 +65,10 @@ defmodule ExCnab.Base.Reader.Field do
   end
 
   defp time_formatter(content) do
-      content
+      [content |> String.slice(0, 2),
+       content |> String.slice(2, 2),
+       content |> String.slice(4, 2)]
+       |> Enum.join("-")
   end
 
   defp convert_string_keys_to_atom(map) do

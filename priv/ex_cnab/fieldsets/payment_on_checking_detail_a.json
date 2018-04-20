@@ -179,7 +179,7 @@
       "length" : 10,
       "offset": 230,
       "format" : "string",
-      "default" : false
+      "default" : " "
     }
   ]
 }
