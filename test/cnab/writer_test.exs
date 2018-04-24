@@ -37,7 +37,7 @@ defmodule ExCnab.Test.CNAB.WriterTest do
     test "Do not: write a cnab statement file Why? path not valid", context do
         env = Application.get_env(:ex_cnab, :cnab_writing_path)
         Application.put_env(:ex_cnab, :cnab_writing_path, env <> "cnab")
-        assert {:error, message} = CNAB.Writer.write_cnab(context.statement_json)
+        assert {:error, _message} = CNAB.Writer.write_cnab(context.statement_json)
         Application.put_env(:ex_cnab, :cnab_writing_path, env)
     end
 

@@ -57,7 +57,7 @@ defmodule ExCnab.Test.Base.DocumentTest do
     |> List.delete("operation_id")
     |> Enum.map(fn n ->
         template = Map.drop(template, [n])
-        assert {:error, message} = Document.new(config, template, json)
+        assert {:error, _message} = Document.new(config, template, json)
     end)
   end
 end

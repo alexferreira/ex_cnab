@@ -85,7 +85,7 @@ defmodule ExCnab.Base.Field do
   end
 
   defp content_input(field, {:ok, content}), do: {:ok, %{field | content: content}}
-  defp content_input(field, {:error, message}), do: {:error, message}
+  defp content_input(_, {:error, message}), do: {:error, message}
 
   defp decimal_padding(content, length, false), do: decimal_padding(Enum.join([content, "0"], "."), length, true)
   defp decimal_padding(content, length, true) do
@@ -99,9 +99,8 @@ defmodule ExCnab.Base.Field do
   end
 
   defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, "0")}
-  defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, "0")}
   defp date_time_handler(content, length, false) when content == "", do: {:ok, content |> String.pad_trailing(length, "0")}
-  defp date_time_handler(content, length, false), do: {:error, err(:unrecognized_format, "in date or time")}
+  defp date_time_handler(_content, _length, false), do: {:error, err(:unrecognized_format, "in date or time")}
 
   defp enforce_length(field), do: %{field | content: String.slice(field.content, 0, field.length)}
 

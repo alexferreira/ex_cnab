@@ -32,7 +32,7 @@ defmodule ExCnab.CNAB.Template do
         @cnab_fieldset_templates
         |> Path.join("#{name}.json")
 
-    path =
+    _path =
           :code.priv_dir(:ex_cnab)
           |> Path.join(template_path)
           |> Path.absname

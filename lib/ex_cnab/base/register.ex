@@ -80,14 +80,14 @@ defmodule ExCnab.Base.Register do
         end
     end
 
-    defp load_final_batch(nil, _json, _), do: nil
-    defp load_final_batch({:error, message}, _, _), do: {:error, message}
+    defp load_final_batch(nil, _json, _context), do: nil
+    defp load_final_batch({:error, message}, _, _context), do: {:error, message}
     defp load_final_batch(template, json, context) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json, context)
     defp load_final_batch(template, json, context), do: create_fields_in_template(template, json, context)
 
 
-    defp load_trailer_batch(nil, _json, context), do: {:error, err(:not_found, "Trailer batch")}
-    defp load_trailer_batch({:error, message}, _, context), do: {:error, message}
+    defp load_trailer_batch(nil, _json, _context), do: {:error, err(:not_found, "Trailer batch")}
+    defp load_trailer_batch({:error, message}, _, _context), do: {:error, message}
     defp load_trailer_batch(template, json, context) when is_binary(template), do: create_fields_in_template(extract_register_template(template), json, context)
     defp load_trailer_batch(template, json, context), do: create_fields_in_template(template, json, context)
 
