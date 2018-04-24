@@ -1,6 +1,4 @@
 {
-  "balance_type" : "",
-  "bank_code" : "",
   "batch" : "",
   "book_entry_type" : "",
   "currency_type" : "",
@@ -12,5 +10,10 @@
   "total_initial_balance_date" : "",
   "total_initial_balance_situation" : "",
   "total_initial_balance_status" : "",
-  "total_initial_balance_time" : ""
+  "total_initial_balance_time" : "",
+  "total_final_balance_amount" : "",
+  "total_final_balance_date" : "",
+  "total_final_balance_situation" : "",
+  "total_final_balance_status" : "",
+  "total_final_balance_time" : ""
 }
