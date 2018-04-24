@@ -110,15 +110,22 @@ defmodule ExCnab.CNAB.Reader do
                 end)
                 |> serialize_fieldset_map()
 
-            #Create Init and Final batches list
-            init_final_batch_list = create_init_final_batch_list(content, operation)
-
             #Create Detail list
             batch_detail_list = create_detail_batch_list(content, detail_json, operation)
 
             #Construct the map of batches
-            header_trailer_batch
-            |> Map.put("details", batch_detail_list)
+            batch =
+                header_trailer_batch
+                |> Map.put("details", batch_detail_list)
+
+            #Create Init and Final batches list
+            #Include in the batch json
+            case create_init_final_batch_list(content, operation) do
+                {:ok, init_final_batch_list} ->
+                    batch |> Map.put("balances", init_final_batch_list)
+                {:error, _} ->
+                    batch
+                end
         else
             _err -> {:error, err :template_not_found}
         end
@@ -133,19 +140,23 @@ defmodule ExCnab.CNAB.Reader do
                 content
                 |> extract_fieldset_list_from_batch(:init_batch)
                 |> Enum.map(fn init_batch ->
-                    create_init_batch_register(init_batch.fieldset |> serialize_fieldset_map(),
-                                           init_batch_json, operation)
+                    create_register(init_batch.fieldset |> serialize_fieldset_map(),
+                                           init_batch_json, :init_final_batch)
                 end)
 
             final_batch_list =
                 content
                 |> extract_fieldset_list_from_batch(:final_batch)
                 |> Enum.map(fn final_batch ->
-                    create_init_batch_register(final_batch.fieldset |> serialize_fieldset_map(),
-                                           final_batch_json, operation)
+                    create_register(final_batch.fieldset |> serialize_fieldset_map(),
+                                           final_batch_json, :init_final_batch)
                 end)
 
-            {init_batch_list, final_batch_list}
+            init_final_batch =
+                Enum.concat(init_batch_list, final_batch_list)
+                |> Enum.group_by(fn register -> register["balance_type"] end)
+
+            {:ok, init_final_batch}
         else
             _err -> {:error, err :template_not_found}
         end
@@ -158,8 +169,8 @@ defmodule ExCnab.CNAB.Reader do
             |> chunk_detail_batch_list(first_detail(operation))
             |> List.flatten
             |> Enum.map(fn detail ->
-                create_detail_register(detail.fieldset |> serialize_fieldset_map(),
-                                       detail_json, operation)
+                create_register(detail.fieldset |> serialize_fieldset_map(),
+                                       detail_json, :detail)
             end)
     end
 
@@ -186,20 +197,18 @@ defmodule ExCnab.CNAB.Reader do
         |> Enum.chunk_while([], chunk_fun, after_fun)
     end
 
-    # Create a init register json according to the template
-    defp create_init_batch_register(register_fieldset, template_json, _operation) do
-        template_json
-        |> Enum.map(fn {template_key, _template_value} ->
-            match_template_with_fieldset(template_key, "batches_", register_fieldset)
-        end)
-        |> serialize_fieldset_map()
-    end
-
-    # Create a detail register json according to the template
-    defp create_detail_register(register_fieldset, template_json, _operation) do
+    # Create a register json according to the template
+    defp create_register(register_fieldset, template_json, :detail) do
         template_json
         |> Enum.map(fn {template_key, _template_value} ->
             match_template_with_fieldset(template_key, "batches_details_", register_fieldset)
+        end)
+        |> serialize_fieldset_map()
+    end
+    defp create_register(register_fieldset, template_json, :init_final_batch) do
+        template_json
+        |> Enum.map(fn {template_key, _template_value} ->
+            match_template_with_fieldset(template_key, "batches_balances_", register_fieldset)
         end)
         |> serialize_fieldset_map()
     end

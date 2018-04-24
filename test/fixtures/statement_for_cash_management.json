@@ -65,7 +65,37 @@
             "amount" : "505000.50",
             "situation" : "Credor"
         }
+      },
+      {
+        "balance_type" : "Vinculado",
+        "initial_balance" : {
+            "time" : "15:08:25",
+            "date" : "09/03/2018",
+            "amount" : "0.00",
+            "situation" : "Credor"
+        },
+        "final_balance" : {
+            "time" : "15:08:25",
+            "date" : "09/03/2018",
+            "amount" : "0.00",
+            "situation" : "Credor"
+        }
+    },
+    {
+      "balance_type" : "Bloqueado",
+      "initial_balance" : {
+          "time" : "15:08:25",
+          "date" : "09/03/2018",
+          "amount" : "0.00",
+          "situation" : "Credor"
+      },
+      "final_balance" : {
+          "time" : "15:08:25",
+          "date" : "09/03/2018",
+          "amount" : "0.00",
+          "situation" : "Credor"
       }
+    }
     ],
     "details" : [
         {
