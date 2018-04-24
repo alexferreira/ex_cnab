@@ -247,7 +247,7 @@ defmodule ExCnab.CNAB.Reader do
 
     #Transform a two element tuple list into a map
     defp serialize_fieldset_map(fieldset) do
-        fieldset |> Map.new(fn {a,b} -> {a,b} end)
+        fieldset |> Enum.into(%{})
     end
 
     #Load json template
