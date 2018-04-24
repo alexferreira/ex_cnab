@@ -3,6 +3,10 @@
 use Mix.Config
 
 config :ex_cnab,
-      cnab_writing_path: "./priv/cnabs/"
+      cnab_writing_path: "./priv/cnabs/",
+# The replace_code_to_string config replaces all output codes to it's corresponde
+# string in ExCnab.Table when is set as true
+      replace_code_to_string: true
+
 
 config :logger, level: :warn

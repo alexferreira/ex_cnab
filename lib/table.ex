@@ -125,7 +125,7 @@ defmodule ExCnab.Table do
             "Emite Aviso para o Remetente e Favorecido" => "6",
             "Emite Aviso para o Favorecido e 2 Vias para o Remetente" => "7"
         },
-        ocurrences: %{
+        occurrences: %{
             "Crédito ou Débito Efetivado" => "00",
             "Insuficiência de Fundos - Débito Não Efetuado" => "01",
             "Crédito ou Débito Cancelado pelo Pagador/Credor" => "02",

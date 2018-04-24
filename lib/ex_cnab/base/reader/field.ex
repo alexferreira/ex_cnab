@@ -18,12 +18,87 @@ defmodule ExCnab.Base.Reader.Field do
     do
       struct(__MODULE__, Keyword.new(template))
       |> set_content_field(content)
-      |> searialize_field()
+      |> searialize_field(Application.get_env(:ex_cnab, :replace_code_to_string))
     end
   end
 
-  def searialize_field(field) do
-      {field.id, field.content}
+  defp searialize_field(field, config)
+  defp searialize_field(field, false) do
+       {field.id, field.content}
+  end
+
+  defp searialize_field(field, true) do
+        case field.id |> String.contains?("occurrences") do
+            true -> handle_occurences(field)
+            false -> handle_others(field)
+        end
+  end
+
+  defp handle_occurences(field) do
+      case get_occurences(field.content) do
+        "" -> {field.id, field.content}
+        list -> {field.id, list}
+      end
+  end
+
+  defp get_occurences(content, acc \\ [])
+  defp get_occurences(content, acc) when content == "", do: list_occurences(acc)
+  defp get_occurences(content, acc) do
+    occurrence =
+        content
+        |> String.slice(0..1)
+
+    get_occurences(
+            String.replace(content, occurrence, ""),
+            acc ++ [occurrence])
+  end
+
+  defp list_occurences(ocurrences_list) when ocurrences_list == [], do: ""
+  defp list_occurences(ocurrences_list) do
+    ocurrences_list
+    |> Enum.map(fn n -> extract_content(:occurrences, n) end)
+  end
+
+  defp handle_others(field) do
+        case check_regex(field, field.content) do
+            nil ->
+                {field.id, field.content}
+            content ->
+                {field.id, content}
+        end
+  end
+
+  def check_regex(%{default: false}, _content), do: nil
+  def check_regex(field, content) do
+    case Regex.run(~r/%([a-z]|_)+ ([a-z]|_)+%/, field.default) do
+        nil -> nil
+        _ ->   field.default
+               |> String.trim("%")
+               |> String.split
+               |> Enum.at(1)
+               |> String.to_atom()
+               |> extract_content(content, field.length)
+    end
+  end
+
+  defp extract_content(table, key, length) do
+      if not is_binary(key) do
+          extract_content(table, Integer.to_string(key)
+                                         |> String.pad_leading(length, "0"))
+      else
+          extract_content(table, key)
+      end
+  end
+
+  defp extract_content(table_name, key) do
+    case ExCnab.Table.tables() |> Map.fetch(table_name)do
+        {:ok, table} ->
+            Enum.map(table, fn {k, v} -> {v, k} end)
+            |> Enum.into(%{})
+            |> Map.get(key)
+
+        :error -> nil
+    end
   end
 
   defp set_content_field(field, content) do

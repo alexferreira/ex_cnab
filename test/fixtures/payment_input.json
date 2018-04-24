@@ -38,7 +38,7 @@
     "message" : "",
     "payment_type" : "Débito em Conta Corrente",
     "debit_warn_number" : "01",
-    "occurrences" : "",
+    "occurrences" : "010203AAABAC",
     "total" : {
         "amount" : "500.50",
         "currency" : "01"
