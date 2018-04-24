@@ -18,10 +18,6 @@ defmodule ExCnab.CNAB.Encoder do
         end
     end
 
-    defp load_global_config() do
-        Application.get_env(:ex_cnab, :structure)
-    end
-
     defp load_encoder_template(json) do
       case Map.fetch(json, "operation") do
             :error ->

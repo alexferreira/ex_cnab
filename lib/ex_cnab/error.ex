@@ -1,5 +1,5 @@
 defmodule ExCnab.Error do
-
+    def err(error_key, opts \\ "")
     def err(error_key, :earlang_file) do
         case error_key do
             :enotdir              -> "A component of path is not a directory"
@@ -11,8 +11,7 @@ defmodule ExCnab.Error do
             other                 -> other
         end
     end
-
-    def err(error_key, opts \\ "") do
+    def err(error_key, opts) do
         case error_key do
             :operation_not_found  -> "Operation not found!"
             :config_not_loaded    -> "Configuration not loaded"

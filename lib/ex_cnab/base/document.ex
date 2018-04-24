@@ -92,7 +92,7 @@ defmodule ExCnab.Base.Document do
 
     defp modify_json(json, counter, key) do
         {:ok,
-            mod_json =
+            _mod_json =
                 Access.get_and_update(json, key, fn n -> {n, Enum.at(n, counter)} end)
                 |> elem(1)
                 |> ExCnab.CNAB.Encoder.prepare_json()}
