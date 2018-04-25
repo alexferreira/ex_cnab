@@ -4,13 +4,15 @@ defmodule ExCnab.Base.Reader.Register do
     import ExCnab.Error
 
     alias ExCnab.Base.Reader.Field
+    alias ExCnab.Table
 
     defstruct type: nil,
     type_code: nil,
     fieldset: nil
 
-    def new(template, cnab_line, type, type_code) do
+    def new(template, cnab_line, type) do
         with true <- Enum.all?([template], fn(n) -> not(Enum.empty?(n)) end),
+             {:ok, type_code} <- generate_type_code(type),
              {:ok, fieldset} <- load_fieldset(template, cnab_line, type_code)
         do
             create_register(type, type_code, fieldset)
@@ -18,6 +20,14 @@ defmodule ExCnab.Base.Reader.Register do
           false -> {:error, err :empty_json}
           {:error, message} -> {:error, message}
         end
+    end
+
+    def generate_type_code(register_type) do
+        register_type_code =
+            Table.structure()
+            |> Map.fetch!(:register_types)
+            |> Keyword.fetch!(register_type)
+        {:ok, register_type_code}
     end
 
     defp create_register(type, type_code, fieldset) do
@@ -28,7 +38,6 @@ defmodule ExCnab.Base.Reader.Register do
     end
 
     def load_fieldset(template, cnab_line, type) do
-
         case type do
             0 -> load_header_file(template["header_file"], cnab_line)
             1 -> load_header_batch(template["header_batch"], cnab_line)

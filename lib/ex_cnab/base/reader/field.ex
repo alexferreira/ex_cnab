@@ -18,7 +18,7 @@ defmodule ExCnab.Base.Reader.Field do
     do
       struct(__MODULE__, Keyword.new(template))
       |> set_content_field(content)
-      |> searialize_field(Application.get_env(:ex_cnab, :replace_code_to_string))
+      |> searialize_field(Application.get_env(:ex_cnab, :replace_code_to_string, false))
     end
   end
 
@@ -111,7 +111,7 @@ defmodule ExCnab.Base.Reader.Field do
   def enforce_format(field, content) do
     case field.format do
       "int" ->
-        {:ok, %{field | content: String.to_integer(content)}}
+        {:ok, %{field | content: content}}
       "string" ->
         {:ok, %{field | content: String.trim(content)}}
       "decimal" ->

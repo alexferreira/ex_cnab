@@ -6,7 +6,6 @@ defmodule ExCnab.CNAB.Decoder do
   import ExCnab.Error
 
   alias ExCnab.Base.Reader, as: Base
-  alias ExCnab.Table
 
   @header_file_batch_number "0000"
   @trailer_file_batch_number "9999"
@@ -131,16 +130,19 @@ defmodule ExCnab.CNAB.Decoder do
 
     #Load the template and calls Register.new()
     defp build_register(template_name, cnab_line, register_type) do
-        {:ok, template_file} = ExCnab.CNAB.Template.load_json_config(template_name)
+        with {:ok, template_file} <- ExCnab.CNAB.Template.load_json_config(template_name),
+             {:ok, template} <- template_maker(template_file, register_type),
+             {:ok, register} <- Base.Register.new(template, cnab_line, register_type)
+        do
+            register
+        else
+            {:error, _} ->
+                nil
+        end
+    end
+
+    def template_maker(template_file, register_type) do
         template = %{Atom.to_string(register_type) => template_file}
-
-        register_type_code =
-            Table.structure()
-            |> Map.fetch!(:register_types)
-            |> Keyword.fetch!(register_type)
-
-        {:ok, register} =
-            Base.Register.new(template, cnab_line, register_type, register_type_code)
-        register
+        {:ok, template}
     end
 end
