@@ -167,11 +167,15 @@ defmodule ExCnab.CNAB.Reader do
             content
             |> extract_fieldset_list_from_batch(:detail)
             |> chunk_detail_batch_list(first_detail(operation))
+            |> Enum.map(fn batch_chunk -> chunk_handler(batch_chunk, detail_json) end)
             |> List.flatten
-            |> Enum.map(fn detail ->
-                create_register(detail.fieldset |> serialize_fieldset_map(),
-                                       detail_json, :detail)
-            end)
+    end
+
+    defp chunk_handler(batch_chunk, detail_json) do
+        Enum.map(batch_chunk, fn detail ->
+           create_register(detail.fieldset |> serialize_fieldset_map(),
+                                  detail_json, :detail)
+       end)
     end
 
     defp chunk_detail_batch_list(detail_batch_list, first_detail) do
@@ -181,7 +185,7 @@ defmodule ExCnab.CNAB.Reader do
                   |> serialize_fieldset_map
                   |> Map.get("batches_details_segment") == first_detail
                   and Enum.any?(acc, fn x -> x.fieldset |> serialize_fieldset_map
-                        |> Map.get("batches_details__segment") == first_detail end)
+                        |> Map.get("batches_details_segment") == first_detail end)
                 do
                     {:cont, Enum.reverse(acc), [element]}
                 else
@@ -214,7 +218,7 @@ defmodule ExCnab.CNAB.Reader do
     end
 
     defp extract_fieldset_from_batch(batch_content, type) do
-        case batch_content |> Enum.find(fn register -> register.type == type end) do
+        case batch_content |> Enum.find(fn register -> validate_register(register, type) end) do
             nil -> %{}
             value ->
                 value
@@ -225,8 +229,11 @@ defmodule ExCnab.CNAB.Reader do
 
     defp extract_fieldset_list_from_batch(batch_content, type) do
         batch_content
-        |> Enum.filter(fn register -> register.type == type end)
+        |> Enum.filter(fn register -> validate_register(register, type) end)
     end
+
+    defp validate_register(register, _type) when is_nil(register), do: false
+    defp validate_register(register, type), do: register.type == type
 
     defp first_detail(operation) do
         case operation do

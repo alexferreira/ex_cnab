@@ -131,16 +131,19 @@ defmodule ExCnab.CNAB.Decoder do
 
     #Load the template and calls Register.new()
     defp build_register(template_name, cnab_line, register_type) do
-        {:ok, template_file} = ExCnab.CNAB.Template.load_json_config(template_name)
-        template = %{Atom.to_string(register_type) => template_file}
+        case ExCnab.CNAB.Template.load_json_config(template_name) do
+            {:ok, template_file} ->
+                template = %{Atom.to_string(register_type) => template_file}
+                register_type_code =
+                    Table.structure()
+                    |> Map.fetch!(:register_types)
+                    |> Keyword.fetch!(register_type)
 
-        register_type_code =
-            Table.structure()
-            |> Map.fetch!(:register_types)
-            |> Keyword.fetch!(register_type)
-
-        {:ok, register} =
-            Base.Register.new(template, cnab_line, register_type, register_type_code)
-        register
+                {:ok, register} =
+                    Base.Register.new(template, cnab_line, register_type, register_type_code)
+                register
+            {:error, _} ->
+                nil
+        end
     end
 end
