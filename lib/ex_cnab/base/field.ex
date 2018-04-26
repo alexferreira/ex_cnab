@@ -2,6 +2,11 @@ defmodule ExCnab.Base.Field do
   @moduledoc false
   import ExCnab.Error
 
+  @alphanumeric_padding " "
+  @numeric_padding "0"
+  @table_call_regex ~r/%([a-z]|_)+ ([a-z]|_)+%/
+  @context_variable_regex ~r/@.+/
+
   defstruct id: nil,
             length: nil,
             format: nil,
@@ -44,7 +49,7 @@ defmodule ExCnab.Base.Field do
   end
 
   defp content_extract(content, context) do
-    case Regex.run(~r/@.+/, content) do
+    case Regex.run(@context_variable_regex, content) do
          nil  -> {:ok, content}
          [content] ->
             {:ok, Map.fetch(context, Regex.replace(~r/@/, content, "")
@@ -54,7 +59,7 @@ defmodule ExCnab.Base.Field do
 
   defp content_by_regex(false, content), do: {:ok, content}
   defp content_by_regex(call, content) do
-      case Regex.run(~r/%([a-z]|_)+ ([a-z]|_)+%/, call) do
+      case Regex.run(@table_call_regex, call) do
         nil -> {:ok, content}
         _ ->
             list = call
@@ -70,9 +75,9 @@ defmodule ExCnab.Base.Field do
   def enforce_format(field, content) do
     case field.format do
       "int" ->
-        content_input(field, {:ok, String.pad_leading(content, field.length, "0")})
+        content_input(field, {:ok, String.pad_leading(content, field.length, @numeric_padding)})
       "string" ->
-        content_input(field, {:ok, String.pad_trailing(content, field.length, " ")})
+        content_input(field, {:ok, String.pad_trailing(content, field.length, @alphanumeric_padding)})
       "decimal" ->
         content_input(field, decimal_padding(content, field.length, String.contains?(content, ".")))
       "date" ->
@@ -87,19 +92,19 @@ defmodule ExCnab.Base.Field do
   defp content_input(field, {:ok, content}), do: {:ok, %{field | content: content}}
   defp content_input(_, {:error, message}), do: {:error, message}
 
-  defp decimal_padding(content, length, false), do: decimal_padding(Enum.join([content, "0"], "."), length, true)
+  defp decimal_padding(content, length, false), do: decimal_padding(Enum.join([content, @numeric_padding], "."), length, true)
   defp decimal_padding(content, length, true) do
       decimal_list = content |> String.split(".")
       {:ok,
         [
-            decimal_list |> List.first() |> String.pad_leading(length |> List.first, "0"),
-            decimal_list |> List.last() |> String.pad_trailing(length |> List.last(), "0")
+            decimal_list |> List.first() |> String.pad_leading(length |> List.first, @numeric_padding),
+            decimal_list |> List.last() |> String.pad_trailing(length |> List.last(), @numeric_padding)
         ]
         |> Enum.join()}
   end
 
-  defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, "0")}
-  defp date_time_handler(content, length, false) when content == "", do: {:ok, content |> String.pad_trailing(length, "0")}
+  defp date_time_handler(content, length, true), do: {:ok, content |> String.replace(["/", ":", "-"], "")|> String.pad_trailing(length, @numeric_padding)}
+  defp date_time_handler(content, length, false) when content == "", do: {:ok, content |> String.pad_trailing(length, @numeric_padding)}
   defp date_time_handler(_content, _length, false), do: {:error, err(:unrecognized_format, "in date or time")}
 
   defp enforce_length(field), do: %{field | content: String.slice(field.content, 0, field.length)}

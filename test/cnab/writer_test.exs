@@ -16,6 +16,7 @@ defmodule ExCnab.Test.CNAB.WriterTest do
         assert String.length(string) == n_lines * 241
     end
 
+    @tag :wip
     test "Do: write a statement cnab file", context do
         path = Application.get_env(:ex_cnab, :cnab_writing_path) |> Kernel.<>("cnab") |> Path.expand
         assert {:ok, _} = CNAB.Writer.write_cnab(context.statement_json, "statement_cnab")

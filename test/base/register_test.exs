@@ -8,7 +8,6 @@ defmodule ExCnab.Test.Base.RegisterTest do
     test "Do: New register", %{payment_json: json} do
         assert {:ok, template} = ExCnab.CNAB.Template.load_json_config(Map.get(json, "operation"))
 
-        register_type = register_type()
         batch = json["batches"] |> List.first
         batch = %{batch | "details" => batch["details"] |> List.first}
         json = %{json | "batches" => batch} |> CNAB.Encoder.prepare_json()
@@ -21,8 +20,7 @@ defmodule ExCnab.Test.Base.RegisterTest do
 
         assert {:ok, _} =
             template
-            |> Register.new(json, register_type |> elem(0),
-            register_type |> elem(1), context)
+            |> Register.new(json, register_type(), context)
     end
 
     test "Do: New register without inheritance file inside",  %{payment_json: json} do
@@ -49,11 +47,11 @@ defmodule ExCnab.Test.Base.RegisterTest do
                     total_batches: Faker.Number.digit(),
                     total_registers: Faker.Number.digit()}
 
-        assert {:ok, _} = Register.new(template, json, :header_file , 0)
-        assert {:ok, _} = Register.new(template, json, :header_batch , 1, context)
-        assert {:ok, _} = Register.new(template, json, :detail , 3, context)
-        assert {:ok, _} = Register.new(template, json, :trailer_batch , 5, context)
-        assert {:ok, _} = Register.new(template, json, :trailer_file , 9, context)
+        assert {:ok, _} = Register.new(template, json, :header_file)
+        assert {:ok, _} = Register.new(template, json, :header_batch, context)
+        assert {:ok, _} = Register.new(template, json, :detail, context)
+        assert {:ok, _} = Register.new(template, json, :trailer_batch, context)
+        assert {:ok, _} = Register.new(template, json, :trailer_file, context)
     end
 
     test "Do: New  register detail", context do
@@ -68,7 +66,7 @@ defmodule ExCnab.Test.Base.RegisterTest do
                     detail_number: Faker.Number.digit()
                     }
 
-        assert {:ok, _register} = template |> Register.new(json, :detail, 3, in_context)
+        assert {:ok, _register} = template |> Register.new(json, :detail, in_context)
     end
 
     test "Do not: New register init_batch, Why? Not enough missing fields", context do
@@ -78,8 +76,8 @@ defmodule ExCnab.Test.Base.RegisterTest do
 
         temp = %{"init_batch" => template["header_batch"]}
         temp_1 = %{"init_batch" => header_file}
-        assert {:error, _register} = temp |> Register.new(context.payment_json, :init_batch, 2)
-        assert {:error, _register} = temp_1 |> Register.new(context.payment_json, :init_batch, 2)
+        assert {:error, _register} = temp |> Register.new(context.payment_json, :init_batch)
+        assert {:error, _register} = temp_1 |> Register.new(context.payment_json, :init_batch)
     end
 
     test "Do not: New register final_batch, Why? Not enough fields", context do
@@ -90,17 +88,17 @@ defmodule ExCnab.Test.Base.RegisterTest do
         temp = %{"final_batch" => template["header_batch"]}
         temp_1 = %{"final_batch" => trailer_file}
 
-        assert {:error, _register} = temp |> Register.new(context.payment_json, :final_batch, 4)
-        assert {:error, _register} = temp_1 |> Register.new(context.payment_json, :final_batch, 4)
+        assert {:error, _register} = temp |> Register.new(context.payment_json, :final_batch)
+        assert {:error, _register} = temp_1 |> Register.new(context.payment_json, :final_batch)
     end
 
     defp register_type() do
       Faker.Helper.pick([
-        header_file: 0,
-        header_batch: 1,
-        detail: 3,
-        trailer_batch: 5,
-        trailer_file: 9
+        :header_file,
+        :header_batch,
+        :detail,
+        :trailer_batch,
+        :trailer_file
         ])
     end
 end

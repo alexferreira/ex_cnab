@@ -6,6 +6,14 @@ defmodule ExCnab.Base.Reader.Register do
     alias ExCnab.Base.Reader.Field
     alias ExCnab.Table
 
+    @header_file_number Table.structure.header_file
+    @header_batch_number Table.structure.header_batch
+    @init_batch_number Table.structure.init_batch
+    @detail_number Table.structure.detail
+    @final_batch_number Table.structure.final_batch
+    @trailer_batch_number Table.structure.trailer_batch
+    @trailer_file_number Table.structure.trailer_file
+
     defstruct type: nil,
     type_code: nil,
     fieldset: nil
@@ -19,16 +27,11 @@ defmodule ExCnab.Base.Reader.Register do
         else
           false -> {:error, err :empty_json}
           {:error, message} -> {:error, message}
+          :error -> err(:not_recognized_type)
         end
     end
 
-    def generate_type_code(register_type) do
-        register_type_code =
-            Table.structure()
-            |> Map.fetch!(:register_types)
-            |> Keyword.fetch!(register_type)
-        {:ok, register_type_code}
-    end
+    def generate_type_code(register_type), do: Table.structure() |> Map.fetch(register_type)
 
     defp create_register(type, type_code, fieldset) do
         {:ok, %__MODULE__{
@@ -39,13 +42,13 @@ defmodule ExCnab.Base.Reader.Register do
 
     def load_fieldset(template, cnab_line, type) do
         case type do
-            0 -> load_header_file(template["header_file"], cnab_line)
-            1 -> load_header_batch(template["header_batch"], cnab_line)
-            2 -> load_init_batch(template["init_batch"], cnab_line) #NOCOVER
-            3 -> load_detail(template["detail"], cnab_line)
-            4 -> load_final_batch(template["final_batch"], cnab_line) #NOCOVER
-            5 -> load_trailer_batch(template["trailer_batch"], cnab_line)
-            9 -> load_trailer_file(template["trailer_file"], cnab_line)
+            @header_file_number -> load_header_file(template["header_file"], cnab_line)
+            @header_batch_number -> load_header_batch(template["header_batch"], cnab_line)
+            @init_batch_number -> load_init_batch(template["init_batch"], cnab_line)
+            @detail_number -> load_detail(template["detail"], cnab_line)
+            @final_batch_number -> load_final_batch(template["final_batch"], cnab_line)
+            @trailer_batch_number -> load_trailer_batch(template["trailer_batch"], cnab_line)
+            @trailer_file_number -> load_trailer_file(template["trailer_file"], cnab_line)
             _ -> {:error, err(:not_recognized_type)}
         end
     end

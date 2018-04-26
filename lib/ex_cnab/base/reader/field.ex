@@ -2,6 +2,8 @@ defmodule ExCnab.Base.Reader.Field do
   @moduledoc false
   import ExCnab.Error
 
+  @table_call_regex ~r/%([a-z]|_)+ ([a-z]|_)+%/
+
   defstruct id: nil,
             length: nil,
             format: nil,
@@ -70,7 +72,7 @@ defmodule ExCnab.Base.Reader.Field do
 
   def check_regex(%{default: false}, _content), do: nil
   def check_regex(field, content) do
-    case Regex.run(~r/%([a-z]|_)+ ([a-z]|_)+%/, field.default) do
+    case Regex.run(@table_call_regex, field.default) do
         nil -> nil
         _ ->   field.default
                |> String.trim("%")

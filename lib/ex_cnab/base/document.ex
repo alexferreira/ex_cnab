@@ -29,7 +29,7 @@ defmodule ExCnab.Base.Document do
         end
     end
 
-    defp header_file(template, json), do: ExCnab.Base.Register.new(template, json, :header_file, 0)
+    defp header_file(template, json), do: ExCnab.Base.Register.new(template, json, :header_file)
 
     defp batches(template, json) do
         with {:ok, context} <- validation(json, :batches),
@@ -45,10 +45,10 @@ defmodule ExCnab.Base.Document do
     defp batch_maker(json, template, counter, context, acc \\ []) do
         with {:ok, mod_json, context} <- validation(json, context, counter, :batch_maker),
              {:ok, details, context} <- detail_maker(mod_json, template, context.number_of_details - 1, context),
-             {:ok, header_batch} <- ExCnab.Base.Register.new(template, mod_json, :header_batch, 1, context),
-             {:ok, trailer_batch} <- ExCnab.Base.Register.new(template, mod_json, :trailer_batch, 5, context),
-             {:ok, init_batch, _} <- init_final_batch_maker(mod_json, template, context.total_balances - 1, :init_batch, 2, context),
-             {:ok, final_batch, _} <- init_final_batch_maker(mod_json, template, context.total_balances - 1, :final_batch, 4, context)
+             {:ok, header_batch} <- ExCnab.Base.Register.new(template, mod_json, :header_batch, context),
+             {:ok, trailer_batch} <- ExCnab.Base.Register.new(template, mod_json, :trailer_batch, context),
+             {:ok, init_batch, _} <- init_final_batch_maker(mod_json, template, context.total_balances - 1, :init_batch, context),
+             {:ok, final_batch, _} <- init_final_batch_maker(mod_json, template, context.total_balances - 1, :final_batch, context)
         do
             acc = [header_batch] ++ init_batch ++ details ++ final_batch ++ [trailer_batch] ++ acc
             counter(counter, json, template, acc, :batch, context)
@@ -61,7 +61,7 @@ defmodule ExCnab.Base.Document do
         context = Map.merge(%{context | total_registers: context.total_registers + 1}, %{detail_number: counter + 1})
 
         with {:ok, mod_json} <- modify_json(json, counter, "batches_details"),
-             {:ok, register} <- ExCnab.Base.Register.new(template, mod_json, :detail, 3, context)
+             {:ok, register} <- ExCnab.Base.Register.new(template, mod_json, :detail, context)
         do
             acc = Enum.concat(register, acc)
             counter(counter, json, template, acc, :detail, context)
@@ -70,13 +70,13 @@ defmodule ExCnab.Base.Document do
         end
     end
 
-    defp init_final_batch_maker(json, template, counter, register_name, register_code, context, acc \\ []) do
+    defp init_final_batch_maker(json, template, counter, register_name, context, acc \\ []) do
         with true <- json["operation"] == "statement_for_cash_management",
              {:ok, mod_json} <- modify_json(json, counter, "batches_balances"),
-             {:ok, register} <- ExCnab.Base.Register.new(template, mod_json, register_name, register_code, context)
+             {:ok, register} <- ExCnab.Base.Register.new(template, mod_json, register_name, context)
         do
             acc = Enum.concat([register], acc)
-            counter(counter, json, template, acc, register_name, register_code, context)
+            counter(counter, json, template, acc, register_name, context)
         else
             false -> {:ok, [], context}
             err -> err
@@ -86,9 +86,7 @@ defmodule ExCnab.Base.Document do
     def counter(0, _json, _template, acc, _fun, context), do: {:ok, acc, context}
     def counter(counter, json, template, acc, :detail, context), do: detail_maker(json, template, counter - 1, context, acc)
     def counter(counter, json, template, acc, :batch, context), do: batch_maker(json, template, counter - 1, context, acc)
-
-    def counter(0, _json, _template, acc, _register_name, _register_code, context), do: {:ok, acc, context}
-    def counter(counter, json, template, acc, register_name, register_code, context), do: init_final_batch_maker(json, template, counter - 1, register_name, register_code, context, acc)
+    def counter(counter, json, template, acc, register_name, context), do: init_final_batch_maker(json, template, counter - 1, register_name, context, acc)
 
     defp modify_json(json, counter, key) do
         {:ok,
@@ -148,5 +146,5 @@ defmodule ExCnab.Base.Document do
         end
     end
 
-    defp trailer_file(template, json, context), do: ExCnab.Base.Register.new(template, json, :trailer_file, 9, context)
+    defp trailer_file(template, json, context), do: ExCnab.Base.Register.new(template, json, :trailer_file, context)
 end

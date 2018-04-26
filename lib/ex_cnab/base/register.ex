@@ -5,43 +5,55 @@ defmodule ExCnab.Base.Register do
 
     alias ExCnab.Base.Field
     alias ExCnab.CNAB.Template
+    alias ExCnab.Table
+
+    @header_file_number Table.structure.header_file
+    @header_batch_number Table.structure.header_batch
+    @init_batch_number Table.structure.init_batch
+    @detail_number Table.structure.detail
+    @final_batch_number Table.structure.final_batch
+    @trailer_batch_number Table.structure.trailer_batch
+    @trailer_file_number Table.structure.trailer_file
 
     defstruct type: nil,
     type_code: nil,
     fieldset: nil
 
-    def new(template, json, type, type_code, context \\ %{}) do
+    def new(template, json, type, context \\ %{}) do
         with true <- Enum.all?([template, json], fn(n) -> not(Enum.empty?(n)) end),
+             {:ok, type_code} <- generate_type_code(type),
              {:ok, fieldset} <- load_fieldset(template, json, type_code, context)
         do
             if type != :detail do
-                create_register(type, type_code, fieldset)
+                create_register(type, fieldset)
             else
                 {:ok, fieldset}
             end
         else
           false -> {:error, err :empty_json}
           {:error, message} -> {:error, message}
+          :error -> err(:not_recognized_type)
         end
     end
 
-    defp create_register(type, type_code, fieldset) do
+    def generate_type_code(register_type), do: Table.structure() |> Map.fetch(register_type)
+
+    defp create_register(type, fieldset) do
         {:ok, %__MODULE__{
             type: type,
-            type_code: type_code,
+            type_code: generate_type_code(type),
             fieldset: fieldset}}
     end
 
     def load_fieldset(template, json, type, context) do
-
         case type do
-            0 -> load_header_file(template["header_file"], json)
-            1 -> load_header_batch(template["header_batch"], json, context)
-            2 -> load_init_batch(template["init_batch"], json, context)
-            3 -> load_detail(template["detail"], json, context)
-            4 -> load_final_batch(template["final_batch"], json, context)
-            5 -> load_trailer_batch(template["trailer_batch"], json, context)
-            9 -> load_trailer_file(template["trailer_file"], json, context)
+            @header_file_number -> load_header_file(template["header_file"], json)
+            @header_batch_number -> load_header_batch(template["header_batch"], json, context)
+            @init_batch_number -> load_init_batch(template["init_batch"], json, context)
+            @detail_number -> load_detail(template["detail"], json, context)
+            @final_batch_number -> load_final_batch(template["final_batch"], json, context)
+            @trailer_batch_number -> load_trailer_batch(template["trailer_batch"], json, context)
+            @trailer_file_number -> load_trailer_file(template["trailer_file"], json, context)
             _ -> {:error, err(:not_recognized_type)}
         end
     end
@@ -63,19 +75,25 @@ defmodule ExCnab.Base.Register do
 
     defp load_detail(nil, _json, _context), do: {:error, err(:not_found, "Details")}
     defp load_detail(template, json, context) do
-        details =
-            Enum.map(template, fn {_k, v} ->
-                with detail_template <- extract_register_template(v),
-                     {:ok, fieldset} <- create_fields_in_template(detail_template, json, context),
-                     {:ok, register} <- create_register(:detail, 3, fieldset)
-                do
-                    register
-                else
-                    {:error, message} -> {:error, message}
-                end
-            end)
-        case Enum.find(details, fn n -> is_tuple(n) and elem(n, 0) == :error end) do
-            nil -> {:ok, details}
+        template
+        |> Enum.map( fn {_k, v} -> do_load_detail(v, json, context) end)
+        |> rescue_error()
+    end
+
+    defp do_load_detail(detail_name, json, context) do
+        with {:ok, detail_template} <- extract_register_template(detail_name),
+        {:ok, fieldset} <- create_fields_in_template(detail_template, json, context),
+        {:ok, register} <- create_register(:detail, fieldset)
+        do
+            register
+        else
+            {:error, message} -> {:error, message}
+        end
+    end
+
+    defp rescue_error(list) do
+        case Enum.find(list, fn n -> is_tuple(n) and elem(n, 0) == :error end) do
+            nil -> {:ok, list}
             {:error, message} -> {:error, message}
         end
     end
@@ -99,25 +117,23 @@ defmodule ExCnab.Base.Register do
 
     defp extract_register_template(register_type) do
         case Template.load_json_config_by_regex(register_type) do
-            {:ok, extended_template} -> extended_template
+            {:ok, extended_template} -> {:ok, extended_template}
             _ -> {:error, err(:not_parse_inheritance)}
         end
     end
 
-    defp create_fields_in_template(template, json, context \\ %{}) do
-        fields =
-            Enum.map(template["fields"], fn field ->
-                case Map.fetch(json, field["id"]) do
-                    {:ok, value} ->
-                        Field.from_template(field, value, context)
-                    _ ->
-                        Field.from_template(field, nil, context)
-                end
-            end)
-
-        case Enum.find(fields, fn n -> is_tuple(n) and elem(n, 0) == :error end) do
-            nil -> {:ok, fields}
-            {:error, message} -> {:error, message}
-        end
+    defp create_fields_in_template(template, json, context \\ %{})
+    defp create_fields_in_template({:ok, template}, json, context), do: create_fields_in_template(template, json, context)
+    defp create_fields_in_template({:error, message}, _json, _context), do: {:error, message}
+    defp create_fields_in_template(template, json, context) do
+        Enum.map(template["fields"], fn field ->
+            case Map.fetch(json, field["id"]) do
+                {:ok, value} ->
+                    Field.from_template(field, value, context)
+                _ ->
+                    Field.from_template(field, nil, context)
+            end
+        end)
+        |> rescue_error()
     end
 end

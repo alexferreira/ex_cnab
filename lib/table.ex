@@ -1,6 +1,5 @@
 defmodule ExCnab.Table do
     @structure %{
-        register_types: [
           header_file: 0,
           header_batch: 1,
           init_batch: 2,
@@ -8,7 +7,6 @@ defmodule ExCnab.Table do
           final_batch: 4,
           trailer_batch: 5,
           trailer_file: 9
-        ]
       }
     @tables %{
         services: %{
