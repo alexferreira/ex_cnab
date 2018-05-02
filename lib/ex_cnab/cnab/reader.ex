@@ -205,7 +205,10 @@ defmodule ExCnab.CNAB.Reader do
     defp create_register(register_fieldset, template_json, :detail) do
         template_json
         |> Enum.map(fn {template_key, _template_value} ->
-            match_template_with_fieldset(template_key, "batches_details_", register_fieldset)
+            case match_template_with_fieldset(template_key, "batches_details_", register_fieldset) do
+                {template_key, nil} -> match_template_with_fieldset(template_key, "batches_register_", register_fieldset)
+                content -> content
+            end
         end)
         |> serialize_fieldset_map()
     end
@@ -247,8 +250,10 @@ defmodule ExCnab.CNAB.Reader do
     #with the result of concatenation between template_preffix and template_key
     defp match_template_with_fieldset(template_key, template_preffix, fieldset_map) do
         case Map.fetch(fieldset_map, template_preffix <> template_key) do
-            {:ok, value} -> {template_key, value}
-            _ -> {template_key, nil}
+            {:ok, value} ->
+                {template_key, value}
+            _ ->
+                {template_key, nil}
         end
     end
 
