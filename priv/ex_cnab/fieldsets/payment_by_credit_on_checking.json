@@ -1,0 +1,11 @@
+{
+  "operation_id" : "payment_by_credit_on_checking",
+  "batch_id" : "payments",
+  "header_file" : "{{header_file}}",
+  "header_batch" : "{{payment_on_checking_header_batch}}",
+  "detail" : {
+      "a_segment": "{{payment_on_checking_detail_a}}"
+  },
+  "trailer_batch" : "{{payment_on_checking_trailer_batch}}",
+  "trailer_file" : "{{trailer_file}}"
+}

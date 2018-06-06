@@ -1,0 +1,138 @@
+{
+  "operation" : "payment_by_credit_on_checking",
+  "file":{
+      "code" : "Remessa",
+      "generation_date" : "09/03/2018",
+      "generation_time" : "15:14:17",
+      "sequence" : "0002",
+      "density" : "6250"
+  },
+  "bank_code" : "341",
+  "bank_name" : "Banco SA",
+  "bank_private_field" : "",
+  "company_private_field" : "",
+  "company" : {
+    "name" : "SyLabs",
+    "fiscal_type" : "CNPJ",
+    "fiscal_code" : "08261545000163",
+    "covenant_code" : "43528469045098685540",
+    "agency_code" : "7352",
+    "agency_vd" : "1",
+    "checking_account_code" : "04868",
+    "checking_account_vd" : "5",
+    "agency_checking_account_vd" : "1",
+    "address" : {
+      "zip" : "26256",
+      "zip_complement" : "100",
+      "street" : "Rua Street Name",
+      "number" : "000",
+      "complement" : "casa",
+      "city" : "City Name",
+      "state" : "RJ"
+    }
+  },
+  "batches" : [
+    {
+    "service": "Pagamentos Diversos",
+    "book_entry_type" : "Crédito em Conta Corrente/Salário",
+    "message" : "",
+    "payment_type" : "Débito em Conta Corrente",
+    "debit_warn_number" : "01",
+    "occurrences" : "010203AAABAC",
+    "total" : {
+        "amount" : "500.50",
+        "currency" : "01"
+    },
+    "details" : [
+     {
+        "movement_type" : "LIQUIDAÇAO",
+        "movement_code" : "Inclusão de Registro Detalhe Liberado",
+        "favored" : {
+            "chamber" : "123",
+            "bank" : "098",
+            "agency_code" : "21314",
+            "agency_vd" : "5",
+            "checking_account_number" : "121231234123",
+            "checking_account_vd" : "5",
+            "agency_account_vd" : "1",
+            "name" : "Any Name"
+        },
+        "company_number_document" : "8939849328",
+        "payment_date" : "15-03-2018",
+        "currency_type" : "BRL",
+        "currency_amount" : "500.5",
+        "payment_amount" : "500.5",
+        "information" : "",
+        "finality_doc_code" : "",
+        "finality_ted_code" : "",
+        "finality_complement_code" : "",
+        "warning" : "Não Emite Aviso",
+        "occurrences" : ""
+    },
+    {
+       "movement_type" : "LIQUIDAÇAO",
+       "movement_code" : "Inclusão de Registro Detalhe Liberado",
+       "favored" : {
+           "chamber" : "123",
+           "bank" : "098",
+           "agency_code" : "21314",
+           "agency_vd" : "5",
+           "checking_account_number" : "121231234123",
+           "checking_account_vd" : "5",
+           "agency_account_vd" : "1",
+           "name" : "Any Name"
+       },
+       "company_number_document" : "8939849328",
+       "payment_date" : "15-03-2018",
+       "currency_type" : "BRL",
+       "currency_amount" : "500",
+       "payment_amount" : "500",
+       "information" : "",
+       "finality_doc_code" : "",
+       "finality_ted_code" : "",
+       "finality_complement_code" : "",
+       "warning" : "Não Emite Aviso",
+       "occurrences" : ""
+       }
+    ]
+    },{
+    "service": "Pagamentos Diversos",
+    "book_entry_type" : "Crédito em Conta Corrente/Salário",
+    "message" : "",
+    "payment_type" : "Débito em Conta Corrente",
+    "debit_warn_number" : "01",
+    "occurrences" : "",
+    "total" : {
+        "amount" : "500",
+        "currency" : "01"
+    },
+    "details" : [
+     {
+        "movement_type" : "LIQUIDAÇAO",
+        "movement_code" : "Inclusão de Registro Detalhe Liberado",
+        "favored" : {
+            "chamber" : "123",
+            "bank" : "098",
+            "agency_code" : "21314",
+            "agency_vd" : "5",
+            "checking_account_number" : "121231234123",
+            "checking_account_vd" : "5",
+            "agency_account_vd" : "1",
+            "name" : "Any Name"
+        },
+        "company_number_document" : "8939849328",
+        "payment_date" : "15/03/2018",
+        "currency_type" : "BRL",
+        "currency_amount" : "500",
+        "payment_amount" : "500",
+        "information" : "",
+        "finality_doc_code" : "",
+        "finality_ted_code" : "",
+        "finality_complement_code" : "",
+        "warning" : "Não Emite Aviso",
+        "occurrences" : ""
+    }
+    ]
+    }
+  ]
+}

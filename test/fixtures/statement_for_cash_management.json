@@ -1,0 +1,120 @@
+{
+  "operation" : "statement_for_cash_management",
+  "file":{
+      "code" : "Retorno",
+      "generation_date" : "09/03/2018",
+      "generation_time" : "15:14:17",
+      "sequence" : "0001",
+      "density" : "6250"
+  },
+  "bank_code" : "341",
+  "bank_name" : "Banco SA",
+  "bank_private_field" : "",
+  "company_private_field" : "",
+  "company" : {
+    "name" : "SyLabs",
+    "fiscal_type" : "CNPJ",
+    "fiscal_code" : "08261545000163",
+    "covenant_code" : "43528469045098685540",
+    "agency_code" : "7352",
+    "agency_vd" : "1",
+    "checking_account_code" : "04868",
+    "checking_account_vd" : "5",
+    "agency_checking_account_vd" : "1",
+    "address" : {
+      "zip" : "26256",
+      "zip_complement" : "100",
+      "street" : "Rua Street Name",
+      "number" : "000",
+      "complement" : "casa",
+      "city" : "Any City",
+      "state" : "RJ"
+    }
+  },
+  "batches" : [
+    {
+    "currency_type" : "BRL",
+    "statement_sequence_number" : "1",
+    "account_limit" : "0",
+    "total_initial_balance" : {
+        "time" : "15:08:25",
+        "date" : "09/03/2018",
+        "amount" : "500000.50",
+        "situation" : "Credor",
+        "status" : "Final"
+    },
+    "total_final_balance" : {
+        "time" : "15:08:25",
+        "date" : "10/03/2018",
+        "amount" : "505000.50",
+        "situation" : "Credor",
+        "status" : "Final"
+    },
+    "balances" : [
+      {
+        "balance_type" : "Disponível",
+        "initial_balance" : {
+            "time" : "15:08:25",
+            "date" : "09/03/2018",
+            "amount" : "500000.50",
+            "situation" : "Credor"
+        },
+        "final_balance" : {
+            "time" : "15:08:25",
+            "date" : "09/03/2018",
+            "amount" : "505000.50",
+            "situation" : "Credor"
+        }
+      },
+      {
+        "balance_type" : "Vinculado",
+        "initial_balance" : {
+            "time" : "15:08:25",
+            "date" : "09/03/2018",
+            "amount" : "0.00",
+            "situation" : "Credor"
+        },
+        "final_balance" : {
+            "time" : "15:08:25",
+            "date" : "09/03/2018",
+            "amount" : "0.00",
+            "situation" : "Credor"
+        }
+    },
+    {
+      "balance_type" : "Bloqueado",
+      "initial_balance" : {
+          "time" : "15:08:25",
+          "date" : "09/03/2018",
+          "amount" : "0.00",
+          "situation" : "Credor"
+      },
+      "final_balance" : {
+          "time" : "15:08:25",
+          "date" : "09/03/2018",
+          "amount" : "0.00",
+          "situation" : "Credor"
+      }
+    }
+    ],
+    "details" : [
+        {
+        "transaction_time" : "15:10:02",
+        "contability_date" : "18/03/2018",
+        "cpmf_immunity_id" : "",
+        "book_entry" : {
+            "nature" : "Disponível",
+            "complement_type" : "00",
+            "complement" : "",
+            "date" : "18/03/2018",
+            "amount" : "5000.00",
+            "type" : "Extrato para Gestão de Caixa",
+            "category" : "202",
+            "history_code" : "1",
+            "history" : "",
+            "document_number" : "1"}
+        }
+      ]
+    }
+  ]
+}

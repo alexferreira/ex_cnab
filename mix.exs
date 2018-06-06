@@ -9,7 +9,8 @@ defmodule ExCnab.MixProject do
       start_permanent: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env),
       test_coverage: [tool: ExCoveralls],
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -29,7 +30,12 @@ defmodule ExCnab.MixProject do
   defp deps do
     [
       {:excoveralls, "~> 0.6", only: [:dev, :test]},
-      {:faker_elixir_octopus, "~> 1.0.0",  only: [:dev, :test]}
+      {:faker_elixir_octopus, "~> 1.0.0", only: [:dev, :test]},
+      {:poison, "~> 3.1"}
     ]
+  end
+
+  defp aliases do
+      ["test": "test --cover"]
   end
 end

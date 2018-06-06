@@ -1,0 +1,19 @@
+{
+  "batch" : "",
+  "book_entry_type" : "",
+  "currency_type" : "",
+  "layout" : "",
+  "operation_type" : "",
+  "service" : "",
+  "statement_sequence_number" : "",
+  "total_initial_balance_amount" : "",
+  "total_initial_balance_date" : "",
+  "total_initial_balance_situation" : "",
+  "total_initial_balance_status" : "",
+  "total_initial_balance_time" : "",
+  "total_final_balance_amount" : "",
+  "total_final_balance_date" : "",
+  "total_final_balance_situation" : "",
+  "total_final_balance_status" : "",
+  "total_final_balance_time" : ""
+}

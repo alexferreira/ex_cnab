@@ -1,0 +1,148 @@
+{
+  "fields" : [
+    {
+      "id": "bank_code",
+      "length" : 3,
+      "offset": 0,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batch",
+      "length" : 4,
+      "offset": 3,
+      "format" : "int",
+      "default" : "0000"
+    },{
+      "id": "register",
+      "length" : 1,
+      "offset": 7,
+      "format" : "int",
+      "default" : "0"
+    },{
+      "id": "cnab_private_field_1",
+      "length" : 9,
+      "offset": 8,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "company_fiscal_type",
+      "length" : 1,
+      "offset": 17,
+      "format" : "int",
+      "default" : "%get fiscal_type%"
+    },{
+      "id": "company_fiscal_code",
+      "length" : 14,
+      "offset": 18,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_covenant_code",
+      "length" : 20,
+      "offset": 32,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_code",
+      "length" : 5,
+      "offset": 52,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_agency_vd",
+      "length" : 1,
+      "offset": 57,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_checking_account_code",
+      "length" : 12,
+      "offset": 58,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_checking_account_vd",
+      "length" : 1,
+      "offset": 70,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_checking_account_vd",
+      "length" : 1,
+      "offset": 71,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_name",
+      "length" : 30,
+      "offset": 72,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "bank_name",
+      "length" : 30,
+      "offset": 102,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "cnab_private_field_2",
+      "length" : 10,
+      "offset": 132,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "file_code",
+      "length" : 1,
+      "offset": 142,
+      "format" : "int",
+      "default" : "%get file_code%"
+    },{
+      "id": "file_generation_date",
+      "length" : 8,
+      "offset": 143,
+      "format" : "date",
+      "default" : false
+    },{
+      "id": "file_generation_time",
+      "length" : 6,
+      "format" : "time",
+      "default" : false
+    },{
+      "id": "file_sequence",
+      "length" : 6,
+      "offset": 157,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "file_layout_version",
+      "length" : 3,
+      "offset": 163,
+      "format" : "int",
+      "default" : "103"
+    },{
+      "id": "file_density",
+      "length" : 5,
+      "offset": 166,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "bank_private_field",
+      "length" : 20,
+      "offset": 171,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_private_field",
+      "length" : 20,
+      "offset": 191,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "cnab_private_field_3",
+      "length" : 29,
+      "offset": 211,
+      "format" : "string",
+      "default" : " "
+    }
+  ]
+}

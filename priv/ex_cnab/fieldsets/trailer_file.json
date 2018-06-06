@@ -1,0 +1,53 @@
+{
+    "fields" : [
+    {
+      "id" : "bank_code",
+      "length" : 3,
+      "offset": 0,
+      "format" : "int",
+      "default" : false
+    },{
+      "id" : "batch",
+      "length" : 4,
+      "offset": 3,
+      "format" : "int",
+      "default" : "9999"
+    },{
+      "id" : "register",
+      "length" : 1,
+      "offset": 7,
+      "format" : "int",
+      "default" : "9"
+    },{
+      "id" : "cnab_private_field",
+      "length" : 9,
+      "offset": 8,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id" : "file_total_batches",
+      "length" : 6,
+      "offset": 17,
+      "format" : "int",
+      "default" : "@total_batches"
+    },{
+      "id" : "file_total_registers",
+      "length" : 6,
+      "offset": 23,
+      "format" : "int",
+      "default" : "@total_registers"
+    },{
+      "id" : "file_total_conciliate_accounts",
+      "length" : 6,
+      "offset": 29,
+      "format" : "int",
+      "default" : ""
+    },{
+      "id" : "cnab_private_field",
+      "length" : 205,
+      "offset": 35,
+      "format" : "string",
+      "default" : " "
+    }
+  ]
+}

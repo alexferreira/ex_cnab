@@ -1,0 +1,101 @@
+{
+    "fields" : [
+      {
+      "id" : "bank_code",
+      "length" : 3,
+      "offset" : 0,
+      "format" : "int",
+      "default" : false
+      },{
+      "id" : "batches_batch",
+      "length" : 4,
+      "offset" : 3,
+      "format" : "int",
+      "default" : "@batch_number"
+      },{
+      "id" : "register",
+      "length" : 1,
+      "offset" : 7,
+      "format" : "int",
+      "default" : "4"
+      },{
+      "id" : "batches_operation_type",
+      "length" : 1,
+      "offset" : 8,
+      "format" : "string",
+      "default" : "G"
+      },{
+      "id" : "batches_service",
+      "length" : 2,
+      "offset" : 9,
+      "format" : "int",
+      "default" : "07"
+      },{
+      "id" : "batches_book_entry_type",
+      "length" : 2,
+      "offset" : 11,
+      "format" : "int",
+      "default" : "70"
+      },{
+      "id": "batches_layout",
+      "length" : 3,
+      "offset": 13,
+      "format" : "int",
+      "default" : "010"
+      },{
+      "id": "cnab_private_field_1",
+      "length" : 86,
+      "offset": 16,
+      "format" : "string",
+      "default" : " "
+      },{
+      "id": "batches_balances_balance_type",
+      "length" : 3,
+      "offset": 102,
+      "format" : "string",
+      "default" : "%get balance_nature%"
+      },{
+      "id": "batches_balances_final_balance_time",
+      "length" : 6,
+      "offset": 105,
+      "format" : "time",
+      "default" : false
+      },{
+      "id": "cnab_private_field_2",
+      "length" : 31,
+      "offset": 111,
+      "format" : "string",
+      "default" : " "
+      },{
+      "id": "batches_balances_final_balance_date",
+      "length" : 8,
+      "offset": 142,
+      "format" : "date",
+      "default" : false
+      },{
+      "id": "batches_balances_final_balance_amount",
+      "length" : [16, 2],
+      "offset": 150,
+      "format" : "decimal",
+      "default" : false
+      },{
+      "id": "batches_balances_final_balance_situation",
+      "length" : 1,
+      "offset": 168,
+      "format" : "string",
+      "default" : false
+      },{
+      "id": "bank_private_field",
+      "length" : 20,
+      "offset": 169,
+      "format" : "string",
+      "default" : " "
+      },{
+      "id": "cnab_private_field_3",
+      "length" : 51,
+      "offset": 189,
+      "format" : "string",
+      "default" : " "
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "operation_id" : "statement_for_cash_management",
+  "batch_id" : "cash_management",
+  "header_file" : "{{header_file}}",
+  "header_batch" : "{{statement_for_cash_management_header_batch}}",
+  "init_batch" : "{{statement_for_cash_management_init_batch}}",
+  "detail" : {
+      "f_segment": "{{statement_for_cash_management_detail_f}}"
+  },
+  "final_batch" : "{{statement_for_cash_management_final_batch}}",
+  "trailer_batch" : "{{statement_for_cash_management_trailer_batch}}",
+  "trailer_file" : "{{trailer_file}}"
+}

@@ -1,0 +1,16 @@
+{
+  "transaction_time" : "",
+  "contability_date" : "",
+  "cpmf_immunity_id" : "",
+  "book_entry_nature" : "",
+  "book_entry_complement_type" : "",
+  "book_entry_complement" : "",
+  "book_entry_date" : "",
+  "book_entry_amount" : "",
+  "book_entry_type" : "",
+  "book_entry_category" : "",
+  "book_entry_history_code" : "",
+  "book_entry_history" : "",
+  "book_entry_document_number" : "",
+  "sequence_number" : ""
+}

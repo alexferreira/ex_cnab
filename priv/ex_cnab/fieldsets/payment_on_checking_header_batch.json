@@ -1,0 +1,173 @@
+{
+  "fields" : [
+    {
+      "id": "bank_code",
+      "length" : 3,
+      "offset": 0,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_batch",
+      "length" : 4,
+      "offset": 3,
+      "format" : "int",
+      "default" : "@batch_number"
+    },{
+      "id": "register",
+      "length" : 1,
+      "offset": 7,
+      "format" : "int",
+      "default" : "1"
+    },{
+      "id": "batches_operation_type",
+      "length" : 1,
+      "offset": 8,
+      "format" : "string",
+      "default" : "C"
+    },{
+      "id": "batches_service",
+      "length" : 2,
+      "offset": 9,
+      "format" : "int",
+      "default" : "%get services%"
+    },{
+      "id": "batches_book_entry_type",
+      "length" : 2,
+      "offset": 11,
+      "format" : "int",
+      "default" : "%get book_entry_type%"
+    },{
+      "id": "batches_layout",
+      "length" : 3,
+      "offset": 13,
+      "format" : "int",
+      "default" : "046"
+    },{
+      "id": "cnab_private_field_1",
+      "length" : 1,
+      "offset": 16,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "company_fiscal_type",
+      "length" : 1,
+      "offset": 17,
+      "format" : "int",
+      "default" : "%get fiscal_type%"
+    },{
+      "id": "company_fiscal_code",
+      "length" : 14,
+      "offset": 18,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_covenant_code",
+      "length" : 20,
+      "offset": 32,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_code",
+      "length" : 5,
+      "offset": 52,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_agency_vd",
+      "length" : 1,
+      "offset": 57,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_checking_account_code",
+      "length" : 12,
+      "offset": 58,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_checking_account_vd",
+      "length" : 1,
+      "offset": 70,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_agency_checking_account_vd",
+      "length" : 1,
+      "offset": 71,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_name",
+      "length" : 30,
+      "offset": 72,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_message",
+      "length" : 40,
+      "offset": 102,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_street",
+      "length" : 30,
+      "offset": 142,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_number",
+      "length" : 5,
+      "offset": 172,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_address_complement",
+      "length" : 15,
+      "offset": 177,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_city",
+      "length" : 20,
+      "offset": 192,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_zip",
+      "length" : 5,
+      "offset": 212,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "company_address_zip_complement",
+      "length" : 3,
+      "offset": 217,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "company_address_state",
+      "length" : 2,
+      "offset": 220,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_payment_type",
+      "length" : 2,
+      "offset": 222,
+      "format" : "int",
+      "default" : "%get payment_type%"
+    },{
+      "id": "cnab_private_field_2",
+      "length" : 6,
+      "offset": 224,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "occurrences",
+      "length" : 10,
+      "offset": 230,
+      "format" : "string",
+      "default" : " "
+    }
+  ]
+}
