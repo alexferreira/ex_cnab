@@ -40,8 +40,8 @@
     "debit_warn_number" : "01",
     "occurrences" : "010203AAABAC",
     "total" : {
-        "amount" : "500.50",
-        "currency" : "01"
+        "payment_amount" : "500.50",
+        "currency_amount" : "500.50"
     },
     "details" : [
      {
@@ -103,8 +103,8 @@
     "debit_warn_number" : "01",
     "occurrences" : "",
     "total" : {
-        "amount" : "500",
-        "currency" : "01"
+        "payment_amount" : "500.50",
+        "currency_amount" : "500.50"
     },
     "details" : [
      {
