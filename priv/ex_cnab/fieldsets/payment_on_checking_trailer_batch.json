@@ -29,15 +29,15 @@
       "length" : 6,
       "offset" : 17,
       "format" : "int",
-      "default" : "@number_of_details"
+      "default" : "@number_of_registers_in_batch"
       },{
-      "id" : "batches_total_amount",
+      "id" : "batches_total_payment_amount",
       "length" : [16, 2],
       "offset" : 23,
       "format" : "decimal",
       "default" : false
       },{
-      "id" : "batches_total_currency",
+      "id" : "batches_total_currency_amount",
       "length" : [13, 5],
       "offset" : 41,
       "format" : "decimal",

@@ -10,7 +10,8 @@ defmodule ExCnab.CNAB.Decoder do
   @header_file_batch_number "0000"
   @trailer_file_batch_number "9999"
 
-  @payment_on_checking "C9801"
+  @diverse_payment "C9801"
+  @vendor_payment "C2001"
   @statement_for_cash_management "G0770"
 
     def decode(document) do
@@ -51,7 +52,8 @@ defmodule ExCnab.CNAB.Decoder do
 
     defp identify_batch_operation(header_batch) do
         case String.slice(header_batch, 8, 5) do
-            @payment_on_checking -> {:ok, "payment_on_checking"}
+            @diverse_payment -> {:ok, "payment_on_checking"}
+            @vendor_payment -> {:ok, "payment_on_checking"}
             @statement_for_cash_management -> {:ok, "statement_for_cash_management"}
             _ -> {:error, err :batch_operation_not_found}
         end
@@ -60,9 +62,9 @@ defmodule ExCnab.CNAB.Decoder do
     defp decode_batch_by_line(cnab_line, batch_operation) do
         case String.slice(cnab_line, 7, 1) do
             "1" -> decode_header_batch(cnab_line, batch_operation)
-            "2" -> decode_init_batch(cnab_line, batch_operation) #NOCOVER
+            "2" -> decode_init_batch(cnab_line, batch_operation)
             "3" -> decode_detail(cnab_line, batch_operation)
-            "4" -> decode_final_batch(cnab_line, batch_operation) #NOCOVER
+            "4" -> decode_final_batch(cnab_line, batch_operation)
             "5" -> decode_trailer_batch(cnab_line, batch_operation)
             _ -> "Invalid CNAB Line"
         end
