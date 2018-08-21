@@ -10,7 +10,8 @@ defmodule ExCnab.CNAB.Decoder do
   @header_file_batch_number "0000"
   @trailer_file_batch_number "9999"
 
-  @payment_on_checking "C9801"
+  @diverse_payment "C9801"
+  @vendor_payment "C2001"
   @statement_for_cash_management "G0770"
 
     def decode(document) do
@@ -51,7 +52,8 @@ defmodule ExCnab.CNAB.Decoder do
 
     defp identify_batch_operation(header_batch) do
         case String.slice(header_batch, 8, 5) do
-            @payment_on_checking -> {:ok, "payment_on_checking"}
+            @diverse_payment -> {:ok, "payment_on_checking"}
+            @vendor_payment -> {:ok, "payment_on_checking"}
             @statement_for_cash_management -> {:ok, "statement_for_cash_management"}
             _ -> {:error, err :batch_operation_not_found}
         end

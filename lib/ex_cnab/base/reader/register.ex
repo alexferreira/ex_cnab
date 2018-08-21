@@ -41,9 +41,9 @@ defmodule ExCnab.Base.Reader.Register do
         case type do
             0 -> load_header_file(template["header_file"], cnab_line)
             1 -> load_header_batch(template["header_batch"], cnab_line)
-            2 -> load_init_batch(template["init_batch"], cnab_line) #NOCOVER
+            2 -> load_init_batch(template["init_batch"], cnab_line)
             3 -> load_detail(template["detail"], cnab_line)
-            4 -> load_final_batch(template["final_batch"], cnab_line) #NOCOVER
+            4 -> load_final_batch(template["final_batch"], cnab_line)
             5 -> load_trailer_batch(template["trailer_batch"], cnab_line)
             9 -> load_trailer_file(template["trailer_file"], cnab_line)
             _ -> {:error, err(:not_recognized_type)}
@@ -60,7 +60,7 @@ defmodule ExCnab.Base.Reader.Register do
 
     defp load_init_batch(nil, _cnab_line), do: nil
     defp load_init_batch({:error, message}, _), do: {:error, message}
-    defp load_init_batch(template, cnab_line), do: create_fields_in_template(template, cnab_line) #NOCOVER
+    defp load_init_batch(template, cnab_line), do: create_fields_in_template(template, cnab_line)
 
     defp load_detail(nil, _cnab_line), do: {:error, err(:not_found, "Details")}
     defp load_detail({:error, message}, _), do: {:error, message}
@@ -68,7 +68,7 @@ defmodule ExCnab.Base.Reader.Register do
 
     defp load_final_batch(nil, _cnab_line), do: nil
     defp load_final_batch({:error, message}, _), do: {:error, message}
-    defp load_final_batch(template, cnab_line), do: create_fields_in_template(template, cnab_line) #NOCOVER
+    defp load_final_batch(template, cnab_line), do: create_fields_in_template(template, cnab_line)
 
     defp load_trailer_batch(nil, _cnab_line), do: {:error, err(:not_found, "Trailer batch")}
     defp load_trailer_batch({:error, message}, _), do: {:error, message}
