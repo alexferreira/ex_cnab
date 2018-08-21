@@ -60,9 +60,9 @@ defmodule ExCnab.CNAB.Decoder do
     defp decode_batch_by_line(cnab_line, batch_operation) do
         case String.slice(cnab_line, 7, 1) do
             "1" -> decode_header_batch(cnab_line, batch_operation)
-            "2" -> decode_init_batch(cnab_line, batch_operation) #NOCOVER
+            "2" -> decode_init_batch(cnab_line, batch_operation)
             "3" -> decode_detail(cnab_line, batch_operation)
-            "4" -> decode_final_batch(cnab_line, batch_operation) #NOCOVER
+            "4" -> decode_final_batch(cnab_line, batch_operation)
             "5" -> decode_trailer_batch(cnab_line, batch_operation)
             _ -> "Invalid CNAB Line"
         end

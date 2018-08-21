@@ -29,7 +29,7 @@
       "length" : 6,
       "offset" : 17,
       "format" : "int",
-      "default" : "@number_of_details"
+      "default" : "@number_of_registers_in_batch"
       },{
       "id" : "batches_total_amount",
       "length" : [16, 2],
