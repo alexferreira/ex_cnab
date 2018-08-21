@@ -17,6 +17,7 @@ defmodule ExCnab.Test.Base.RegisterTest do
                     batch_number: Faker.Number.digit(),
                     detail_number: Faker.Number.digit(),
                     total_batches: Faker.Number.digit(),
+                    number_of_registers_in_batch: Faker.Number.digit(),
                     total_registers: Faker.Number.digit()}
 
         assert {:ok, _} =
@@ -46,6 +47,7 @@ defmodule ExCnab.Test.Base.RegisterTest do
         context = %{number_of_details: Faker.Number.digit(),
                     batch_number: Faker.Number.digit(),
                     detail_number: Faker.Number.digit(),
+                    number_of_registers_in_batch: Faker.Number.digit(),
                     total_batches: Faker.Number.digit(),
                     total_registers: Faker.Number.digit()}
 

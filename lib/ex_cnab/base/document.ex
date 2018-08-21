@@ -58,7 +58,7 @@ defmodule ExCnab.Base.Document do
     end
 
     defp detail_maker(json, template, counter, context,  acc \\ []) do
-        context = Map.merge(%{context | total_registers: context.total_registers + 1}, %{detail_number: counter + 1})
+        context = Map.merge(%{context | total_details: context.total_details + 1}, %{detail_number: counter + 1})
 
         with {:ok, mod_json} <- modify_json(json, counter, "batches_details"),
              {:ok, register} <- ExCnab.Base.Register.new(template, mod_json, :detail, 3, context)
@@ -126,7 +126,7 @@ defmodule ExCnab.Base.Document do
         case check_and_count_key(json, "batches") do
             {:ok, batches} ->
                 {:ok, %{total_batches: batches,
-                        total_registers: 0}}
+                        total_details: 0}}
 
             {:error, message} -> {:error, message}
         end
@@ -141,6 +141,7 @@ defmodule ExCnab.Base.Document do
                 mod_json,
                     Map.merge(context,
                      %{number_of_details: details,
+                       number_of_registers_in_batch: details + 2,
                        batch_number: counter + 1,
                        total_balances: check_and_count_key(mod_json, "batches_balances")})}
         else
@@ -148,5 +149,9 @@ defmodule ExCnab.Base.Document do
         end
     end
 
-    defp trailer_file(template, json, context), do: ExCnab.Base.Register.new(template, json, :trailer_file, 9, context)
+    defp trailer_file(template, json, context) do
+        total_register_map = %{total_registers: (context.total_batches*2) + context.total_details + 2}
+        context = Map.merge(context, total_register_map)
+        ExCnab.Base.Register.new(template, json, :trailer_file, 9, context)
+    end
 end
