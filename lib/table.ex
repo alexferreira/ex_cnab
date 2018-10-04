@@ -281,6 +281,11 @@ defmodule ExCnab.Table do
             "Vinculado" => "SCR",
             "Bloqueado" => "SSR",
             "Somatório dos Saldos" => "SDS",
+        },
+        centralizing_chamber_code: %{
+            "TED" => "018",
+            "DOC" => "700",
+            "TED (ISPB)" => "988"
         }
     }
 

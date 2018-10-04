@@ -1,0 +1,96 @@
+{
+  "operation" : "payment_by_credit_on_checking",
+  "file":{
+      "code" : "Remessa",
+      "generation_date" : "09/09/2018",
+      "generation_time" : "15:14:17",
+      "sequence" : "0001",
+      "density" : "6250"
+  },
+  "bank_code" : "341",
+  "bank_name" : "Banco SA",
+  "bank_private_field" : "",
+  "company_private_field" : "",
+  "company" : {
+    "name" : "SyLabs",
+    "fiscal_type" : "CNPJ",
+    "fiscal_code" : "08261545000163",
+    "covenant_code" : "43528469045098685540",
+    "agency_code" : "7352",
+    "agency_vd" : "1",
+    "checking_account_code" : "04868",
+    "checking_account_vd" : "5",
+    "agency_checking_account_vd" : "1",
+    "address" : {
+      "zip" : "26256",
+      "zip_complement" : "100",
+      "street" : "Rua Street Name",
+      "number" : "000",
+      "complement" : "casa",
+      "city" : "City Name",
+      "state" : "RJ"
+    }
+  },
+  "batches" : [
+    {
+    "service": "Interoperabilidade entre Contas de Instituições de Pagamentos",
+    "book_entry_type" : "DOC/TED",
+    "message" : "",
+    "payment_type" : "Débito em Conta Corrente",
+    "debit_warn_number" : "01",
+    "occurrences" : "",
+    "total" : {
+        "payment_amount" : "100",
+        "currency_amount" : "100"
+    },
+    "details" : [
+      {
+        "movement_type" : "LIQUIDAÇAO",
+        "movement_code" : "Inclusão de Registro Detalhe Liberado",
+        "favored" : {
+            "bank" : "098",
+            "chamber" : "TED",
+            "agency_code" : "21314",
+            "agency_vd" : "5",
+            "checking_account_number" : "121231234123",
+            "checking_account_vd" : "5",
+            "agency_account_vd" : "",
+            "name" : "Any Name",
+            "fiscal_type" : "CPF",
+            "fiscal_code" : "12345678901",
+            "document_number" : "123456",
+            "address" : {
+                "street_name" : "Street Name",
+                "number" : "0",
+                "complement" : "Complement",
+                "neighborhood" : "neighborhood",
+                "city" : "City Name",
+                "zip_code" : "12345",
+                "zip_code_complement" : "123",
+                "state_initials" : "SI"
+            }
+        },
+        "company_number_document" : "8939849328",
+        "payment" :{
+            "date" : "15-09-2018",
+            "amount" : "100",
+            "due_date" : "15-09-2018",
+            "document_amount" : "100",
+            "rebate" : "0",
+            "discount" : "0",
+            "penalty" : "0",
+            "mora" : "0"
+        },
+        "currency_type" : "BRL",
+        "currency_amount" : "100",
+        "information" : "",
+        "finality_doc_code" : "",
+        "finality_ted_code" : "",
+        "finality_complement_code" : "",
+        "warning" : "Não Emite Aviso",
+        "occurrences" : ""
+      }
+    ]
+    }
+  ]
+}

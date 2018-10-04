@@ -3,9 +3,9 @@ defmodule ExCnab.Test.Base.DocumentTest do
 
   import ExCnab.Test.Support.Fixtures
 
-  setup :payment_json
+  setup :payment_several
 
-  test "Do: create new document", %{payment_json: json} do
+  test "Do: create new document", %{payment_several: json} do
     assert {:ok, template} = ExCnab.CNAB.Template.load_json_config(Map.get(json, "operation"))
 
     config = ExCnab.Table.structure()
@@ -14,7 +14,7 @@ defmodule ExCnab.Test.Base.DocumentTest do
     assert {:ok, _doc} = Document.new(config, template, json)
   end
 
-  test "Do not: create new document", %{payment_json: json} do
+  test "Do not: create new document", %{payment_several: json} do
     assert {:ok, template} = ExCnab.CNAB.Template.load_json_config(Map.get(json, "operation"))
 
     template = template |> Map.drop(["header_file"])
@@ -25,7 +25,7 @@ defmodule ExCnab.Test.Base.DocumentTest do
     assert {:error, _doc} = Document.new(config, template, json)
   end
 
-  test "Do not: get new document. Why? Json or template missing", %{payment_json: json} do
+  test "Do not: get new document. Why? Json or template missing", %{payment_several: json} do
     config = ExCnab.Table.structure()
     assert {:ok, template} = ExCnab.CNAB.Template.load_json_config(Map.get(json, "operation"))
 
@@ -34,7 +34,7 @@ defmodule ExCnab.Test.Base.DocumentTest do
     assert {:error, _} = Document.new(config, %{}, %{})
   end
 
-  test "Do not: get new document. Why? Missing keys in json", %{payment_json: json} do
+  test "Do not: get new document. Why? Missing keys in json", %{payment_several: json} do
     config = ExCnab.Table.structure()
     assert {:ok, template} = ExCnab.CNAB.Template.load_json_config(Map.get(json, "operation"))
     json = json |> ExCnab.CNAB.Encoder.prepare_json
@@ -47,7 +47,7 @@ defmodule ExCnab.Test.Base.DocumentTest do
     end)
   end
 
-  test "Do not: get new document. Why? Missing keys in template", %{payment_json: json} do
+  test "Do not: get new document. Why? Missing keys in template", %{payment_several: json} do
     config = ExCnab.Table.structure()
     assert {:ok, template} = ExCnab.CNAB.Template.load_json_config(Map.get(json, "operation"))
     json = json |> ExCnab.CNAB.Encoder.prepare_json

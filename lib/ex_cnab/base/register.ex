@@ -6,6 +6,8 @@ defmodule ExCnab.Base.Register do
     alias ExCnab.Base.Field
     alias ExCnab.CNAB.Template
 
+    @need_detail_b ["03", "41"]
+
     defstruct type: nil,
     type_code: nil,
     fieldset: nil
@@ -62,7 +64,20 @@ defmodule ExCnab.Base.Register do
     defp load_init_batch(template, json, context), do: create_fields_in_template(template, json, context)
 
     defp load_detail(nil, _json, _context), do: {:error, err(:not_found, "Details")}
-    defp load_detail(template, json, context) do
+    defp load_detail(template, %{"batches_book_entry_type" => entry_type} = json, context) do
+        entry_type = ExCnab.Table.tables.book_entry_type[entry_type] || entry_type
+        detail_b_entry_type = @need_detail_b
+
+        if detail_b_entry_type |> Enum.any?(fn code -> code == entry_type end) do
+            do_load_detail(template, json, context)
+        else
+            template = template |> Map.delete("b_segment")
+            do_load_detail(template, json, context)
+        end
+    end
+    defp load_detail(template, json, context), do: do_load_detail(template, json, context)
+
+    defp do_load_detail(template, json, context) do
         details =
             Enum.map(template, fn {_k, v} ->
                 with detail_template <- extract_register_template(v),

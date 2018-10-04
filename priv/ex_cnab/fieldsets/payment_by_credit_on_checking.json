@@ -4,7 +4,8 @@
   "header_file" : "{{header_file}}",
   "header_batch" : "{{payment_on_checking_header_batch}}",
   "detail" : {
-      "a_segment": "{{payment_on_checking_detail_a}}"
+      "a_segment": "{{payment_on_checking_detail_a}}",
+      "b_segment": "{{payment_on_checking_detail_b}}"
   },
   "trailer_batch" : "{{payment_on_checking_trailer_batch}}",
   "trailer_file" : "{{trailer_file}}"
