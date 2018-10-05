@@ -33,7 +33,7 @@
   },
   "batches" : [
     {
-    "service": "Interoperabilidade entre Contas de Instituições de Pagamentos",
+    "service": "Pagamento Fornecedor",
     "book_entry_type" : "DOC/TED",
     "message" : "",
     "payment_type" : "Débito em Conta Corrente",
