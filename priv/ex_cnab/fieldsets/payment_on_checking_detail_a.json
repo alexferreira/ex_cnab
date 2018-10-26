@@ -47,7 +47,7 @@
       "length" : 3,
       "offset": 17,
       "format" : "int",
-      "default" : false
+      "default" : "%get centralizing_chamber_code%"
     },{
       "id": "batches_details_favored_bank",
       "length" : 3,

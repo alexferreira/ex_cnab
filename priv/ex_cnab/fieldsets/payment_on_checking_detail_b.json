@@ -1,0 +1,161 @@
+{
+  "fields" : [
+    {
+      "id": "bank_code",
+      "length" : 3,
+      "offset": 0,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_batch",
+      "length" : 4,
+      "offset": 3,
+      "format" : "int",
+      "default" : "@batch_number"
+    },{
+      "id": "register",
+      "length" : 1,
+      "offset": 7,
+      "format" : "int",
+      "default" : "3"
+    },{
+      "id": "batches_details_sequence_number",
+      "length" : 5,
+      "offset": 8,
+      "format" : "int",
+      "default" : "@detail_number"
+    },{
+      "id": "batches_details_segment",
+      "length" : 1,
+      "offset": 13,
+      "format" : "string",
+      "default" : "B"
+    },{
+      "id": "batches_details_cnab_private_field",
+      "length" : 3,
+      "offset": 14,
+      "format" : "string",
+      "default" : " "
+    },{
+      "id": "batches_details_favored_fiscal_type",
+      "length" : 1,
+      "offset": 17,
+      "format" : "int",
+      "default" : "%get fiscal_type%"
+    },{
+      "id": "batches_details_favored_fiscal_code",
+      "length" : 14,
+      "offset":18,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_street_name",
+      "length" : 30,
+      "offset": 32,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_number",
+      "length" : 5,
+      "offset": 62,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_complement",
+      "length" : 15,
+      "offset": 67,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_neighborhood",
+      "length" : 15,
+      "offset": 82,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_city",
+      "length" : 20,
+      "offset": 97,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_zip_code",
+      "length" : 5,
+      "offset": 117,
+      "format" : "int",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_zip_code_complement",
+      "length" : 3,
+      "offset": 122,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_details_favored_address_state_initials",
+      "length" : 2,
+      "offset": 125,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_details_payment_due_date",
+      "length" : 8,
+      "offset": 127,
+      "format" : "date",
+      "default" : false
+    },{
+      "id": "batches_details_payment_document_amount",
+      "length" : [13, 2],
+      "offset": 135,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_details_payment_rebate",
+      "length" : [13, 2],
+      "offset": 150,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_details_payment_discount",
+      "length" : [13, 2],
+      "offset": 165,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_details_payment_mora",
+      "length" : [13, 2],
+      "offset": 180,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_details_payment_penalty",
+      "length" : [13, 2],
+      "offset": 195,
+      "format" : "decimal",
+      "default" : false
+    },{
+      "id": "batches_details_favored_document_number",
+      "length" : 15,
+      "offset": 210,
+      "format" : "string",
+      "default" : false
+    },{
+      "id": "batches_details_warn",
+      "length" : 1,
+      "offset": 225,
+      "format" : "int",
+      "default" : "0"
+    },{
+      "id": "batches_details_ug_centralized_code",
+      "length" : 6,
+      "offset": 226,
+      "format" : "int",
+      "default" : ""
+    },{
+      "id": "batches_details_ispb_code",
+      "length" : 8,
+      "offset": 232,
+      "format" : "int",
+      "default" : ""
+    }
+  ]
+}

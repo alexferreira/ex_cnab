@@ -39,6 +39,7 @@ defmodule ExCnab.Base.Field do
         enforce_length(field)
     else
         false -> set_content_field(field, Integer.to_string(content), %{})
+        {:error, :not_found} -> {:error, err(:not_found, field.id)}
         err -> err
     end
   end
@@ -57,14 +58,29 @@ defmodule ExCnab.Base.Field do
       case Regex.run(~r/%([a-z]|_)+ ([a-z]|_)+%/, call) do
         nil -> {:ok, content}
         _ ->
-            list = call
-                   |> String.trim("%")
-                   |> String.split
-
-            apply(__MODULE__, List.first(list)
-                              |> String.to_atom(), [List.last(list)
-                                                    |> String.to_atom(), content])
+            call
+            |> String.trim("%")
+            |> String.split
+            |> get_content_from_table(content)
       end
+  end
+
+  defp get_content_from_table([_method, _key], ""), do: {:ok, ""}
+  defp get_content_from_table([method, key], content) do
+      case apply(__MODULE__, :"#{method}", [:"#{key}", content]) do
+        {:error, message} ->
+            {:error, message}
+        {:ok, content} ->
+            validate_get_response(content, Enum.join([method, key], " "))
+      end
+  end
+
+  defp validate_get_response(content, string) do
+    if "%#{string}%" == content do
+        {:error, :not_found}
+    else
+        {:ok, content}
+    end
   end
 
   def enforce_format(field, content) do
@@ -108,11 +124,15 @@ defmodule ExCnab.Base.Field do
 
   def get(key, content) do
     with {:ok, map} <- ExCnab.Table.tables() |> Map.fetch(key),
-         {:ok, content} <- Map.fetch(map, content)
+         {:ok, content} <- Map.get(map, content) |> assert_get()
     do
         {:ok, content}
     else
-        :error -> {:error, err(:not_found, Enum.join([key, "or", content], " "))}
+        :error -> {:error, err(:not_found, key)}
+        nil -> {:ok, content}
     end
   end
+
+  defp assert_get(nil), do: nil
+  defp assert_get(content), do: {:ok, content}
 end

@@ -33,7 +33,7 @@
   },
   "batches" : [
     {
-    "service": "Pagamentos Diversos",
+    "service": "Pagamento Fornecedor",
     "book_entry_type" : "Crédito em Conta Corrente/Salário",
     "message" : "",
     "payment_type" : "Débito em Conta Corrente",
@@ -48,7 +48,7 @@
         "movement_type" : "LIQUIDAÇAO",
         "movement_code" : "Inclusão de Registro Detalhe Liberado",
         "favored" : {
-            "chamber" : "123",
+            "chamber" : "",
             "bank" : "098",
             "agency_code" : "21314",
             "agency_vd" : "5",
@@ -73,7 +73,7 @@
        "movement_type" : "LIQUIDAÇAO",
        "movement_code" : "Inclusão de Registro Detalhe Liberado",
        "favored" : {
-           "chamber" : "123",
+           "chamber" : "",
            "bank" : "098",
            "agency_code" : "21314",
            "agency_vd" : "5",

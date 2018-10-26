@@ -4,20 +4,27 @@ defmodule ExCnab.Test.CNAB.WriterTest do
 
     import ExCnab.Test.Support.Fixtures
 
-    setup :payment_json
+    setup :payment_several
+    setup :ted_payment
     setup :statement_json
 
-    test "Do: write a payment cnab file", context do
-        path = Application.get_env(:ex_cnab, :cnab_writing_path) |> Kernel.<>("cnab") |> Path.expand
-        assert {:ok, _} = CNAB.Writer.write_cnab(context.payment_json, "cnab")
-        assert {:ok, string} = File.read(path)
-        assert string != ""
-        assert n_lines = String.split(string, "\n") |> Enum.filter(fn n -> n != "" end) |> Enum.count
-        assert String.length(string) == n_lines * 241
-    end
+    ["payment_several", "ted_payment"]
+    |> Enum.each(fn payment_type ->
+        test "Do: write a #{payment_type} cnab file", context do
+            path = Application.get_env(:ex_cnab, :cnab_writing_path)
+                   |> Kernel.<>("cnab_#{unquote(payment_type)}")
+                   |> Path.expand
+
+            assert {:ok, _} = CNAB.Writer.write_cnab(context[:"#{unquote(payment_type)}"], "cnab_#{unquote(payment_type)}")
+            assert {:ok, string} = File.read(path)
+            assert string != ""
+            assert n_lines = String.split(string, "\n") |> Enum.filter(fn n -> n != "" end) |> Enum.count
+            assert String.length(string) == n_lines * 241
+        end
+    end)
 
     test "Do: write a statement cnab file", context do
-        path = Application.get_env(:ex_cnab, :cnab_writing_path) |> Kernel.<>("cnab") |> Path.expand
+        path = Application.get_env(:ex_cnab, :cnab_writing_path) |> Kernel.<>("statement_cnab") |> Path.expand
         assert {:ok, _} = CNAB.Writer.write_cnab(context.statement_json, "statement_cnab")
         assert {:ok, string} = File.read(path)
         assert string != ""
@@ -42,10 +49,10 @@ defmodule ExCnab.Test.CNAB.WriterTest do
     end
 
     test "Do not: write a cnab file, Why? Json input not valid", context do
-        context.payment_json
+        context.payment_several
         |> Map.keys()
         |> Enum.map(fn n ->
-            json = Map.drop(context.payment_json, [n])
+            json = Map.drop(context.payment_several, [n])
             assert {:error, _} = CNAB.Writer.write_cnab(json)
            end)
     end

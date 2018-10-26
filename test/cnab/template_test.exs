@@ -3,9 +3,9 @@ defmodule ExCnab.Test.CNAB.TemplateTest do
 
   import ExCnab.Test.Support.Fixtures
 
-  setup :payment_json
+  setup :payment_several
 
-  test "Open template", %{payment_json: json} do
+  test "Open template", %{payment_several: json} do
     assert {:ok, _} = ExCnab.CNAB.Template.load_json_config(Map.get(json, "operation"))
   end
 

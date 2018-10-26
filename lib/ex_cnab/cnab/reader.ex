@@ -176,6 +176,20 @@ defmodule ExCnab.CNAB.Reader do
            create_register(detail.fieldset |> serialize_fieldset_map(),
                                   detail_json, :detail)
        end)
+       |> merge_details()
+       |> List.wrap()
+    end
+
+    defp merge_details([detail]), do: detail
+    defp merge_details(detail_list) do
+        detail_list
+        |> Enum.reduce(%{}, fn detail, acc ->
+            Map.merge(acc, detail, fn
+                                        (_k, v1, v2) when is_nil(v1) -> v2
+                                        (_k, v1, v2) when is_nil(v2) -> v1
+                                        (_k, _v1, v2) -> v2
+                                   end)
+        end)
     end
 
     defp chunk_detail_batch_list(detail_batch_list, first_detail) do
